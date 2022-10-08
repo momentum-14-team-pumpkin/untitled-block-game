@@ -20,8 +20,5 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # serve static files with DEBUG=False
-    # credit: stathoula, https://stackoverflow.com/a/49722734
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     path('', include('game.urls')),
 ]
