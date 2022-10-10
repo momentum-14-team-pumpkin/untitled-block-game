@@ -6,5 +6,5 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     list_display = ['username',]
 
-admin.site.register(CustomUser, CustomAdminUs)
+admin.site.register(CustomUser, CustomAdminUser)
 admin.site.register(TimeTrial)
