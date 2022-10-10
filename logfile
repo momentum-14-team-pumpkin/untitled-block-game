@@ -1,0 +1,8 @@
+2022-10-10 11:19:51.209 EDT [15993] LOG:  starting PostgreSQL 14.5 (Homebrew) on aarch64-apple-darwin21.6.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.102), 64-bit
+2022-10-10 11:19:51.211 EDT [15993] LOG:  listening on IPv6 address "::1", port 5432
+2022-10-10 11:19:51.211 EDT [15993] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2022-10-10 11:19:51.211 EDT [15993] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2022-10-10 11:19:51.213 EDT [15994] LOG:  database system was shut down at 2022-10-10 11:17:42 EDT
+2022-10-10 11:19:51.215 EDT [15993] LOG:  database system is ready to accept connections
+2022-10-10 11:20:00.217 EDT [16010] FATAL:  role "game" does not exist
+2022-10-10 11:20:14.231 EDT [16026] FATAL:  database "game" does not exist
