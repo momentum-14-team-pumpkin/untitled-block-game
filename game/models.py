@@ -8,15 +8,6 @@ class CustomUser(AbstractUser):
         return self.username
 
 
-class LeaderBoard(models.Model):
-    player = models.ForeignKey('Character',on_delete=models.CASCADE, related_name = 'player')
-    time = models.ForeignKey('Time',on_delete=models.CASCADE, related_name = 'time')
-    level = models.ForeignKey('Level', on_delete=models.CASCADE, related_name= 'levels')
-
-    def __str__(self):
-        return f'{self.player} : {self.time} seconds on level {self.level}'
-
-
 class Character(models.Model):
     name = models.CharField(max_length=15, blank=True, null=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='players')
