@@ -8,26 +8,10 @@ class CustomUser(AbstractUser):
         return self.username
 
 
-class Character(models.Model):
-    name = models.CharField(max_length=15, blank=True, null=True)
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='players')
-
-    def __str__(self):
-        return f'{self.user.username} selected {self.name}'
-
-
-class Level(models.Model):
-    name = models.PositiveIntegerField(null=True, blank=True, default=None)
-
-    def __str__(self):
-        return f'Level: {self.name}'
-
-
-class Time(models.Model):
-    time = models.FloatField(null=True, blank=True, default=None)
+class TimeTrial(models.Model):
     player = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True, related_name='times')
-    level = models.ForeignKey(Level, on_delete=models.CASCADE, null=True, blank=True, related_name='times')
+    time = models.FloatField(null=True, blank=True, default=None)
 
     def __str__(self):
-        return f'{self.player.username} completed level {self.level.name} in {self.time} seconds'
+        return f'{self.player.username} completed in {self.time} seconds'
 
