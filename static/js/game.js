@@ -22,7 +22,7 @@ let player
 let gameOver = false
 let cursors
 let map
-let hasBlock = false
+let holdingBlock = null
 let facing = 'left'
 
 let game = new Phaser.Game(config)
@@ -107,7 +107,7 @@ function update ()
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
     {
-        if (!hasBlock){
+        if (!holdingBlock){
             let point
             if (facing == 'left'){
                 point = map.worldToTileXY(player.x - (TILE_SIZE + 2), player.y, true)
@@ -119,7 +119,10 @@ function update ()
                 && map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(0, point.x, point.y)
                 player.setTint(0x00ff00)
-                hasBlock = true
+                holdingBlock = this.add.image(0, 0, 'tiles')
+                holdingBlock.setCrop(68, 0, 34, 34)
+                holdingBlock.setSize(40, 40)
+                holdingBlock.setScale(1.25)
             }
         }
         else {
@@ -133,14 +136,22 @@ function update ()
             if (map.getTileAt(point.x, point.y).index == 0){
                 map.putTileAt(2, point.x, point.y)
                 player.setTint(0xff0000)
-                hasBlock = false
+                holdingBlock.destroy()
+                holdingBlock = null
             }
             else if (map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(2, point.x, point.y -1)
                 player.setTint(0xff0000)
-                hasBlock = false
+                holdingBlock.destroy()
+                holdingBlock = null
             }
         }
+    }
+
+    if (holdingBlock)
+    {
+        holdingBlock.x = player.x + TILE_SIZE
+        holdingBlock.y = player.y - TILE_SIZE
     }
 }
 
