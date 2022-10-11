@@ -16,11 +16,13 @@ let config = {
     },
 }
 
+const TILE_SIZE = 40
+
 let player
 let gameOver = false
 let cursors
 let map
-let hasBlock = false
+let holdingBlock = null
 let facing = 'left'
 
 let game = new Phaser.Game(config)
@@ -37,9 +39,9 @@ function create() {
     this.add.image(600, 500, 'bg').setScale(3)
     let doors = this.physics.add.staticGroup()
     doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
-    map = this.make.tilemap({ key: 'map', tileWidth: 40, tileHeight: 40 })
+    map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
-    let layer = map.createLayer(0, tileset, 40, 40*10)
+    let layer = map.createLayer(0, tileset, TILE_SIZE, TILE_SIZE * 10)
     player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'player')
     player.setCollideWorldBounds(true)
     this.physics.add.existing(player)
@@ -62,14 +64,40 @@ function create() {
 
     this.anims.create({
         key: 'walk-left',
-        frames: this.anims.generateFrameNumbers('player', { start: 2, end: 3 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 2, end: 5 }),
         frameRate: 10,
         repeat: -1
     })
 
     this.anims.create({
         key: 'walk-right',
-        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 5 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 6, end: 9 }),
+        frameRate: 10,
+        repeat: -1
+    })
+
+    this.anims.create({
+        key: 'carry-stand-left',
+        frames: [ { key: 'player', frame: 11 } ],
+        frameRate: 20
+    })
+
+    this.anims.create({
+        key: 'carry-stand-right',
+        frames: [ { key: 'player', frame: 15 } ],
+        frameRate: 20
+    })
+
+    this.anims.create({
+        key: 'carry-walk-left',
+        frames: this.anims.generateFrameNumbers('player', { start: 10, end: 13 }),
+        frameRate: 10,
+        repeat: -1
+    })
+
+    this.anims.create({
+        key: 'carry-walk-right',
+        frames: this.anims.generateFrameNumbers('player', { start: 14, end: 17 }),
         frameRate: 10,
         repeat: -1
     })
@@ -85,18 +113,20 @@ function update ()
         return
     }
 
+    let state
     if (cursors.left.isDown
         || cursors.right.isDown)
     {
         facing = cursors.left.isDown ? 'left' : 'right'
         player.setVelocityX(facing == 'left' ? -150 : 150)
-        player.anims.play(`walk-${facing}`, true)
+        state = 'walk'
     }
     else
     {
         player.setVelocityX(0)
-        player.anims.play(`stand-${facing}`, true)
+        state = 'stand'
     }
+    player.anims.play(`${holdingBlock ? 'carry-' : ''}${state}-${facing}`, true)
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
@@ -105,40 +135,48 @@ function update ()
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
     {
-        if (!hasBlock){
+        if (!holdingBlock){
             let point
             if (facing == 'left'){
-                point = map.worldToTileXY(player.x -42, player.y, true)
+                point = map.worldToTileXY(player.x - (TILE_SIZE + 2), player.y, true)
             }
             else if (facing == 'right'){
-                point = map.worldToTileXY(player.x +42, player.y, true)
+                point = map.worldToTileXY(player.x + (TILE_SIZE + 2), player.y, true)
             }
             if (map.getTileAt(point.x, point.y).index == 2
                 && map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(0, point.x, point.y)
-                player.setTint(0x00ff00)
-                hasBlock = true
+                holdingBlock = this.add.image(0, 0, 'tiles')
+                holdingBlock.setCrop(68, 0, 34, 34)
+                holdingBlock.setSize(40, 40)
+                holdingBlock.setScale(1.25)
             }
         }
         else {
             let point
             if (facing == 'left'){
-                point = map.worldToTileXY(player.x -42, player.y, true)
+                point = map.worldToTileXY(player.x - (TILE_SIZE + 2), player.y, true)
             }
             else if (facing == 'right'){
-                point = map.worldToTileXY(player.x +42, player.y, true)
+                point = map.worldToTileXY(player.x + (TILE_SIZE + 2), player.y, true)
             }
             if (map.getTileAt(point.x, point.y).index == 0){
                 map.putTileAt(2, point.x, point.y)
-                player.setTint(0xff0000)
-                hasBlock = false
+                holdingBlock.destroy()
+                holdingBlock = null
             }
             else if (map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(2, point.x, point.y -1)
-                player.setTint(0xff0000)
-                hasBlock = false
+                holdingBlock.destroy()
+                holdingBlock = null
             }
         }
+    }
+
+    if (holdingBlock)
+    {
+        holdingBlock.x = player.x - TILE_SIZE - 2
+        holdingBlock.y = player.y - TILE_SIZE
     }
 }
 
@@ -147,8 +185,8 @@ function onLevelComplete(){
 }
 
 function convertTilesToXPixels(tiles){
-    return tiles*40+20
+    return (tiles + 0.5) * TILE_SIZE
 }
 function convertTilesToYPixels(tiles){
-    return 780-tiles*40
+    return 800 - (tiles + 0.5) * TILE_SIZE
 }
