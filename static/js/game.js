@@ -40,7 +40,7 @@ function create() {
     map = this.make.tilemap({ key: 'map', tileWidth: 40, tileHeight: 40 })
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
     let layer = map.createLayer(0, tileset, 40, 40*10)
-    player = this.physics.add.sprite(convertTilesToXPixels(14), convertTilesToYPixels(5)-4, 'dude')
+    player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'dude')
     player.setCollideWorldBounds(true)
     this.physics.add.existing(player)
     this.physics.add.collider(player, layer)
