@@ -64,14 +64,14 @@ function create() {
 
     this.anims.create({
         key: 'walk-left',
-        frames: this.anims.generateFrameNumbers('player', { start: 2, end: 3 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 2, end: 5 }),
         frameRate: 10,
         repeat: -1
     })
 
     this.anims.create({
         key: 'walk-right',
-        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 5 }),
+        frames: this.anims.generateFrameNumbers('player', { start: 6, end: 9 }),
         frameRate: 10,
         repeat: -1
     })
