@@ -24,6 +24,8 @@ let cursors
 let map
 let holdingBlock = null
 let facing = 'left'
+let zomgHax = false
+let haxProgress = 0
 
 let game = new Phaser.Game(config)
 
@@ -103,7 +105,6 @@ function create() {
     })
 
     cursors = this.input.keyboard.createCursorKeys()
-
 }
 
 function update ()
@@ -111,6 +112,31 @@ function update ()
     if (gameOver)
     {
         return
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(cursors.left)) {
+        if (haxProgress == 4 || haxProgress == 6) {
+            haxProgress++
+        } else {
+            haxProgress = 0
+        }
+    }
+    else if (Phaser.Input.Keyboard.JustDown(cursors.right)) {
+        if (haxProgress == 5 || haxProgress == 7) {
+            haxProgress++
+            if (haxProgress == 8) {
+                zomgHax = true
+            }
+        } else {
+            haxProgress = 0
+        }
+    }
+    else if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
+        if (haxProgress == 0 || haxProgress == 1) {
+            haxProgress++
+        } else {
+            haxProgress = 0
+        }
     }
 
     let state
@@ -170,6 +196,20 @@ function update ()
                 holdingBlock.destroy()
                 holdingBlock = null
             }
+        }
+        if (haxProgress == 2 || haxProgress == 3) {
+            haxProgress++
+        } else {
+            haxProgress = 0
+        }
+    }
+
+    if (zomgHax) {
+        if (cursors.up.isDown) {
+            player.setVelocityY(-400)
+        }
+        if (Phaser.Input.Keyboard.JustUp(cursors.up)) {
+            player.setVelocityY(0)
         }
     }
 
