@@ -35,7 +35,8 @@ function preload() {
 
 function create() {
     this.add.image(600, 500, 'bg').setScale(3)
-    this.add.image(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door').setScale(40/256)
+    let doors = this.physics.add.staticGroup()
+    doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
     map = this.make.tilemap({ key: 'map', tileWidth: 40, tileHeight: 40 })
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
     let layer = map.createLayer(0, tileset, 40, 40*10)
@@ -43,6 +44,7 @@ function create() {
     player.setCollideWorldBounds(true)
     this.physics.add.existing(player)
     this.physics.add.collider(player, layer)
+    this.physics.add.overlap(player, doors, onLevelComplete, null, this)
     map.setCollisionByExclusion([0])
 
 
@@ -135,6 +137,10 @@ function update ()
             }
         }
     }
+}
+
+function onLevelComplete(){
+    alert ("You're winner")
 }
 
 function convertTilesToXPixels(tiles){
