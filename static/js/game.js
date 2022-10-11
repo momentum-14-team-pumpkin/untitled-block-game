@@ -30,7 +30,7 @@ function preload() {
     this.load.image('tiles', '/static/assets/drawtiles-spaced.png')
     this.load.tilemapCSV('map', '/static/assets/grid.csv')
     this.load.image('door', '/static/assets/door.png')
-    this.load.spritesheet('dude', '/static/assets/dude.png', { frameWidth: 32, frameHeight: 40 })
+    this.load.spritesheet('player', '/static/assets/player.png', { frameWidth: 32, frameHeight: 40 })
 }
 
 function create() {
@@ -40,7 +40,7 @@ function create() {
     map = this.make.tilemap({ key: 'map', tileWidth: 40, tileHeight: 40 })
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
     let layer = map.createLayer(0, tileset, 40, 40*10)
-    player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'dude')
+    player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'player')
     player.setCollideWorldBounds(true)
     this.physics.add.existing(player)
     this.physics.add.collider(player, layer)
@@ -49,21 +49,27 @@ function create() {
 
 
     this.anims.create({
-        key: 'left',
-        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+        key: 'stand-left',
+        frames: [ { key: 'player', frame: 0 } ],
+        frameRate: 20
+    })
+
+    this.anims.create({
+        key: 'stand-right',
+        frames: [ { key: 'player', frame: 1 } ],
+        frameRate: 20
+    })
+
+    this.anims.create({
+        key: 'walk-left',
+        frames: this.anims.generateFrameNumbers('player', { start: 2, end: 3 }),
         frameRate: 10,
         repeat: -1
     })
 
     this.anims.create({
-        key: 'turn',
-        frames: [ { key: 'dude', frame: 4 } ],
-        frameRate: 20
-    })
-
-    this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+        key: 'walk-right',
+        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 5 }),
         frameRate: 10,
         repeat: -1
     })
@@ -79,21 +85,18 @@ function update ()
         return
     }
 
-    if (cursors.left.isDown)
+    if (cursors.left.isDown
+        || cursors.right.isDown)
     {
-        facing = 'left'
-        player.setVelocityX(-150)
-
-        player.anims.play('left', true)
+        facing = cursors.left.isDown ? 'left' : 'right'
+        player.setVelocityX(facing == 'left' ? -150 : 150)
+        player.anims.play(`walk-${facing}`, true)
     }
-    else if (cursors.right.isDown)
+    else
     {
-        facing = 'right'
-        player.setVelocityX(150)
-
-        player.anims.play('right', true) 
-
-    } else {player.setVelocityX(0)}
+        player.setVelocityX(0)
+        player.anims.play(`stand-${facing}`, true)
+    }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
@@ -149,8 +152,3 @@ function convertTilesToXPixels(tiles){
 function convertTilesToYPixels(tiles){
     return 780-tiles*40
 }
-
-
-
-
-
