@@ -150,7 +150,7 @@ function update ()
 
     if (holdingBlock)
     {
-        holdingBlock.x = player.x + TILE_SIZE
+        holdingBlock.x = player.x - TILE_SIZE
         holdingBlock.y = player.y - TILE_SIZE
     }
 }
