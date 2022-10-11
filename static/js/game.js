@@ -108,7 +108,8 @@ function update ()
             else if (facing == 'right'){
                 point = map.worldToTileXY(player.x +42, player.y, true)
             }
-            if (map.getTileAt(point.x, point.y).index == 2){
+            if (map.getTileAt(point.x, point.y).index == 2
+                && map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(0, point.x, point.y)
                 player.setTint(0x00ff00)
                 hasBlock = true
@@ -128,7 +129,6 @@ function update ()
                 hasBlock = false
             }
         }
-
     }
 }
 
