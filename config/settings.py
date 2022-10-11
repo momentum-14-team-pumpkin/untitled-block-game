@@ -147,5 +147,4 @@ SIMPLE_BACKEND_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
 django_on_heroku.settings(locals())
-# no OPTIONS key! (only present on Heroku?)
 del DATABASES['default']['OPTIONS']['sslmode']
