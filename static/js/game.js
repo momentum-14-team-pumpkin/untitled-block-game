@@ -76,6 +76,32 @@ function create() {
         repeat: -1
     })
 
+    this.anims.create({
+        key: 'carry-stand-left',
+        frames: [ { key: 'player', frame: 11 } ],
+        frameRate: 20
+    })
+
+    this.anims.create({
+        key: 'carry-stand-right',
+        frames: [ { key: 'player', frame: 15 } ],
+        frameRate: 20
+    })
+
+    this.anims.create({
+        key: 'carry-walk-left',
+        frames: this.anims.generateFrameNumbers('player', { start: 10, end: 13 }),
+        frameRate: 10,
+        repeat: -1
+    })
+
+    this.anims.create({
+        key: 'carry-walk-right',
+        frames: this.anims.generateFrameNumbers('player', { start: 14, end: 17 }),
+        frameRate: 10,
+        repeat: -1
+    })
+
     cursors = this.input.keyboard.createCursorKeys()
 
 }
@@ -87,18 +113,20 @@ function update ()
         return
     }
 
+    let state
     if (cursors.left.isDown
         || cursors.right.isDown)
     {
         facing = cursors.left.isDown ? 'left' : 'right'
         player.setVelocityX(facing == 'left' ? -150 : 150)
-        player.anims.play(`walk-${facing}`, true)
+        state = 'walk'
     }
     else
     {
         player.setVelocityX(0)
-        player.anims.play(`stand-${facing}`, true)
+        state = 'stand'
     }
+    player.anims.play(`${holdingBlock ? 'carry-' : ''}${state}-${facing}`, true)
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
@@ -147,7 +175,7 @@ function update ()
 
     if (holdingBlock)
     {
-        holdingBlock.x = player.x - TILE_SIZE
+        holdingBlock.x = player.x - TILE_SIZE - 2
         holdingBlock.y = player.y - TILE_SIZE
     }
 }
