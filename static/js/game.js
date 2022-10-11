@@ -30,7 +30,7 @@ function preload() {
     this.load.image('tiles', '/static/assets/drawtiles-spaced.png')
     this.load.tilemapCSV('map', '/static/assets/grid.csv')
     this.load.image('door', '/static/assets/door.png')
-    this.load.spritesheet('dude', '/static/assets/dude.png', { frameWidth: 32, frameHeight: 40 })
+    this.load.spritesheet('player', '/static/assets/player.png', { frameWidth: 32, frameHeight: 40 })
 }
 
 function create() {
@@ -49,21 +49,27 @@ function create() {
 
 
     this.anims.create({
-        key: 'left',
-        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+        key: 'stand-left',
+        frames: [ { key: 'player', frame: 0 } ],
+        frameRate: 20
+    })
+
+    this.anims.create({
+        key: 'stand-right',
+        frames: [ { key: 'player', frame: 1 } ],
+        frameRate: 20
+    })
+
+    this.anims.create({
+        key: 'walk-left',
+        frames: this.anims.generateFrameNumbers('player', { start: 2, end: 3 }),
         frameRate: 10,
         repeat: -1
     })
 
     this.anims.create({
-        key: 'turn',
-        frames: [ { key: 'dude', frame: 4 } ],
-        frameRate: 20
-    })
-
-    this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+        key: 'walk-right',
+        frames: this.anims.generateFrameNumbers('player', { start: 4, end: 5 }),
         frameRate: 10,
         repeat: -1
     })
