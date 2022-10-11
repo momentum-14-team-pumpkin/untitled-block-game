@@ -89,16 +89,13 @@ function update ()
     {
         facing = 'left'
         player.setVelocityX(-150)
-
         player.anims.play('left', true)
     }
     else if (cursors.right.isDown)
     {
         facing = 'right'
         player.setVelocityX(150)
-
         player.anims.play('right', true) 
-
     } else {player.setVelocityX(0)}
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
@@ -155,8 +152,3 @@ function convertTilesToXPixels(tiles){
 function convertTilesToYPixels(tiles){
     return 780-tiles*40
 }
-
-
-
-
-
