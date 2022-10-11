@@ -16,6 +16,8 @@ let config = {
     },
 }
 
+const TILE_SIZE = 40
+
 let player
 let gameOver = false
 let cursors
@@ -37,9 +39,9 @@ function create() {
     this.add.image(600, 500, 'bg').setScale(3)
     let doors = this.physics.add.staticGroup()
     doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
-    map = this.make.tilemap({ key: 'map', tileWidth: 40, tileHeight: 40 })
+    map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
-    let layer = map.createLayer(0, tileset, 40, 40*10)
+    let layer = map.createLayer(0, tileset, TILE_SIZE, TILE_SIZE * 10)
     player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'player')
     player.setCollideWorldBounds(true)
     this.physics.add.existing(player)
@@ -108,10 +110,10 @@ function update ()
         if (!hasBlock){
             let point
             if (facing == 'left'){
-                point = map.worldToTileXY(player.x -42, player.y, true)
+                point = map.worldToTileXY(player.x - (TILE_SIZE + 2), player.y, true)
             }
             else if (facing == 'right'){
-                point = map.worldToTileXY(player.x +42, player.y, true)
+                point = map.worldToTileXY(player.x + (TILE_SIZE + 2), player.y, true)
             }
             if (map.getTileAt(point.x, point.y).index == 2
                 && map.getTileAt(point.x, point.y -1).index == 0){
@@ -123,10 +125,10 @@ function update ()
         else {
             let point
             if (facing == 'left'){
-                point = map.worldToTileXY(player.x -42, player.y, true)
+                point = map.worldToTileXY(player.x - (TILE_SIZE + 2), player.y, true)
             }
             else if (facing == 'right'){
-                point = map.worldToTileXY(player.x +42, player.y, true)
+                point = map.worldToTileXY(player.x + (TILE_SIZE + 2), player.y, true)
             }
             if (map.getTileAt(point.x, point.y).index == 0){
                 map.putTileAt(2, point.x, point.y)
@@ -147,8 +149,8 @@ function onLevelComplete(){
 }
 
 function convertTilesToXPixels(tiles){
-    return tiles*40+20
+    return (tiles + 0.5) * TILE_SIZE
 }
 function convertTilesToYPixels(tiles){
-    return 780-tiles*40
+    return 800 - (tiles + 0.5) * TILE_SIZE
 }
