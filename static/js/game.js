@@ -40,7 +40,7 @@ function create() {
     map = this.make.tilemap({ key: 'map', tileWidth: 40, tileHeight: 40 })
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
     let layer = map.createLayer(0, tileset, 40, 40*10)
-    player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'dude')
+    player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'player')
     player.setCollideWorldBounds(true)
     this.physics.add.existing(player)
     this.physics.add.collider(player, layer)
@@ -85,18 +85,18 @@ function update ()
         return
     }
 
-    if (cursors.left.isDown)
+    if (cursors.left.isDown
+        || cursors.right.isDown)
     {
-        facing = 'left'
-        player.setVelocityX(-150)
-        player.anims.play('left', true)
+        facing = cursors.left.isDown ? 'left' : 'right'
+        player.setVelocityX(facing == 'left' ? -150 : 150)
+        player.anims.play(`walk-${facing}`, true)
     }
-    else if (cursors.right.isDown)
+    else
     {
-        facing = 'right'
-        player.setVelocityX(150)
-        player.anims.play('right', true) 
-    } else {player.setVelocityX(0)}
+        player.setVelocityX(0)
+        player.anims.play(`stand-${facing}`, true)
+    }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
