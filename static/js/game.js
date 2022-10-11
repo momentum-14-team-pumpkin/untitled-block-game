@@ -128,6 +128,11 @@ function update ()
                 player.setTint(0xff0000)
                 hasBlock = false
             }
+            else if (map.getTileAt(point.x, point.y -1).index == 0){
+                map.putTileAt(2, point.x, point.y -1)
+                player.setTint(0xff0000)
+                hasBlock = false
+            }
         }
     }
 }
