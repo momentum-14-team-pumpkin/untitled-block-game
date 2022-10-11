@@ -118,7 +118,6 @@ function update ()
             if (map.getTileAt(point.x, point.y).index == 2
                 && map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(0, point.x, point.y)
-                player.setTint(0x00ff00)
                 holdingBlock = this.add.image(0, 0, 'tiles')
                 holdingBlock.setCrop(68, 0, 34, 34)
                 holdingBlock.setSize(40, 40)
@@ -135,13 +134,11 @@ function update ()
             }
             if (map.getTileAt(point.x, point.y).index == 0){
                 map.putTileAt(2, point.x, point.y)
-                player.setTint(0xff0000)
                 holdingBlock.destroy()
                 holdingBlock = null
             }
             else if (map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(2, point.x, point.y -1)
-                player.setTint(0xff0000)
                 holdingBlock.destroy()
                 holdingBlock = null
             }
