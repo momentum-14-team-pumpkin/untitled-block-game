@@ -187,6 +187,9 @@ function update ()
                 point = map.worldToTileXY(player.x + (TILE_SIZE + 2), player.y, true)
             }
             if (map.getTileAt(point.x, point.y).index == 0){
+                while (map.getTileAt(point.x, point.y + 1).index == 0) {
+                    point.y++
+                }
                 map.putTileAt(2, point.x, point.y)
                 holdingBlock.destroy()
                 holdingBlock = null
