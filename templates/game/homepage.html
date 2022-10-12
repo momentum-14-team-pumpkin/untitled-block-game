@@ -9,6 +9,7 @@
 </head>
 <body>
     <div id="root"></div>
+    {{ data_from_django|json_script:'data-from-django' }}
     {% render_bundle 'main' %}
 </body>
 </html>

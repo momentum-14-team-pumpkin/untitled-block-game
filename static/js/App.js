@@ -1,5 +1,7 @@
 import React from 'react'
 
-const App = () => <h1>Hello Homepage</h1>
+const App = ({ dataFromDjango }) => {
+  return <h1>{dataFromDjango}</h1>
+}
 
 export default App

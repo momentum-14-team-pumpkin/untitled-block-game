@@ -7,4 +7,5 @@ def show_game(req):
 
 
 def homepage(req):
-    return render(req, "game/homepage.html")
+    context = {"data_from_django": "hello react in django"}
+    return render(req, "game/homepage.html", context)
