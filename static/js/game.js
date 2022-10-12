@@ -24,6 +24,7 @@ let cursors
 let map
 let holdingBlock = null
 let facing = 'left'
+let victory = false
 let zomgHax = false
 let haxProgress = 0
 const haxCode = "UUDDLRLR"
@@ -216,7 +217,11 @@ function update ()
 }
 
 function onLevelComplete(){
-    alert ("You're winner")
+    if (victory) {
+        return
+    }
+    alert ("YOU'RE WINNER")
+    victory = true
 }
 
 function convertTilesToXPixels(tiles){
