@@ -22,6 +22,9 @@ class TimeTrialList(generics.ListCreateAPIView):
     queryset = TimeTrial.objects.all().order_by('time')
     serializer_class = TimeTrialSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(player=self.request.user)
+
 
 class TimeTrialDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = TimeTrial.objects.all()
