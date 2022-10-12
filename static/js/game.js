@@ -186,16 +186,12 @@ function update ()
             else if (facing == 'right'){
                 point = map.worldToTileXY(player.x + (TILE_SIZE + 2), player.y, true)
             }
-            if (map.getTileAt(point.x, point.y).index == 0){
+            if (map.getTileAt(point.x, point.y - 1).index == 0){
+                point.y--
                 while (map.getTileAt(point.x, point.y + 1).index == 0) {
                     point.y++
                 }
                 map.putTileAt(2, point.x, point.y)
-                holdingBlock.destroy()
-                holdingBlock = null
-            }
-            else if (map.getTileAt(point.x, point.y -1).index == 0){
-                map.putTileAt(2, point.x, point.y -1)
                 holdingBlock.destroy()
                 holdingBlock = null
             }
