@@ -26,6 +26,7 @@ let holdingBlock = null
 let facing = 'left'
 let zomgHax = false
 let haxProgress = 0
+const haxCode = "UUDDLRLR"
 
 let game = new Phaser.Game(config)
 
@@ -114,29 +115,28 @@ function update ()
         return
     }
 
-    if (Phaser.Input.Keyboard.JustDown(cursors.left)) {
-        if (haxProgress == 4 || haxProgress == 6) {
-            haxProgress++
-        } else {
-            haxProgress = 0
+    function advanceHax(char) {
+        if (zomgHax) {
+            return
         }
-    }
-    else if (Phaser.Input.Keyboard.JustDown(cursors.right)) {
-        if (haxProgress == 5 || haxProgress == 7) {
+        if (haxCode[haxProgress] == char) {
             haxProgress++
-            if (haxProgress == 8) {
+            if (haxProgress == haxCode.length) {
                 zomgHax = true
             }
         } else {
             haxProgress = 0
         }
     }
+
+    if (Phaser.Input.Keyboard.JustDown(cursors.left)) {
+        advanceHax('L')
+    }
+    else if (Phaser.Input.Keyboard.JustDown(cursors.right)) {
+        advanceHax('R')
+    }
     else if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
-        if (haxProgress == 0 || haxProgress == 1) {
-            haxProgress++
-        } else {
-            haxProgress = 0
-        }
+        advanceHax('U')
     }
 
     let state
@@ -196,11 +196,7 @@ function update ()
                 holdingBlock = null
             }
         }
-        if (haxProgress == 2 || haxProgress == 3) {
-            haxProgress++
-        } else {
-            haxProgress = 0
-        }
+        advanceHax('D')
     }
 
     if (zomgHax) {
