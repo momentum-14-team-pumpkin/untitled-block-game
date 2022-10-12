@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 webpack-stats.json
+dist/
+node_modules
