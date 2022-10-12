@@ -12,7 +12,7 @@ ENDPOINTS: the following endpoints are available at the subdirectories listed be
 | PUT    | users/<int:pk>/       | use pk of user in Subdirectory       | Update all User Details                      |                         |
 | PATCH  | users/<int:pk>/       | use pk of user in Subdirectory       | Update specific User Details                 |                         |
 | DELETE | users/<int:pk>/       | use pk of user in Subdirectory       | Delete User                                  |                         |
-| GET    | times/                | -                                    | list of all Times                            |                         |
+| GET    | times/                | -                                    | List of all Times                            |                         |
 | POST   | times/                | time in JSON body with bearer token  | Created Time Trial information along with pk |                         |
 | GET    | times/<int:pk>/       | use pk of time trial in Subdirectory | Specific Time Trial Details                  |                         |
 | PUT    | times/<int:pk>/       | use pk of time trial in Subdirectory | Update all Time Trial Details                |                         |
@@ -24,7 +24,7 @@ DJOSER ENDPOINTS: in addition to above endpoints, Djoser comes with prebuilt end
 
 | Method | URL Subdirectory      | Input (All Require Bearer Token)     | Output                                       | Notes                   |
 | ------ | --------------------- | ------------------------------------ | -------------------------------------------- | ----------------------- |
-| GET    | auth/users/           | -                                    | list of all Users                            |                         |
+| GET    | auth/users/           | -                                    | List of all Users                            |                         |
 | POST   | auth/users/           | username and password in JSON body   | Created User information along with pk       |                         |
 | GET    | auth/users/me/        | -                                    | Logged in User Details                       |                         |
 | POST   | auth/token/login/     | username and password in JSON body   | Created Bearer Token                         |                         |
@@ -33,3 +33,16 @@ DJOSER ENDPOINTS: in addition to above endpoints, Djoser comes with prebuilt end
 
 For additional endpoints and more information about djoser endpoints, see the getting started page for the djoser docs here: 
 https://djoser.readthedocs.io/en/latest/getting_started.html
+
+
+__Example of Username and Password in JSON body:__
+{
+    "username": <put desired username here>,
+    "password": <put desired password here>
+}
+
+__Example of Time in JSON body:__
+_Note: uses Bearer Token to identify logged in user and saves username associated with time automatically_
+{
+    "time": <enter number as float variable here>
+}
