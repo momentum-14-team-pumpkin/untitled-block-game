@@ -7,5 +7,6 @@ urlpatterns = [
     path('users/<int:pk>/', views.CustomUserDetail.as_view(), name='user-detail'),
     path('times/', views.TimeTrialList.as_view(), name='time-trial'),
     path('times/<int:pk>/', views.TimeTrialDetail.as_view(), name='time-trial-detail'),
+    path('users/<int:pk>/times/', views.UserTimeTrial.as_view(), name='user-times'),
 ]
 
