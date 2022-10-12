@@ -24,8 +24,10 @@ let cursors
 let map
 let holdingBlock = null
 let facing = 'left'
+let victory = false
 let zomgHax = false
 let haxProgress = 0
+const haxCode = "UUDDLRLR"
 
 let game = new Phaser.Game(config)
 
@@ -114,29 +116,28 @@ function update ()
         return
     }
 
-    if (Phaser.Input.Keyboard.JustDown(cursors.left)) {
-        if (haxProgress == 4 || haxProgress == 6) {
-            haxProgress++
-        } else {
-            haxProgress = 0
+    function advanceHax(char) {
+        if (zomgHax) {
+            return
         }
-    }
-    else if (Phaser.Input.Keyboard.JustDown(cursors.right)) {
-        if (haxProgress == 5 || haxProgress == 7) {
+        if (haxCode[haxProgress] == char) {
             haxProgress++
-            if (haxProgress == 8) {
+            if (haxProgress == haxCode.length) {
                 zomgHax = true
             }
         } else {
             haxProgress = 0
         }
     }
+
+    if (Phaser.Input.Keyboard.JustDown(cursors.left)) {
+        advanceHax('L')
+    }
+    else if (Phaser.Input.Keyboard.JustDown(cursors.right)) {
+        advanceHax('R')
+    }
     else if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
-        if (haxProgress == 0 || haxProgress == 1) {
-            haxProgress++
-        } else {
-            haxProgress = 0
-        }
+        advanceHax('U')
     }
 
     let state
@@ -156,7 +157,7 @@ function update ()
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
-        player.y -= 50
+        player.setVelocityY(-350)
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
@@ -186,22 +187,17 @@ function update ()
             else if (facing == 'right'){
                 point = map.worldToTileXY(player.x + (TILE_SIZE + 2), player.y, true)
             }
-            if (map.getTileAt(point.x, point.y).index == 0){
+            if (map.getTileAt(point.x, point.y - 1).index == 0){
+                point.y--
+                while (map.getTileAt(point.x, point.y + 1).index == 0) {
+                    point.y++
+                }
                 map.putTileAt(2, point.x, point.y)
                 holdingBlock.destroy()
                 holdingBlock = null
             }
-            else if (map.getTileAt(point.x, point.y -1).index == 0){
-                map.putTileAt(2, point.x, point.y -1)
-                holdingBlock.destroy()
-                holdingBlock = null
-            }
         }
-        if (haxProgress == 2 || haxProgress == 3) {
-            haxProgress++
-        } else {
-            haxProgress = 0
-        }
+        advanceHax('D')
     }
 
     if (zomgHax) {
@@ -221,7 +217,11 @@ function update ()
 }
 
 function onLevelComplete(){
-    alert ("You're winner")
+    if (victory) {
+        return
+    }
+    alert ("YOU'RE WINNER")
+    victory = true
 }
 
 function convertTilesToXPixels(tiles){
