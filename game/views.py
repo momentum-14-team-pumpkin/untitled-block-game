@@ -8,27 +8,27 @@ def show_game(req):
     return render(req, "game/game.html")
 
 
-class CustomUserList(generics.ListAPIView):
+class CustomUserList(generics.ListCreateAPIView):
     queryset = CustomUser.objects.all().order_by('username')
     serializer_class = CustomUserSerializer
 
 
-class CustomUserDetail(generics.RetrieveAPIView):
+class CustomUserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
 
-class TimeTrialList(generics.ListAPIView):
+class TimeTrialList(generics.ListCreateAPIView):
     queryset = TimeTrial.objects.all().order_by('time')
     serializer_class = TimeTrialSerializer
 
 
-class TimeTrialDetail(generics.RetrieveAPIView):
+class TimeTrialDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = TimeTrial.objects.all()
     serializer_class = TimeTrialSerializer
 
 
-class UserTimeTrial(generics.ListAPIView):
+class UserTimeTrial(generics.ListCreateAPIView):
     queryset = TimeTrial.objects.all().order_by('time')
     serializer_class = TimeTrialSerializer
 
