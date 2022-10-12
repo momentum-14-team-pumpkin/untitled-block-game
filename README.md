@@ -36,13 +36,17 @@ https://djoser.readthedocs.io/en/latest/getting_started.html
 
 
 __Example of Username and Password in JSON body:__
+``` js
 {
-    "username": <put desired username here>,
-    "password": <put desired password here>
+    "username": "put desired username here",
+    "password": "put desired password here"
 }
+```
 
 __Example of Time in JSON body:__
 _Note: uses Bearer Token to identify logged in user and saves username associated with time automatically_
+``` js
 {
-    "time": <enter number as float variable here>
+    "time": put float number here
 }
+```
