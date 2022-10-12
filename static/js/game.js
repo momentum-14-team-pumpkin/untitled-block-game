@@ -157,7 +157,7 @@ function update ()
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
-        player.y -= 50
+        player.setVelocityY(-350)
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
