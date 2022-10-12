@@ -3,12 +3,13 @@ from .models import CustomUser, TimeTrial
 from .serializers import CustomUserSerializer, TimeTrialSerializer
 from django.shortcuts import render
 
+
 def show_game(req):
     return render(req, "game/game.html")
 
 
 class CustomUserList(generics.ListAPIView):
-    queryset = CustomUser.objects.all()
+    queryset = CustomUser.objects.all().order_by('username')
     serializer_class = CustomUserSerializer
 
 
@@ -18,7 +19,7 @@ class CustomUserDetail(generics.RetrieveAPIView):
 
 
 class TimeTrialList(generics.ListAPIView):
-    queryset = TimeTrial.objects.all()
+    queryset = TimeTrial.objects.all().order_by('time')
     serializer_class = TimeTrialSerializer
 
 
@@ -28,9 +29,9 @@ class TimeTrialDetail(generics.RetrieveAPIView):
 
 
 class UserTimeTrial(generics.ListAPIView):
-    queryset = TimeTrial.objects.all()
+    queryset = TimeTrial.objects.all().order_by('time')
     serializer_class = TimeTrialSerializer
 
     def get_queryset(self):
         queryset = TimeTrial.objects.filter(player=self.request.user)
-        return queryset
+        return queryset.order_by('time')

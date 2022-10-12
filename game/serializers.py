@@ -9,6 +9,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class TimeTrialSerializer(serializers.ModelSerializer):
+    player = serializers.SlugRelatedField(slug_field="username", read_only=True)
 
     class Meta:
         model = TimeTrial
