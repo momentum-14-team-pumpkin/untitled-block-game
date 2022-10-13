@@ -54,7 +54,7 @@ function create() {
     this.physics.add.collider(player, layer)
     this.physics.add.overlap(player, doors, onLevelComplete, null, this)
     map.setCollisionByExclusion([0])
-    timeText = this.add.text(400, 200)
+    timeText = this.add.text(50, 20)
 
 
     this.anims.create({
