@@ -124,7 +124,13 @@ function update (time)
             levelStart = time
         }
         let totalSecs = (time - levelStart) / 1000
-        timeText.setText('Time:' + totalSecs.toFixed(3))
+        let hours = String(Math.round(totalSecs / 3600))
+        totalSecs -= hours * 3600
+        let minutes = String(Math.round(totalSecs /  60)).padStart(2, '0')
+        totalSecs -= minutes * 60
+        let fracSecs = totalSecs % 1
+        totalSecs = String(Math.floor(totalSecs)).padStart(2, '0')
+        timeText.setText(`Time: ${hours}:${minutes}:${totalSecs}${fracSecs.toFixed(3).slice(-4)}`)
     }
 
     function advanceHax(char) {
