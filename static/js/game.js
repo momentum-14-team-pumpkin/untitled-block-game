@@ -39,6 +39,11 @@ function preload() {
     this.load.tilemapCSV('map', '/static/assets/grid.csv')
     this.load.image('door', '/static/assets/door.png')
     this.load.spritesheet('player', '/static/assets/player.png', { frameWidth: 32, frameHeight: 40 })
+    this.load.audio('pick', '/static/assets/audio/click.mp3')
+    this.load.audio('put', '/static/assets/audio/boink1.wav')
+    this.load.audio('jump', '/static/assets/audio/beep1.wav')
+    this.load.audio('song', '/static/assets/audio/backgroundMusic.mp3')
+
 }
 
 function create() {
@@ -54,6 +59,12 @@ function create() {
     this.physics.add.collider(player, layer)
     this.physics.add.overlap(player, doors, onLevelComplete, null, this)
     map.setCollisionByExclusion([0])
+    this.pickUpSound = this.sound.add('pick')
+    this.putDownSound = this.sound.add('put')
+    this.jumpSound = this.sound.add('jump')
+    this.song = this.sound.add('song')
+    this.song.loop = true
+    this.song.play()
     timeText = this.add.text(50, 20)
 
 
@@ -170,6 +181,7 @@ function update (time)
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
         player.setVelocityY(-350)
+        this.jumpSound.play()
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
@@ -189,6 +201,7 @@ function update (time)
                 holdingBlock.setCrop(68, 0, 34, 34)
                 holdingBlock.setSize(40, 40)
                 holdingBlock.setScale(1.25)
+                this.pickUpSound.play()
             }
         }
         else {
@@ -207,6 +220,7 @@ function update (time)
                 map.putTileAt(2, point.x, point.y)
                 holdingBlock.destroy()
                 holdingBlock = null
+                this.putDownSound.play()
             }
         }
         advanceHax('D')
@@ -232,6 +246,7 @@ function onLevelComplete(){
     if (victory) {
         return
     }
+    this.song.stop()
     alert ("YOU'RE WINNER")
     victory = true
 }
