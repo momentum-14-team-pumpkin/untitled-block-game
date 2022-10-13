@@ -33,6 +33,7 @@ let zomgHax = false
 let haxProgress = 0
 let timeText
 let levelStart = null
+let musicOn = true
 const haxCode = "UUDDLRLR"
 
 let game = new Phaser.Game(config)
@@ -69,6 +70,7 @@ function create() {
     this.song = this.sound.add('song')
     this.song.loop = true
     this.song.play()
+    keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
     timeText = this.add.text(50, 20)
 
 
@@ -141,6 +143,19 @@ function update (time)
         timeText.setText(`Time: ${
             convertSecondsToTimestring((time - levelStart) / 1000)
         }`)
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(keyM)){
+        if (musicOn){
+            this.song.stop()
+            musicOn = false
+            return
+        }
+        if (!musicOn){
+            this.song.play()
+            musicOn = true
+            return
+        }
     }
 
     function advanceHax(char) {
