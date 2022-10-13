@@ -42,7 +42,7 @@ function preload() {
     this.load.audio('pick', '/static/assets/audio/click.mp3')
     this.load.audio('put', '/static/assets/audio/boink1.wav')
     this.load.audio('jump', '/static/assets/audio/beep1.wav')
-    // this.load.audio('song', '/static/assets/audio/04 Bit Rate Variations in B-Flat (Girl) [Remix by Paza of The X-Dump].mp3')
+    this.load.audio('song', '/static/assets/audio/backgroundMusic.mp3')
 
 }
 
@@ -62,8 +62,9 @@ function create() {
     this.pickUpSound = this.sound.add('pick')
     this.putDownSound = this.sound.add('put')
     this.jumpSound = this.sound.add('jump')
-    // this.song = this.sound.add('song')
-    // this.song.play()
+    this.song = this.sound.add('song')
+    this.song.loop = true
+    this.song.play()
     timeText = this.add.text(50, 20)
 
 
@@ -245,7 +246,7 @@ function onLevelComplete(){
     if (victory) {
         return
     }
-    // this.song.stop()
+    this.song.stop()
     alert ("YOU'RE WINNER")
     victory = true
 }
