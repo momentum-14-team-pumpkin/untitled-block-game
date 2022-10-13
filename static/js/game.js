@@ -1,4 +1,8 @@
 let config = {
+    scale: {
+        parent: 'gameDiv',
+        mode: Phaser.Scale.FIT,
+    },
     type: Phaser.AUTO,
     width: 1200,
     height: 800,
