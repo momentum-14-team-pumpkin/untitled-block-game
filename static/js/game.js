@@ -123,14 +123,9 @@ function update (time)
         if (!levelStart) {
             levelStart = time
         }
-        let totalSecs = (time - levelStart) / 1000
-        let hours = String(Math.round(totalSecs / 3600))
-        totalSecs -= hours * 3600
-        let minutes = String(Math.round(totalSecs /  60)).padStart(2, '0')
-        totalSecs -= minutes * 60
-        let fracSecs = totalSecs % 1
-        totalSecs = String(Math.floor(totalSecs)).padStart(2, '0')
-        timeText.setText(`Time: ${hours}:${minutes}:${totalSecs}${fracSecs.toFixed(3).slice(-4)}`)
+        timeText.setText(`Time: ${
+            convertSecondsToTimestring((time - levelStart) / 1000)
+        }`)
     }
 
     function advanceHax(char) {
@@ -239,6 +234,16 @@ function onLevelComplete(){
     }
     alert ("YOU'RE WINNER")
     victory = true
+}
+
+function convertSecondsToTimestring(seconds) {
+    let hours = String(Math.round(seconds / 3600))
+    seconds -= hours * 3600
+    let minutes = String(Math.round(seconds /  60)).padStart(2, '0')
+    seconds -= minutes * 60
+    let fracSecs = seconds % 1
+    seconds = String(Math.floor(seconds)).padStart(2, '0')
+    return `${hours}:${minutes}:${seconds}${fracSecs.toFixed(3).slice(-4)}`
 }
 
 function convertTilesToXPixels(tiles){
