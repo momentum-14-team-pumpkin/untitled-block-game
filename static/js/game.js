@@ -27,6 +27,8 @@ let facing = 'left'
 let victory = false
 let zomgHax = false
 let haxProgress = 0
+let timeText
+let levelStart = null
 const haxCode = "UUDDLRLR"
 
 let game = new Phaser.Game(config)
@@ -52,6 +54,7 @@ function create() {
     this.physics.add.collider(player, layer)
     this.physics.add.overlap(player, doors, onLevelComplete, null, this)
     map.setCollisionByExclusion([0])
+    timeText = this.add.text(50, 20)
 
 
     this.anims.create({
@@ -109,11 +112,20 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys()
 }
 
-function update ()
+function update (time)
 {
     if (gameOver)
     {
         return
+    }
+    else
+    {
+        if (!levelStart) {
+            levelStart = time
+        }
+        timeText.setText(`Time: ${
+            convertSecondsToTimestring((time - levelStart) / 1000)
+        }`)
     }
 
     function advanceHax(char) {
@@ -222,6 +234,16 @@ function onLevelComplete(){
     }
     alert ("YOU'RE WINNER")
     victory = true
+}
+
+function convertSecondsToTimestring(seconds) {
+    let hours = String(Math.floor(seconds / 3600))
+    seconds -= hours * 3600
+    let minutes = String(Math.floor(seconds / 60)).padStart(2, '0')
+    seconds -= minutes * 60
+    let fracSecs = seconds % 1
+    seconds = String(Math.floor(seconds)).padStart(2, '0')
+    return `${hours}:${minutes}:${seconds}${fracSecs.toFixed(3).slice(-4)}`
 }
 
 function convertTilesToXPixels(tiles){
