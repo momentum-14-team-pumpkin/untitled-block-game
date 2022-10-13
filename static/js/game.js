@@ -28,6 +28,7 @@ let victory = false
 let zomgHax = false
 let haxProgress = 0
 let timeText
+let levelStart = null
 const haxCode = "UUDDLRLR"
 
 let game = new Phaser.Game(config)
@@ -119,7 +120,11 @@ function update (time)
     }
     else
     {
-        timeText.setText('Time:' + (time/1000).toFixed(3))
+        if (!levelStart) {
+            levelStart = time
+        }
+        let totalSecs = time - levelStart
+        timeText.setText('Time:' + ((totalSecs)/1000).toFixed(3))
     }
 
     function advanceHax(char) {
