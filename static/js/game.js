@@ -27,6 +27,7 @@ let facing = 'left'
 let victory = false
 let zomgHax = false
 let haxProgress = 0
+let timeText
 const haxCode = "UUDDLRLR"
 
 let game = new Phaser.Game(config)
@@ -52,6 +53,7 @@ function create() {
     this.physics.add.collider(player, layer)
     this.physics.add.overlap(player, doors, onLevelComplete, null, this)
     map.setCollisionByExclusion([0])
+    timeText = this.add.text(400, 200)
 
 
     this.anims.create({
@@ -109,11 +111,15 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys()
 }
 
-function update ()
+function update (time)
 {
     if (gameOver)
     {
         return
+    }
+    else
+    {
+        timeText.setText('Time:' + (time/1000).toFixed(3))
     }
 
     function advanceHax(char) {
