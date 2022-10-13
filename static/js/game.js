@@ -237,9 +237,9 @@ function onLevelComplete(){
 }
 
 function convertSecondsToTimestring(seconds) {
-    let hours = String(Math.round(seconds / 3600))
+    let hours = String(Math.floor(seconds / 3600))
     seconds -= hours * 3600
-    let minutes = String(Math.round(seconds /  60)).padStart(2, '0')
+    let minutes = String(Math.floor(seconds / 60)).padStart(2, '0')
     seconds -= minutes * 60
     let fracSecs = seconds % 1
     seconds = String(Math.floor(seconds)).padStart(2, '0')
