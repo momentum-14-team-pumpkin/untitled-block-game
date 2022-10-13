@@ -1,4 +1,8 @@
 let config = {
+    scale: {
+        parent: 'gameDiv',
+        mode: Phaser.Scale.FIT,
+    },
     type: Phaser.AUTO,
     width: 1200,
     height: 800,
@@ -24,9 +28,13 @@ let cursors
 let map
 let holdingBlock = null
 let facing = 'left'
+let victory = false
 let zomgHax = false
 let haxProgress = 0
 let timeText
+let levelStart = null
+let musicOn = true
+const haxCode = "UUDDLRLR"
 
 let game = new Phaser.Game(config)
 
@@ -36,6 +44,11 @@ function preload() {
     this.load.tilemapCSV('map', '/static/assets/grid.csv')
     this.load.image('door', '/static/assets/door.png')
     this.load.spritesheet('player', '/static/assets/player.png', { frameWidth: 32, frameHeight: 40 })
+    this.load.audio('pick', '/static/assets/audio/click.mp3')
+    this.load.audio('put', '/static/assets/audio/boink1.wav')
+    this.load.audio('jump', '/static/assets/audio/beep1.wav')
+    this.load.audio('song', '/static/assets/audio/backgroundMusic.mp3')
+
 }
 
 function create() {
@@ -51,7 +64,14 @@ function create() {
     this.physics.add.collider(player, layer)
     this.physics.add.overlap(player, doors, onLevelComplete, null, this)
     map.setCollisionByExclusion([0])
-    timeText = this.add.text(400, 200)
+    this.pickUpSound = this.sound.add('pick')
+    this.putDownSound = this.sound.add('put')
+    this.jumpSound = this.sound.add('jump')
+    this.song = this.sound.add('song')
+    this.song.loop = true
+    this.song.play()
+    keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
+    timeText = this.add.text(50, 20)
 
 
     this.anims.create({
@@ -115,35 +135,51 @@ function update (time)
     {
         return
     }
-
     else
     {
-        timeText.setText('Time:' + (time/1000).toFixed(3))
+        if (!levelStart) {
+            levelStart = time
+        }
+        timeText.setText(`Time: ${
+            convertSecondsToTimestring((time - levelStart) / 1000)
+        }`)
     }
 
-    if (Phaser.Input.Keyboard.JustDown(cursors.left)) {
-        if (haxProgress == 4 || haxProgress == 6) {
-            haxProgress++
-        } else {
-            haxProgress = 0
+    if (Phaser.Input.Keyboard.JustDown(keyM)){
+        if (musicOn){
+            this.song.stop()
+            musicOn = false
+            return
+        }
+        if (!musicOn){
+            this.song.play()
+            musicOn = true
+            return
         }
     }
-    else if (Phaser.Input.Keyboard.JustDown(cursors.right)) {
-        if (haxProgress == 5 || haxProgress == 7) {
+
+    function advanceHax(char) {
+        if (zomgHax) {
+            return
+        }
+        if (haxCode[haxProgress] == char) {
             haxProgress++
-            if (haxProgress == 8) {
+            if (haxProgress == haxCode.length) {
                 zomgHax = true
             }
         } else {
             haxProgress = 0
         }
     }
+
+    if (Phaser.Input.Keyboard.JustDown(cursors.left)) {
+        advanceHax('L')
+    }
+    else if (Phaser.Input.Keyboard.JustDown(cursors.right)) {
+        advanceHax('R')
+    }
     else if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
-        if (haxProgress == 0 || haxProgress == 1) {
-            haxProgress++
-        } else {
-            haxProgress = 0
-        }
+        advanceHax('U')
     }
 
     let state
@@ -163,7 +199,8 @@ function update (time)
 
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
-        player.y -= 50
+        player.setVelocityY(-350)
+        this.jumpSound.play()
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
@@ -183,6 +220,7 @@ function update (time)
                 holdingBlock.setCrop(68, 0, 34, 34)
                 holdingBlock.setSize(40, 40)
                 holdingBlock.setScale(1.25)
+                this.pickUpSound.play()
             }
         }
         else {
@@ -193,22 +231,18 @@ function update (time)
             else if (facing == 'right'){
                 point = map.worldToTileXY(player.x + (TILE_SIZE + 2), player.y, true)
             }
-            if (map.getTileAt(point.x, point.y).index == 0){
+            if (map.getTileAt(point.x, point.y - 1).index == 0){
+                point.y--
+                while (map.getTileAt(point.x, point.y + 1).index == 0) {
+                    point.y++
+                }
                 map.putTileAt(2, point.x, point.y)
                 holdingBlock.destroy()
                 holdingBlock = null
-            }
-            else if (map.getTileAt(point.x, point.y -1).index == 0){
-                map.putTileAt(2, point.x, point.y -1)
-                holdingBlock.destroy()
-                holdingBlock = null
+                this.putDownSound.play()
             }
         }
-        if (haxProgress == 2 || haxProgress == 3) {
-            haxProgress++
-        } else {
-            haxProgress = 0
-        }
+        advanceHax('D')
     }
 
     if (zomgHax) {
@@ -229,7 +263,22 @@ function update (time)
 }
 
 function onLevelComplete(){
-    alert ("You're winner")
+    if (victory) {
+        return
+    }
+    this.song.stop()
+    alert ("YOU'RE WINNER")
+    victory = true
+}
+
+function convertSecondsToTimestring(seconds) {
+    let hours = String(Math.floor(seconds / 3600))
+    seconds -= hours * 3600
+    let minutes = String(Math.floor(seconds / 60)).padStart(2, '0')
+    seconds -= minutes * 60
+    let fracSecs = seconds % 1
+    seconds = String(Math.floor(seconds)).padStart(2, '0')
+    return `${hours}:${minutes}:${seconds}${fracSecs.toFixed(3).slice(-4)}`
 }
 
 function convertTilesToXPixels(tiles){

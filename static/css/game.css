@@ -1,0 +1,18 @@
+body
+{
+    margin: 0;
+}
+
+#main
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#gameDiv
+{
+    width: calc(min(100vw, 150vh));
+    height: calc(min(100vh, 200vw / 3));
+}
