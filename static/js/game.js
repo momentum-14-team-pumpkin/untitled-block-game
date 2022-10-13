@@ -123,8 +123,8 @@ function update (time)
         if (!levelStart) {
             levelStart = time
         }
-        let totalSecs = time - levelStart
-        timeText.setText('Time:' + ((totalSecs)/1000).toFixed(3))
+        let totalSecs = (time - levelStart) / 1000
+        timeText.setText('Time:' + totalSecs.toFixed(3))
     }
 
     function advanceHax(char) {
