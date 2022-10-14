@@ -156,7 +156,7 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys()
 }
 
-function update (time)
+function update (time, delta)
 {
     if (gameOver)
     {
@@ -210,16 +210,22 @@ function update (time)
     }
 
     let state
+    const accelForce = player.body.blocked.down ? 1000 : 200
+    const velX = player.body.velocity.x
     if (cursors.left.isDown
         || cursors.right.isDown)
     {
         facing = cursors.left.isDown ? 'left' : 'right'
-        player.setVelocityX(facing == 'left' ? -150 : 150)
+        player.setVelocityX(clamp(velX + delta / 1000 * (facing == 'left' ? -accelForce : accelForce), -150, 150))
         state = 'walk'
     }
     else
     {
-        player.setVelocityX(0)
+        if (player.body.blocked.down)
+        {
+            const absVelX = Math.abs(velX)
+            player.setVelocityX(velX - clamp(delta / 1000 * Math.sign(velX) * accelForce, -absVelX, absVelX))
+        }
         state = 'stand'
     }
     player.anims.play(`${holdingBlock ? 'carry-' : ''}${state}-${facing}`, true)
@@ -309,6 +315,10 @@ function onLevelComplete(){
     }
     // victory = true
     this.scene.restart()
+}
+
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max)
 }
 
 function convertSecondsToTimestring(seconds) {
