@@ -65,14 +65,18 @@ function create() {
         doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
         this.song = this.sound.add('song')
         this.song.loop = true
-        this.song.play()
+        if (musicOn) {
+            this.song.play()
+        }
     }
     if (level == 1){
         map = this.make.tilemap({ key: 'newlevel', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
         doors.create(convertTilesToXPixels(22), convertTilesToYPixels(7), 'door')
-        this.song2 = this.sound.add('song2')
-        this.song2.loop = true
-        this.song2.play()
+        this.song = this.sound.add('song2')
+        this.song.loop = true
+        if (musicOn) {
+            this.song.play()
+        }
     }
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
     let layer = map.createLayer(0, tileset, 0, 60)
