@@ -1,127 +1,93 @@
 {
   "status": "done",
   "assets": {
-    "main-f6d416a0dbcf70933e00.js": {
-      "name": "main-f6d416a0dbcf70933e00.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-f6d416a0dbcf70933e00.js"
+    "main-797bff9206484e6f680e.js": {
+      "name": "main-797bff9206484e6f680e.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-797bff9206484e6f680e.js"
     },
-    "game-f6d416a0dbcf70933e00.js": {
-      "name": "game-f6d416a0dbcf70933e00.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-f6d416a0dbcf70933e00.js"
+    "game-797bff9206484e6f680e.js": {
+      "name": "game-797bff9206484e6f680e.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-797bff9206484e6f680e.js"
     },
-    "main-57e9b5fe5aba42ed06c0.js": {
-      "name": "main-57e9b5fe5aba42ed06c0.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-57e9b5fe5aba42ed06c0.js"
+    "main-1f8325b6513e0eeaf275.js": {
+      "name": "main-1f8325b6513e0eeaf275.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-1f8325b6513e0eeaf275.js"
     },
-    "game-57e9b5fe5aba42ed06c0.js": {
-      "name": "game-57e9b5fe5aba42ed06c0.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-57e9b5fe5aba42ed06c0.js"
+    "game-1f8325b6513e0eeaf275.js": {
+      "name": "game-1f8325b6513e0eeaf275.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-1f8325b6513e0eeaf275.js"
     },
-    "main-9f4fa5e6ec5ea0995b9f.js": {
-      "name": "main-9f4fa5e6ec5ea0995b9f.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-9f4fa5e6ec5ea0995b9f.js"
+    "main-c4a1bb2a74061680a495.js": {
+      "name": "main-c4a1bb2a74061680a495.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-c4a1bb2a74061680a495.js"
     },
-    "game-9f4fa5e6ec5ea0995b9f.js": {
-      "name": "game-9f4fa5e6ec5ea0995b9f.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-9f4fa5e6ec5ea0995b9f.js"
+    "game-c4a1bb2a74061680a495.js": {
+      "name": "game-c4a1bb2a74061680a495.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-c4a1bb2a74061680a495.js"
     },
-    "main-dee2a5b6e7520741c335.js": {
-      "name": "main-dee2a5b6e7520741c335.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-dee2a5b6e7520741c335.js"
+    "main-45357d8960280fcdd857.js": {
+      "name": "main-45357d8960280fcdd857.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-45357d8960280fcdd857.js"
     },
-    "game-dee2a5b6e7520741c335.js": {
-      "name": "game-dee2a5b6e7520741c335.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-dee2a5b6e7520741c335.js"
+    "game-45357d8960280fcdd857.js": {
+      "name": "game-45357d8960280fcdd857.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-45357d8960280fcdd857.js"
     },
-    "main-afc5c3d41df18c084d95.js": {
-      "name": "main-afc5c3d41df18c084d95.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-afc5c3d41df18c084d95.js"
+    "main-a2d1da4485ad9fef3bd7.js": {
+      "name": "main-a2d1da4485ad9fef3bd7.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-a2d1da4485ad9fef3bd7.js"
     },
-    "game-afc5c3d41df18c084d95.js": {
-      "name": "game-afc5c3d41df18c084d95.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-afc5c3d41df18c084d95.js"
+    "game-a2d1da4485ad9fef3bd7.js": {
+      "name": "game-a2d1da4485ad9fef3bd7.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-a2d1da4485ad9fef3bd7.js"
     },
-    "main-e814a2a4f15ba50b25b7.js": {
-      "name": "main-e814a2a4f15ba50b25b7.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-e814a2a4f15ba50b25b7.js"
+    "main-5e32c1057c194d670442.js": {
+      "name": "main-5e32c1057c194d670442.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-5e32c1057c194d670442.js"
     },
-    "game-e814a2a4f15ba50b25b7.js": {
-      "name": "game-e814a2a4f15ba50b25b7.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-e814a2a4f15ba50b25b7.js"
+    "game-5e32c1057c194d670442.js": {
+      "name": "game-5e32c1057c194d670442.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-5e32c1057c194d670442.js"
     },
-    "main-75b9c771a96da9954258.js": {
-      "name": "main-75b9c771a96da9954258.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-75b9c771a96da9954258.js"
+    "main-a35e2c620db09afdcf83.js": {
+      "name": "main-a35e2c620db09afdcf83.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-a35e2c620db09afdcf83.js"
     },
-    "game-75b9c771a96da9954258.js": {
-      "name": "game-75b9c771a96da9954258.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-75b9c771a96da9954258.js"
+    "game-a35e2c620db09afdcf83.js": {
+      "name": "game-a35e2c620db09afdcf83.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-a35e2c620db09afdcf83.js"
     },
-    "main-e5db3b574343163b452e.js": {
-      "name": "main-e5db3b574343163b452e.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-e5db3b574343163b452e.js"
+    "main-19947915d34206dc84f7.js": {
+      "name": "main-19947915d34206dc84f7.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-19947915d34206dc84f7.js"
     },
-    "game-e5db3b574343163b452e.js": {
-      "name": "game-e5db3b574343163b452e.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-e5db3b574343163b452e.js"
+    "game-19947915d34206dc84f7.js": {
+      "name": "game-19947915d34206dc84f7.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-19947915d34206dc84f7.js"
     },
-    "main-04926e006c42c0f606f2.js": {
-      "name": "main-04926e006c42c0f606f2.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-04926e006c42c0f606f2.js"
+    "main-e17fab70e80811ccc97f.js": {
+      "name": "main-e17fab70e80811ccc97f.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-e17fab70e80811ccc97f.js"
     },
-    "game-04926e006c42c0f606f2.js": {
-      "name": "game-04926e006c42c0f606f2.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-04926e006c42c0f606f2.js"
+    "game-e17fab70e80811ccc97f.js": {
+      "name": "game-e17fab70e80811ccc97f.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-e17fab70e80811ccc97f.js"
     },
-    "main-b22602b19c97d2088f80.js": {
-      "name": "main-b22602b19c97d2088f80.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-b22602b19c97d2088f80.js"
+    "main-2bd906011941174b0621.js": {
+      "name": "main-2bd906011941174b0621.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-2bd906011941174b0621.js"
     },
-    "game-b22602b19c97d2088f80.js": {
-      "name": "game-b22602b19c97d2088f80.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-b22602b19c97d2088f80.js"
-    },
-    "main-4654de2b3217a19847b8.js": {
-      "name": "main-4654de2b3217a19847b8.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-4654de2b3217a19847b8.js"
-    },
-    "game-4654de2b3217a19847b8.js": {
-      "name": "game-4654de2b3217a19847b8.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-4654de2b3217a19847b8.js"
-    },
-    "main-fcee5e83f351f8216b90.js": {
-      "name": "main-fcee5e83f351f8216b90.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-fcee5e83f351f8216b90.js"
-    },
-    "game-fcee5e83f351f8216b90.js": {
-      "name": "game-fcee5e83f351f8216b90.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-fcee5e83f351f8216b90.js"
-    },
-    "main-d395d77ef5fae3f8a394.js": {
-      "name": "main-d395d77ef5fae3f8a394.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-d395d77ef5fae3f8a394.js"
-    },
-    "game-d395d77ef5fae3f8a394.js": {
-      "name": "game-d395d77ef5fae3f8a394.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-d395d77ef5fae3f8a394.js"
-    },
-    "main-43963a2a0e12045556b3.js": {
-      "name": "main-43963a2a0e12045556b3.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-43963a2a0e12045556b3.js"
-    },
-    "game-43963a2a0e12045556b3.js": {
-      "name": "game-43963a2a0e12045556b3.js",
-      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-43963a2a0e12045556b3.js"
+    "game-2bd906011941174b0621.js": {
+      "name": "game-2bd906011941174b0621.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-2bd906011941174b0621.js"
     }
   },
   "chunks": {
     "main": [
-      "main-43963a2a0e12045556b3.js"
+      "main-2bd906011941174b0621.js"
     ],
     "game": [
-      "game-43963a2a0e12045556b3.js"
+      "game-2bd906011941174b0621.js"
     ]
-  },
-  "error": "ModuleBuildError",
-  "message": "Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/static/js/index.js: Identifier 'ReactDOM' has already been declared. (7:0)\n\n   5 | const rootElement = document.getElementById('root')\n   6 | const \n>  7 | ReactDOM.createRoot(rootElement)\n     | ^\n   8 |     root.render(\n   9 |     <App />\n  10 |     )\n    at instantiate (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:72:32)\n    at constructor (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:367:12)\n    at JSXParserMixin.raise (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:3706:19)\n    at ScopeHandler.checkRedeclarationInScope (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:1657:19)\n    at ScopeHandler.declareName (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:1623:12)\n    at JSXParserMixin.declareNameFromIdentifier (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:12375:16)\n    at JSXParserMixin.checkIdentifier (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:12370:12)\n    at JSXParserMixin.checkLVal (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:12296:12)\n    at JSXParserMixin.parseVarId (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:15642:10)\n    at JSXParserMixin.parseVar (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:15616:12)\n    at JSXParserMixin.parseVarStatement (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:15420:10)\n    at JSXParserMixin.parseStatementContent (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:14946:21)\n    at JSXParserMixin.parseStatement (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:14871:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:15531:25)\n    at JSXParserMixin.parseBlockBody (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:15522:10)\n    at JSXParserMixin.parseProgram (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:14785:10)\n    at JSXParserMixin.parseTopLevel (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:14772:25)\n    at JSXParserMixin.parse (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:16799:10)\n    at parse (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/parser/lib/index.js:16851:38)\n    at parser (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/core/lib/parser/index.js:52:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/core/lib/transformation/normalize-file.js:87:38)\n    at normalizeFile.next (<anonymous>)\n    at run (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/core/lib/transformation/index.js:31:50)\n    at run.next (<anonymous>)\n    at transform (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/@babel/core/lib/transform.js:29:41)\n    at transform.next (<anonymous>)\n    at step (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/gensync/index.js:261:32)\n    at /Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/gensync/index.js:273:13\n    at async.call.result.err.err (/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/node_modules/gensync/index.js:223:11)"
+  }
 }
