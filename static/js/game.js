@@ -1,11 +1,13 @@
+const TILE_SIZE = 40
+
 let config = {
     scale: {
         parent: 'gameDiv',
         mode: Phaser.Scale.FIT,
     },
     type: Phaser.AUTO,
-    width: 1200,
-    height: 800,
+    width: TILE_SIZE * 22,
+    height: TILE_SIZE * 11.5,
     pixelArt: true,
     physics: {
         default: 'arcade',
@@ -20,7 +22,6 @@ let config = {
     },
 }
 
-const TILE_SIZE = 40
 
 let player
 let gameOver = false
@@ -35,6 +36,7 @@ let timeText
 let levelStart = null
 let musicOn = true
 const haxCode = "UUDDLRLR"
+let level = 0
 
 let game = new Phaser.Game(config)
 
@@ -42,23 +44,38 @@ function preload() {
     this.load.image('bg', '/static/assets/city_PNG48.png')
     this.load.image('tiles', '/static/assets/drawtiles-spaced.png')
     this.load.tilemapCSV('map', '/static/assets/grid.csv')
+    this.load.tilemapCSV('newlevel', '/static/assets/newlevel.csv')
     this.load.image('door', '/static/assets/door.png')
     this.load.spritesheet('player', '/static/assets/player.png', { frameWidth: 32, frameHeight: 40 })
-    this.load.audio('pick', '/static/assets/audio/click.mp3')
-    this.load.audio('put', '/static/assets/audio/boink1.wav')
-    this.load.audio('jump', '/static/assets/audio/beep1.wav')
-    this.load.audio('song', '/static/assets/audio/backgroundMusic.mp3')
+    this.load.audio('pick', '/static/assets/audio/pickup.wav')
+    this.load.audio('put', '/static/assets/audio/putdown.wav')
+    this.load.audio('jump', '/static/assets/audio/jump.wav')
+    this.load.audio('song', '/static/assets/audio/Level1.mp3')
+    this.load.audio('exit', '/static/assets/audio/door-open.wav')
+    this.load.audio('song2', '/static/assets/audio/backgroundMusic.mp3')
 
 }
 
 function create() {
-    this.add.image(600, 500, 'bg').setScale(3)
+    this.add.image(config.width/2, config.height/2, 'bg').setScale(config.width/512)
     let doors = this.physics.add.staticGroup()
-    doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
-    map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
-    let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
-    let layer = map.createLayer(0, tileset, TILE_SIZE, TILE_SIZE * 10)
     player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'player')
+    if (level == 0){
+        map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
+        doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
+        this.song = this.sound.add('song')
+        this.song.loop = true
+        this.song.play()
+    }
+    if (level == 1){
+        map = this.make.tilemap({ key: 'newlevel', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
+        doors.create(convertTilesToXPixels(22), convertTilesToYPixels(7), 'door')
+        this.song2 = this.sound.add('song2')
+        this.song2.loop = true
+        this.song2.play()
+    }
+    let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
+    let layer = map.createLayer(0, tileset, 0, 60)
     player.setCollideWorldBounds(true)
     this.physics.add.existing(player)
     this.physics.add.collider(player, layer)
@@ -67,9 +84,8 @@ function create() {
     this.pickUpSound = this.sound.add('pick')
     this.putDownSound = this.sound.add('put')
     this.jumpSound = this.sound.add('jump')
-    this.song = this.sound.add('song')
-    this.song.loop = true
-    this.song.play()
+    this.exitSound = this.sound.add('exit')
+    
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
     timeText = this.add.text(50, 20)
 
@@ -200,7 +216,9 @@ function update (time)
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
         player.setVelocityY(-350)
+        if (musicOn){
         this.jumpSound.play()
+        }
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
@@ -218,7 +236,7 @@ function update (time)
                 map.putTileAt(0, point.x, point.y)
                 holdingBlock = this.add.image(0, 0, 'tiles')
                 holdingBlock.setCrop(68, 0, 34, 34)
-                holdingBlock.setSize(40, 40)
+                holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
                 holdingBlock.setScale(1.25)
                 this.pickUpSound.play()
             }
@@ -262,12 +280,25 @@ function update (time)
 }
 
 function onLevelComplete(){
-    if (victory) {
-        return
-    }
+    // if (victory) {
+    //     return
+    // }
     this.song.stop()
-    alert ("YOU'RE WINNER")
-    victory = true
+    this.exitSound.play()
+    level += 1
+    if (level > 1){
+        alert ("YOU'RE WINNER OF GAME")
+        level = 0
+    } else {
+        alert ("YOU'RE WINNER")
+        let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
+        if (restartLevel == "y" || restartLevel == "yes"){
+            level -= 1
+            this.scene.restart()
+        }
+    }
+    // victory = true
+    this.scene.restart()
 }
 
 function convertSecondsToTimestring(seconds) {
@@ -281,8 +312,8 @@ function convertSecondsToTimestring(seconds) {
 }
 
 function convertTilesToXPixels(tiles){
-    return (tiles + 0.5) * TILE_SIZE
+    return (tiles - 0.5) * TILE_SIZE
 }
 function convertTilesToYPixels(tiles){
-    return 800 - (tiles + 0.5) * TILE_SIZE
+    return config.height - (tiles + 0.5) * TILE_SIZE
 }
