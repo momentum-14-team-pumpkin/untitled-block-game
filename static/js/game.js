@@ -259,6 +259,7 @@ function update (time)
         holdingBlock.x = player.x - TILE_SIZE - 2
         holdingBlock.y = player.y - TILE_SIZE
     }
+
 }
 
 function onLevelComplete(){

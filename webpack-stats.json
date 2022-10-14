@@ -1,0 +1,93 @@
+{
+  "status": "done",
+  "assets": {
+    "main-797bff9206484e6f680e.js": {
+      "name": "main-797bff9206484e6f680e.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-797bff9206484e6f680e.js"
+    },
+    "game-797bff9206484e6f680e.js": {
+      "name": "game-797bff9206484e6f680e.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-797bff9206484e6f680e.js"
+    },
+    "main-1f8325b6513e0eeaf275.js": {
+      "name": "main-1f8325b6513e0eeaf275.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-1f8325b6513e0eeaf275.js"
+    },
+    "game-1f8325b6513e0eeaf275.js": {
+      "name": "game-1f8325b6513e0eeaf275.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-1f8325b6513e0eeaf275.js"
+    },
+    "main-c4a1bb2a74061680a495.js": {
+      "name": "main-c4a1bb2a74061680a495.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-c4a1bb2a74061680a495.js"
+    },
+    "game-c4a1bb2a74061680a495.js": {
+      "name": "game-c4a1bb2a74061680a495.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-c4a1bb2a74061680a495.js"
+    },
+    "main-45357d8960280fcdd857.js": {
+      "name": "main-45357d8960280fcdd857.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-45357d8960280fcdd857.js"
+    },
+    "game-45357d8960280fcdd857.js": {
+      "name": "game-45357d8960280fcdd857.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-45357d8960280fcdd857.js"
+    },
+    "main-a2d1da4485ad9fef3bd7.js": {
+      "name": "main-a2d1da4485ad9fef3bd7.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-a2d1da4485ad9fef3bd7.js"
+    },
+    "game-a2d1da4485ad9fef3bd7.js": {
+      "name": "game-a2d1da4485ad9fef3bd7.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-a2d1da4485ad9fef3bd7.js"
+    },
+    "main-5e32c1057c194d670442.js": {
+      "name": "main-5e32c1057c194d670442.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-5e32c1057c194d670442.js"
+    },
+    "game-5e32c1057c194d670442.js": {
+      "name": "game-5e32c1057c194d670442.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-5e32c1057c194d670442.js"
+    },
+    "main-a35e2c620db09afdcf83.js": {
+      "name": "main-a35e2c620db09afdcf83.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-a35e2c620db09afdcf83.js"
+    },
+    "game-a35e2c620db09afdcf83.js": {
+      "name": "game-a35e2c620db09afdcf83.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-a35e2c620db09afdcf83.js"
+    },
+    "main-19947915d34206dc84f7.js": {
+      "name": "main-19947915d34206dc84f7.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-19947915d34206dc84f7.js"
+    },
+    "game-19947915d34206dc84f7.js": {
+      "name": "game-19947915d34206dc84f7.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-19947915d34206dc84f7.js"
+    },
+    "main-e17fab70e80811ccc97f.js": {
+      "name": "main-e17fab70e80811ccc97f.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-e17fab70e80811ccc97f.js"
+    },
+    "game-e17fab70e80811ccc97f.js": {
+      "name": "game-e17fab70e80811ccc97f.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-e17fab70e80811ccc97f.js"
+    },
+    "main-2bd906011941174b0621.js": {
+      "name": "main-2bd906011941174b0621.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/main-2bd906011941174b0621.js"
+    },
+    "game-2bd906011941174b0621.js": {
+      "name": "game-2bd906011941174b0621.js",
+      "path": "/Users/katemccormick/Desktop/Momentum/FINAL/untitled-block-game/dist/game-2bd906011941174b0621.js"
+    }
+  },
+  "chunks": {
+    "main": [
+      "main-2bd906011941174b0621.js"
+    ],
+    "game": [
+      "game-2bd906011941174b0621.js"
+    ]
+  }
+}
