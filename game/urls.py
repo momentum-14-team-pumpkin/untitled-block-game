@@ -8,5 +8,6 @@ urlpatterns = [
     path('times/', views.TimeTrialList.as_view(), name='time-trial'),
     path('times/<int:pk>/', views.TimeTrialDetail.as_view(), name='time-trial-detail'),
     path('users/<int:pk>/times/', views.UserTimeTrial.as_view(), name='user-times'),
+    path('homepage/', views.homepage, name='Homepage')
 ]
 

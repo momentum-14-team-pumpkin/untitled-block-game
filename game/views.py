@@ -4,6 +4,7 @@ from .serializers import CustomUserSerializer, TimeTrialSerializer
 from django.shortcuts import render
 
 
+
 def show_game(req):
     return render(req, "game/game.html")
 
@@ -38,3 +39,6 @@ class UserTimeTrial(generics.ListCreateAPIView):
     def get_queryset(self):
         queryset = TimeTrial.objects.filter(player=self.request.user)
         return queryset.order_by('time')
+
+def homepage(req):
+    return render(req, "game/homepage.html")

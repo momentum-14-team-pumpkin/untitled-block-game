@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'game',
+    'webpack_loader'
 ]
 
 MIDDLEWARE = [
@@ -140,6 +141,7 @@ INTERNAL_IPS = [
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'dist')
 ]
 
 # Default primary key field type
@@ -160,4 +162,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
+}
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        "BUNDLE_DIR_NAME": "/",
+        "CACHE": not DEBUG,
+        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
+        'POLL_INTERVAL': 0.1,
+        'IGNORE': [r'.+\.hot-update.js', r'.+\.map'],
+    }
 }
