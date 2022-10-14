@@ -216,9 +216,8 @@ function update (time)
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
         player.setVelocityY(-350)
-        if (musicOn){
         this.jumpSound.play()
-        }
+
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
