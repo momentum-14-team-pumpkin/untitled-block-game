@@ -93,6 +93,13 @@ function create() {
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
     timeText = this.add.text(50, 20)
 
+    if (holdingBlock) {
+        holdingBlock = this.add.image(0, 0, 'tiles')
+        holdingBlock.setCrop(68, 0, 34, 34)
+        holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
+        holdingBlock.setScale(1.25)
+    }
+
 
     this.anims.create({
         key: 'stand-left',
