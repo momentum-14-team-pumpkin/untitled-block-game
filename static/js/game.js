@@ -283,7 +283,7 @@ function onLevelComplete(){
     // if (victory) {
     //     return
     // }
-    this.song.stop()
+    this.song.destroy()
     this.exitSound.play()
     level += 1
     if (level > 1){
@@ -294,7 +294,6 @@ function onLevelComplete(){
         let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
         if (restartLevel == "y" || restartLevel == "yes"){
             level -= 1
-            this.scene.restart()
         }
     }
     // victory = true
