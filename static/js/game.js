@@ -33,12 +33,12 @@ let victory = false
 let zomgHax = false
 let haxProgress = 0
 let timeText
+let startTimerText
 let levelStart = null
 let musicOn = true
 const haxCode = "UUDDLRLR"
 let level = 0
 let timerDelay = 3000
-let startTimer = false
 
 let keyB
 let keyM
@@ -104,17 +104,8 @@ function create() {
     
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
     keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
-    
-    // if(startTimer === true){
     timeText = this.add.text(50, 20)
-    // }
-
-    if (holdingBlock) {
-        holdingBlock = this.add.image(0, 0, 'tiles')
-        holdingBlock.setCrop(68, 0, 34, 34)
-        holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
-        holdingBlock.setScale(1.25)
-    }
+    startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#f5ee20'})
 
     if (holdingBlock) {
         acquireBlock(this)
@@ -187,12 +178,18 @@ function update (time, delta)
         if (!levelStart) {
             levelStart = time
         }
+        if((time - levelStart) < timerDelay){
+            startTimerText.setText(`${
+                convertSecondsToTimeStringForDelay((levelStart - time + timerDelay) / 1000)
+            }`)
+        }
         if((time - levelStart) > timerDelay){
-        timeText.setText(`Time: ${
+            startTimerText.destroy()
+            timeText.setText(`Time: ${
             convertSecondsToTimestring((time - levelStart - timerDelay) / 1000)
         }`)
     }
-    }
+}
 
     if (Phaser.Input.Keyboard.JustDown(keyM)){
         if (musicOn){
@@ -319,9 +316,6 @@ function update (time, delta)
 }
 
 function onLevelComplete(){
-    // if (victory) {
-    //     return
-    // }
     this.song.destroy()
     this.exitSound.play()
     level += 1
@@ -335,7 +329,6 @@ function onLevelComplete(){
             level -= 1
         }
     }
-    // victory = true
     this.scene.restart()
 }
 
@@ -358,6 +351,12 @@ function convertSecondsToTimestring(seconds) {
     let fracSecs = seconds % 1
     seconds = String(Math.floor(seconds)).padStart(2, '0')
     return `${hours}:${minutes}:${seconds}${fracSecs.toFixed(3).slice(-4)}`
+}
+
+function convertSecondsToTimeStringForDelay(seconds) {
+    let fracSecs = seconds % 1
+    seconds = String(Math.ceil(seconds)).padStart(1, '0')
+    return `${seconds}`
 }
 
 function convertTilesToXPixels(tiles){
