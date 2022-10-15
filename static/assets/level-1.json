@@ -1,0 +1,12 @@
+{
+    "song": "backgroundMusic.mp3",
+    "tile_data": "newlevel.csv",
+    "player_start": {
+        "x": 16,
+        "y": 5
+    },
+    "level_exit": {
+        "x": 21,
+        "y": 7
+    }
+}

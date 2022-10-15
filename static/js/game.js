@@ -40,45 +40,55 @@ let level = 0
 let timerDelay = 3000
 let startTimer = false
 
+let keyB
+let keyM
+
 let game = new Phaser.Game(config)
 
+let preloadReady
 function preload() {
+    preloadReady = false
+    this.cache.json.remove('map-data')
+    this.load.json('map-data', `/static/assets/level-${level}.json`)
     this.load.image('bg', '/static/assets/city_PNG48.png')
     this.load.image('tiles', '/static/assets/drawtiles-spaced.png')
-    this.load.tilemapCSV('map', '/static/assets/grid.csv')
-    this.load.tilemapCSV('newlevel', '/static/assets/newlevel.csv')
     this.load.image('door', '/static/assets/door.png')
     this.load.spritesheet('player', '/static/assets/player.png', { frameWidth: 32, frameHeight: 40 })
     this.load.audio('pick', '/static/assets/audio/pickup.wav')
     this.load.audio('put', '/static/assets/audio/putdown.wav')
     this.load.audio('jump', '/static/assets/audio/jump.wav')
-    this.load.audio('song', '/static/assets/audio/Level1.mp3')
     this.load.audio('exit', '/static/assets/audio/door-open.wav')
-    this.load.audio('song2', '/static/assets/audio/backgroundMusic.mp3')
-
+    this.load.once('complete', () => {
+        const mapData = this.cache.json.get('map-data')
+        this.cache.tilemap.remove('map')
+        this.cache.audio.remove('song')
+        this.load.tilemapCSV('map', `/static/assets/${mapData.tile_data}`)
+        this.load.audio('song', `/static/assets/audio/${mapData.song}`)
+        this.load.start()
+        this.load.once('complete', () => {
+            preloadReady = true
+            this.create()
+        })
+    })
 }
 
 function create() {
+    if (!preloadReady) {
+        return
+    }
+
+    const mapData = this.cache.json.get('map-data')
     this.add.image(config.width/2, config.height/2, 'bg').setScale(config.width/512)
     let doors = this.physics.add.staticGroup()
-    player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'player')
-    if (level == 0){
-        map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
-        doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
-        this.song = this.sound.add('song')
-        this.song.loop = true
-        if (musicOn) {
-            this.song.play()
-        }
-    }
-    if (level == 1){
-        map = this.make.tilemap({ key: 'newlevel', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
-        doors.create(convertTilesToXPixels(22), convertTilesToYPixels(7), 'door')
-        this.song = this.sound.add('song2')
-        this.song.loop = true
-        if (musicOn) {
-            this.song.play()
-        }
+    map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
+    player = this.physics.add.sprite(convertTilesToXPixels(mapData.player_start.x),
+        convertTilesToYPixels(mapData.player_start.y) - 4, 'player')
+    doors.create(convertTilesToXPixels(mapData.level_exit.x),
+        convertTilesToYPixels(mapData.level_exit.y), 'door')
+    this.song = this.sound.add('song')
+    this.song.loop = true
+    if (musicOn) {
+        this.song.play()
     }
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
     let layer = map.createLayer(0, tileset, 0, 60)
@@ -93,6 +103,7 @@ function create() {
     this.exitSound = this.sound.add('exit')
     
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
+    keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
     
     // if(startTimer === true){
     timeText = this.add.text(50, 20)
@@ -103,6 +114,10 @@ function create() {
         holdingBlock.setCrop(68, 0, 34, 34)
         holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
         holdingBlock.setScale(1.25)
+    }
+
+    if (holdingBlock) {
+        acquireBlock(this)
     }
 
 
@@ -161,9 +176,9 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys()
 }
 
-function update (time)
+function update (time, delta)
 {
-    if (gameOver)
+    if (!preloadReady || gameOver)
     {
         return
     }
@@ -217,16 +232,22 @@ function update (time)
     }
 
     let state
+    const accelForce = player.body.blocked.down ? 1000 : 200
+    const velX = player.body.velocity.x
     if (cursors.left.isDown
         || cursors.right.isDown)
     {
         facing = cursors.left.isDown ? 'left' : 'right'
-        player.setVelocityX(facing == 'left' ? -150 : 150)
+        player.setVelocityX(clamp(velX + delta / 1000 * (facing == 'left' ? -accelForce : accelForce), -150, 150))
         state = 'walk'
     }
     else
     {
-        player.setVelocityX(0)
+        if (player.body.blocked.down)
+        {
+            const absVelX = Math.abs(velX)
+            player.setVelocityX(velX - clamp(delta / 1000 * Math.sign(velX) * accelForce, -absVelX, absVelX))
+        }
         state = 'stand'
     }
     player.anims.play(`${holdingBlock ? 'carry-' : ''}${state}-${facing}`, true)
@@ -251,10 +272,7 @@ function update (time)
             if (map.getTileAt(point.x, point.y).index == 2
                 && map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(0, point.x, point.y)
-                holdingBlock = this.add.image(0, 0, 'tiles')
-                holdingBlock.setCrop(68, 0, 34, 34)
-                holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
-                holdingBlock.setScale(1.25)
+                acquireBlock(this)
                 this.pickUpSound.play()
             }
         }
@@ -287,6 +305,9 @@ function update (time)
         if (Phaser.Input.Keyboard.JustUp(cursors.up)) {
             player.setVelocityY(0)
         }
+        if (!holdingBlock && Phaser.Input.Keyboard.JustDown(keyB)) {
+            acquireBlock(this)
+        }
     }
 
     if (holdingBlock)
@@ -318,6 +339,17 @@ function onLevelComplete(){
     this.scene.restart()
 }
 
+function acquireBlock(game) {
+    holdingBlock = game.add.image(0, 0, 'tiles')
+    holdingBlock.setCrop(68, 0, 34, 34)
+    holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
+    holdingBlock.setScale(1.25)
+}
+
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max)
+}
+
 function convertSecondsToTimestring(seconds) {
     let hours = String(Math.floor(seconds / 3600))
     seconds -= hours * 3600
@@ -329,7 +361,7 @@ function convertSecondsToTimestring(seconds) {
 }
 
 function convertTilesToXPixels(tiles){
-    return (tiles - 0.5) * TILE_SIZE
+    return (tiles + 0.5) * TILE_SIZE
 }
 function convertTilesToYPixels(tiles){
     return config.height - (tiles + 0.5) * TILE_SIZE
