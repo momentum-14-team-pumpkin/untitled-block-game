@@ -43,43 +43,50 @@ let keyM
 
 let game = new Phaser.Game(config)
 
+let preloadReady
 function preload() {
+    preloadReady = false
+    this.cache.json.remove('map-data')
+    this.load.json('map-data', `/static/assets/level-${level}.json`)
     this.load.image('bg', '/static/assets/city_PNG48.png')
     this.load.image('tiles', '/static/assets/drawtiles-spaced.png')
-    this.load.tilemapCSV('map', '/static/assets/grid.csv')
-    this.load.tilemapCSV('newlevel', '/static/assets/newlevel.csv')
     this.load.image('door', '/static/assets/door.png')
     this.load.spritesheet('player', '/static/assets/player.png', { frameWidth: 32, frameHeight: 40 })
     this.load.audio('pick', '/static/assets/audio/pickup.wav')
     this.load.audio('put', '/static/assets/audio/putdown.wav')
     this.load.audio('jump', '/static/assets/audio/jump.wav')
-    this.load.audio('song', '/static/assets/audio/Level1.mp3')
     this.load.audio('exit', '/static/assets/audio/door-open.wav')
-    this.load.audio('song2', '/static/assets/audio/backgroundMusic.mp3')
-
+    this.load.once('complete', () => {
+        const mapData = this.cache.json.get('map-data')
+        this.cache.tilemap.remove('map')
+        this.cache.audio.remove('song')
+        this.load.tilemapCSV('map', `/static/assets/${mapData.tile_data}`)
+        this.load.audio('song', `/static/assets/audio/${mapData.song}`)
+        this.load.start()
+        this.load.once('complete', () => {
+            preloadReady = true
+            this.create()
+        })
+    })
 }
 
 function create() {
+    if (!preloadReady) {
+        return
+    }
+
+    const mapData = this.cache.json.get('map-data')
     this.add.image(config.width/2, config.height/2, 'bg').setScale(config.width/512)
     let doors = this.physics.add.staticGroup()
-    player = this.physics.add.sprite(convertTilesToXPixels(17), convertTilesToYPixels(5)-4, 'player')
-    if (level == 0){
-        map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
-        doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
-        this.song = this.sound.add('song')
-        this.song.loop = true
-        if (musicOn) {
-            this.song.play()
-        }
-    }
-    if (level == 1){
-        map = this.make.tilemap({ key: 'newlevel', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
-        doors.create(convertTilesToXPixels(22), convertTilesToYPixels(7), 'door')
-        this.song = this.sound.add('song2')
-        this.song.loop = true
-        if (musicOn) {
-            this.song.play()
-        }
+    map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
+    player = this.physics.add.sprite(convertTilesToXPixels(mapData.player_start.x),
+        convertTilesToYPixels(mapData.player_start.y) - 4, 'player')
+    doors.create(convertTilesToXPixels(mapData.level_exit.x),
+        convertTilesToYPixels(mapData.level_exit.y), 'door')
+    this.song = this.sound.add('song')
+    this.song.loop = true
+    if (musicOn) {
+        this.song.play()
     }
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
     let layer = map.createLayer(0, tileset, 0, 60)
@@ -159,7 +166,7 @@ function create() {
 
 function update (time, delta)
 {
-    if (gameOver)
+    if (!preloadReady || gameOver)
     {
         return
     }
@@ -340,7 +347,7 @@ function convertSecondsToTimestring(seconds) {
 }
 
 function convertTilesToXPixels(tiles){
-    return (tiles - 0.5) * TILE_SIZE
+    return (tiles + 0.5) * TILE_SIZE
 }
 function convertTilesToYPixels(tiles){
     return config.height - (tiles + 0.5) * TILE_SIZE
