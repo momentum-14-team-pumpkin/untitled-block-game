@@ -38,6 +38,9 @@ let musicOn = true
 const haxCode = "UUDDLRLR"
 let level = 0
 
+let keyB
+let keyM
+
 let game = new Phaser.Game(config)
 
 function preload() {
@@ -91,13 +94,11 @@ function create() {
     this.exitSound = this.sound.add('exit')
     
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
+    keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
     timeText = this.add.text(50, 20)
 
     if (holdingBlock) {
-        holdingBlock = this.add.image(0, 0, 'tiles')
-        holdingBlock.setCrop(68, 0, 34, 34)
-        holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
-        holdingBlock.setScale(1.25)
+        acquireBlock(this)
     }
 
 
@@ -250,10 +251,7 @@ function update (time, delta)
             if (map.getTileAt(point.x, point.y).index == 2
                 && map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(0, point.x, point.y)
-                holdingBlock = this.add.image(0, 0, 'tiles')
-                holdingBlock.setCrop(68, 0, 34, 34)
-                holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
-                holdingBlock.setScale(1.25)
+                acquireBlock(this)
                 this.pickUpSound.play()
             }
         }
@@ -286,6 +284,9 @@ function update (time, delta)
         if (Phaser.Input.Keyboard.JustUp(cursors.up)) {
             player.setVelocityY(0)
         }
+        if (!holdingBlock && Phaser.Input.Keyboard.JustDown(keyB)) {
+            acquireBlock(this)
+        }
     }
 
     if (holdingBlock)
@@ -315,6 +316,13 @@ function onLevelComplete(){
     }
     // victory = true
     this.scene.restart()
+}
+
+function acquireBlock(game) {
+    holdingBlock = game.add.image(0, 0, 'tiles')
+    holdingBlock.setCrop(68, 0, 34, 34)
+    holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
+    holdingBlock.setScale(1.25)
 }
 
 function clamp(value, min, max) {
