@@ -37,6 +37,8 @@ let levelStart = null
 let musicOn = true
 const haxCode = "UUDDLRLR"
 let level = 0
+let timerDelay = 3000
+let startTimer = false
 
 let game = new Phaser.Game(config)
 
@@ -65,14 +67,18 @@ function create() {
         doors.create(convertTilesToXPixels(2), convertTilesToYPixels(6), 'door')
         this.song = this.sound.add('song')
         this.song.loop = true
-        this.song.play()
+        if (musicOn) {
+            this.song.play()
+        }
     }
     if (level == 1){
         map = this.make.tilemap({ key: 'newlevel', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
         doors.create(convertTilesToXPixels(22), convertTilesToYPixels(7), 'door')
-        this.song2 = this.sound.add('song2')
-        this.song2.loop = true
-        this.song2.play()
+        this.song = this.sound.add('song2')
+        this.song.loop = true
+        if (musicOn) {
+            this.song.play()
+        }
     }
     let tileset = map.addTilesetImage('tiles', null, 32, 32, 1, 2)
     let layer = map.createLayer(0, tileset, 0, 60)
@@ -87,7 +93,17 @@ function create() {
     this.exitSound = this.sound.add('exit')
     
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
+    
+    // if(startTimer === true){
     timeText = this.add.text(50, 20)
+    // }
+
+    if (holdingBlock) {
+        holdingBlock = this.add.image(0, 0, 'tiles')
+        holdingBlock.setCrop(68, 0, 34, 34)
+        holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
+        holdingBlock.setScale(1.25)
+    }
 
 
     this.anims.create({
@@ -156,9 +172,11 @@ function update (time)
         if (!levelStart) {
             levelStart = time
         }
+        if((time - levelStart) > timerDelay){
         timeText.setText(`Time: ${
-            convertSecondsToTimestring((time - levelStart) / 1000)
+            convertSecondsToTimestring((time - levelStart - timerDelay) / 1000)
         }`)
+    }
     }
 
     if (Phaser.Input.Keyboard.JustDown(keyM)){
