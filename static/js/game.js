@@ -39,6 +39,8 @@ let musicOn = true
 const haxCode = "UUDDLRLR"
 let level = 0
 let timerDelay = 3000
+let accelXL = -150
+let accelXR = 150
 
 let keyB
 let keyM
@@ -179,11 +181,16 @@ function update (time, delta)
             levelStart = time
         }
         if((time - levelStart) < timerDelay){
+            accelXL = 0
+            accelXR = 0
+            player.body.setVelocityX(0)
             startTimerText.setText(`${
                 convertSecondsToTimeStringForDelay((levelStart - time + timerDelay) / 1000)
             }`)
         }
         if((time - levelStart) > timerDelay){
+            accelXL = -150
+            accelXR = 150
             startTimerText.destroy()
             timeText.setText(`Time: ${
             convertSecondsToTimestring((time - levelStart - timerDelay) / 1000)
@@ -235,7 +242,7 @@ function update (time, delta)
         || cursors.right.isDown)
     {
         facing = cursors.left.isDown ? 'left' : 'right'
-        player.setVelocityX(clamp(velX + delta / 1000 * (facing == 'left' ? -accelForce : accelForce), -150, 150))
+        player.setVelocityX(clamp(velX + delta / 1000 * (facing == 'left' ? -accelForce : accelForce), accelXL, accelXR))
         state = 'walk'
     }
     else
