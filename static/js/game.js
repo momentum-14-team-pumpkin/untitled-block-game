@@ -361,7 +361,6 @@ function convertSecondsToTimestring(seconds) {
 }
 
 function convertSecondsToTimeStringForDelay(seconds) {
-    let fracSecs = seconds % 1
     seconds = String(Math.ceil(seconds)).padStart(1, '0')
     return `${seconds}`
 }
