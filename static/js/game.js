@@ -36,11 +36,13 @@ let timeText
 let startTimerText
 let levelStart = null
 let musicOn = true
+let soundEffectsOn = true
 const haxCode = "UUDDLRLR"
-let level = 0
+let level = 1
 let timerDelay = 3000
 let accelXL = -150
 let accelXR = 150
+let numOfLevels = 3
 
 let keyB
 let keyM
@@ -51,11 +53,9 @@ let preloadReady
 function preload() {
     preloadReady = false
     this.cache.json.remove('map-data')
-    this.load.json('map-data', `/static/assets/level-${level}.json`)
-    this.load.image('bg', '/static/assets/city_PNG48.png')
-    this.load.image('tiles', '/static/assets/drawtiles-spaced.png')
-    this.load.image('door', '/static/assets/door.png')
-    this.load.spritesheet('player', '/static/assets/player.png', { frameWidth: 32, frameHeight: 40 })
+    this.load.json('map-data', `/static/assets/levels/level-${level}.json`)
+    this.load.spritesheet('door', '/static/assets/images/portal.png', { frameWidth: 40, frameHeight: 40 })
+    this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
     this.load.audio('pick', '/static/assets/audio/pickup.wav')
     this.load.audio('put', '/static/assets/audio/putdown.wav')
     this.load.audio('jump', '/static/assets/audio/jump.wav')
@@ -64,8 +64,12 @@ function preload() {
         const mapData = this.cache.json.get('map-data')
         this.cache.tilemap.remove('map')
         this.cache.audio.remove('song')
-        this.load.tilemapCSV('map', `/static/assets/${mapData.tile_data}`)
+        this.textures.remove('tiles')
+        this.textures.remove('bg')
+        this.load.image('tiles', `/static/assets/images/${mapData.tiles}`)
+        this.load.tilemapCSV('map', `/static/assets/maps/${mapData.tile_data}`)
         this.load.audio('song', `/static/assets/audio/${mapData.song}`)
+        this.load.image('bg', `/static/assets/images/${mapData.bg}`)
         this.load.start()
         this.load.once('complete', () => {
             preloadReady = true
@@ -81,12 +85,11 @@ function create() {
 
     const mapData = this.cache.json.get('map-data')
     this.add.image(config.width/2, config.height/2, 'bg').setScale(config.width/512)
-    let doors = this.physics.add.staticGroup()
+    let doors = this.physics.add.staticSprite(convertTilesToXPixels(mapData.level_exit.x),
+    convertTilesToYPixels(mapData.level_exit.y), 'door')
     map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
     player = this.physics.add.sprite(convertTilesToXPixels(mapData.player_start.x),
         convertTilesToYPixels(mapData.player_start.y) - 4, 'player')
-    doors.create(convertTilesToXPixels(mapData.level_exit.x),
-        convertTilesToYPixels(mapData.level_exit.y), 'door')
     this.song = this.sound.add('song')
     this.song.loop = true
     if (musicOn) {
@@ -104,15 +107,28 @@ function create() {
     this.jumpSound = this.sound.add('jump')
     this.exitSound = this.sound.add('exit')
     
+    keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
     keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
-    timeText = this.add.text(50, 20)
+    keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
+    keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N)
+    keyp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
+
+    timeText = this.add.text(50, 30)
     startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#f5ee20'})
 
     if (holdingBlock) {
         acquireBlock(this)
     }
 
+    this.anims.create({
+        key: 'rotate',
+        frames: this.anims.generateFrameNumbers('door', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    })
+
+    doors.play('rotate')
 
     this.anims.create({
         key: 'stand-left',
@@ -210,6 +226,17 @@ function update (time, delta)
             return
         }
     }
+    if (Phaser.Input.Keyboard.JustDown(keyE)){
+        if (soundEffectsOn){
+            soundEffectsOn = false
+            return
+        }
+        if (!soundEffectsOn){
+            soundEffectsOn = true
+            return
+        }
+    }
+
 
     function advanceHax(char) {
         if (zomgHax) {
@@ -259,8 +286,9 @@ function update (time, delta)
     if (Phaser.Input.Keyboard.JustDown(cursors.space) && player.body.blocked.down)
     {
         player.setVelocityY(-350)
-        this.jumpSound.play()
-
+        if (soundEffectsOn){
+            this.jumpSound.play()
+        }
     }
 
     if (Phaser.Input.Keyboard.JustDown(cursors.down))
@@ -277,7 +305,9 @@ function update (time, delta)
                 && map.getTileAt(point.x, point.y -1).index == 0){
                 map.putTileAt(0, point.x, point.y)
                 acquireBlock(this)
-                this.pickUpSound.play()
+                if (soundEffectsOn){
+                    this.pickUpSound.play()
+                }
             }
         }
         else {
@@ -294,9 +324,12 @@ function update (time, delta)
                     point.y++
                 }
                 map.putTileAt(2, point.x, point.y)
+                player.body.setSize(32, 40)
                 holdingBlock.destroy()
                 holdingBlock = null
-                this.putDownSound.play()
+                if (soundEffectsOn){
+                    this.putDownSound.play()
+                }
             }
         }
         advanceHax('D')
@@ -312,23 +345,42 @@ function update (time, delta)
         if (!holdingBlock && Phaser.Input.Keyboard.JustDown(keyB)) {
             acquireBlock(this)
         }
+        if (Phaser.Input.Keyboard.JustDown(keyR)){
+            this.song.destroy()
+            this.scene.restart()
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyN) && level < numOfLevels){
+            this.song.destroy()
+            level += 1
+            this.scene.restart()
+        }
     }
 
     if (holdingBlock)
     {
         holdingBlock.x = player.x - TILE_SIZE - 2
         holdingBlock.y = player.y - TILE_SIZE
+        player.body.setSize(32, 80).setOffset(0, -40)
+
     }
 
 }
 
 function onLevelComplete(){
     this.song.destroy()
-    this.exitSound.play()
+    if (soundEffectsOn){
+        this.exitSound.play()
+    }
     level += 1
-    if (level > 1){
+    if (level > numOfLevels){
         alert ("YOU'RE WINNER OF GAME")
-        level = 0
+        let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
+        if (restartLevel == "y" || restartLevel == "yes"){
+            level -= 1
+        } else{
+        alert ("Returning to first level")
+        level = 1
+    }
     } else {
         alert ("YOU'RE WINNER")
         let restartLevel = prompt("Do you want to restart the level?").toLowerCase()

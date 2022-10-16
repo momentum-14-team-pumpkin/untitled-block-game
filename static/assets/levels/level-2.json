@@ -1,0 +1,14 @@
+{
+    "song": "Level1.mp3",
+    "tile_data": "level2.csv",
+    "tiles": "ice-tiles.png",
+    "bg": "ice-age.png",
+    "player_start": {
+        "x": 16,
+        "y": 3
+    },
+    "level_exit": {
+        "x": 21,
+        "y": 7
+    }
+}
