@@ -5,6 +5,7 @@ import useLocalStorageState from 'use-local-storage-state';
 import { Register } from './components/register';
 import axios from 'axios';
 import { HomePage } from './components/homepage';
+import '/static/css/index.css'
 
 function App() {
     const [token, setToken] = useLocalStorageState('BlockOfTimeToken', null )
