@@ -33,19 +33,21 @@ function App() {
 
     const isLoggedIn = username && token
 
+
     return (
         <>
+        <div style={{backgroundImage:'URL(/static/assets/brick-black.png)', backgroundSize:'cover', minHeight:'100vh',}}>
         <BrowserRouter>
         <HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>
             <Routes>
             <Route
                 path="*"
                 element={
-                <main>
+                    <main>
                     <p>  Welcome </p>
                 </main>
                 }
-            />  
+                />  
             <Route path="/Login"
             element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
             />
@@ -53,6 +55,7 @@ function App() {
             />
             </Routes>          
         </BrowserRouter>
+        </div>
         </>
     )
 }
