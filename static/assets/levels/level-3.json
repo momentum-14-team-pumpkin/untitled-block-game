@@ -1,0 +1,14 @@
+{
+    "song": "Level1.mp3",
+    "tile_data": "level3.csv",
+    "tiles": "rock-tiles.png",
+    "bg": "cave.png",
+    "player_start": {
+        "x": 5,
+        "y": 1
+    },
+    "level_exit": {
+        "x": 19,
+        "y": 9
+    }
+}

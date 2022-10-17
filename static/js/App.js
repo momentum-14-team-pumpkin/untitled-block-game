@@ -6,6 +6,7 @@ import { Register } from './components/register';
 import axios from 'axios';
 import { HomePage } from './components/homepage';
 import { LeaderboardOne } from './components/leaderboard1';
+import '/static/css/index.css'
 
 function App() {
     const [token, setToken] = useLocalStorageState('BlockOfTimeToken', null )
@@ -33,20 +34,22 @@ function App() {
     }
 
     const isLoggedIn = username && token
-    console.log(setAuth)
+
+
     return (
         <>
+        <div style={{backgroundImage:'URL(/static/assets/brick-black.png)', backgroundSize:'cover', minHeight:'100vh',}}>
         <BrowserRouter>
         <HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout} setAuth={setAuth} token={token}/>
             <Routes>
             <Route
                 path="*"
                 element={
-                <main>
+                    <main>
                     <p>  Welcome </p>
                 </main>
                 }
-            />  
+                />  
             <Route path="/Login"
             element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} 
             />
@@ -55,6 +58,7 @@ function App() {
             <Route path='/leaderboard1' element={<LeaderboardOne />} />
             </Routes>          
         </BrowserRouter>
+        </div>
         </>
     )
 }
