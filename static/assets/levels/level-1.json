@@ -1,6 +1,8 @@
 {
     "song": "Level1.mp3",
-    "tile_data": "grid.csv",
+    "tile_data": "level1.csv",
+    "tiles": "drawtiles-spaced.png",
+    "bg": "city_PNG48.png",
     "player_start": {
         "x": 16,
         "y": 5
