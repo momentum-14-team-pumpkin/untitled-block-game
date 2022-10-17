@@ -112,7 +112,7 @@ function create() {
     keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
     keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
     keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N)
-    keyp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
+    keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
 
     levelStart = null
     timeText = this.add.text(50, 30)
@@ -237,6 +237,10 @@ function update (time, delta)
             return
         }
     }
+    if (Phaser.Input.Keyboard.JustDown(keyR)){
+        this.song.destroy()
+        this.scene.restart()
+    }
 
 
     function advanceHax(char) {
@@ -346,13 +350,14 @@ function update (time, delta)
         if (!holdingBlock && Phaser.Input.Keyboard.JustDown(keyB)) {
             acquireBlock(this)
         }
-        if (Phaser.Input.Keyboard.JustDown(keyR)){
-            this.song.destroy()
-            this.scene.restart()
-        }
         if (Phaser.Input.Keyboard.JustDown(keyN) && level < numOfLevels){
             this.song.destroy()
             level += 1
+            this.scene.restart()
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyP) && level > 1){
+            this.song.destroy()
+            level -= 1
             this.scene.restart()
         }
     }
