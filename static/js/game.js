@@ -316,3 +316,20 @@ function convertTilesToXPixels(tiles){
 function convertTilesToYPixels(tiles){
     return config.height - (tiles + 0.5) * TILE_SIZE
 }
+
+const axios = require('axios')
+
+async function doPostRequest() {
+    
+    let params = {
+        'id' : id,
+        'username' : username,
+        'time': timeForLevel,
+    }
+
+    let res = await axios.post('https://young-plateau-94674.herokuapp.com/times/')
+    let data =res.data
+}
+if (victory) {
+    doPostRequest()
+}

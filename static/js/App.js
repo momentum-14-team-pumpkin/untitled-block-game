@@ -5,6 +5,7 @@ import useLocalStorageState from 'use-local-storage-state';
 import { Register } from './components/register';
 import axios from 'axios';
 import { HomePage } from './components/homepage';
+import { LeaderboardOne } from './components/leaderboard1';
 
 function App() {
     const [token, setToken] = useLocalStorageState('BlockOfTimeToken', null )
@@ -32,11 +33,11 @@ function App() {
     }
 
     const isLoggedIn = username && token
-
+    console.log(setAuth)
     return (
         <>
         <BrowserRouter>
-        <HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>
+        <HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout} setAuth={setAuth} token={token}/>
             <Routes>
             <Route
                 path="*"
@@ -47,10 +48,11 @@ function App() {
                 }
             />  
             <Route path="/Login"
-            element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
+            element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} 
             />
-            <Route path="/Register/" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
+            <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
             />
+            <Route path='/leaderboard1' element={<LeaderboardOne />} />
             </Routes>          
         </BrowserRouter>
         </>

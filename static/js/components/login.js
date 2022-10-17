@@ -1,9 +1,9 @@
 import React from "react"
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 
-export const Login = ({setAuth}) => {
+export const Login = ({setAuth, isLoggedIn, handleLogout}) => {
     const navigate = useNavigate()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -19,10 +19,11 @@ export const Login = ({setAuth}) => {
             password: password,
         })
         .then((res) => {
-            console.log(res.data)
+            setUsername(res.data)
+            // console.log(res.data)
             const token = res.data.auth_token
             setAuth(username, token)
-            navigate('/')
+            navigate('/homepage/')
 
         })
         .catch((error) => {
@@ -35,10 +36,11 @@ export const Login = ({setAuth}) => {
         })
         console.log(username, password)
     }
-    
+
+    if (!isLoggedIn){
     return (  
         <>
-        <div style={{border:'solid', margin:'auto'}}>
+        <div style={{textAlign:'center'}}>
         <h1>Sign In</h1>
         <form id="login-form" onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
@@ -75,5 +77,22 @@ export const Login = ({setAuth}) => {
             </div>
         </div>
         </>
-    )
+    )}
+
+    else{
+        return(
+            <>
+            <div style={{textAlign:'center'}}>
+                <div >
+                    <p>Ready to play {username}?</p>
+                </div>
+                <div>
+                    <Link to="/homepage/" onClick={handleLogout} style={{textDecoration:'none', color:'darkgray', paddingRight:'30px'}}>
+                    Logout</Link>
+                </div>
+            
+            </div>
+            </>
+        )
+    }
 }

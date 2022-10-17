@@ -40,7 +40,7 @@ export const Register = ({setAuth, isLoggedIn}) => {
         }
 
         if (isLoggedIn) {
-            return <Navigate to="/" />
+            return <Navigate to="/homepage/" />
         }
 
     return (  
