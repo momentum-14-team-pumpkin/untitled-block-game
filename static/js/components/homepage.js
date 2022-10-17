@@ -1,16 +1,19 @@
 import { NavBar } from "./navbar"
 import React from "react"
+import "/static/css/index.css"
 
 
 export const HomePage =()=> {
 
 return(
     <>
-    <h1 style={{fontSize:'70px', fontWeight:'600', backgroundImage:'URL(/static/assets/onetile.png)', backgroundSize:'contain', backgroundRepeat:'repeat', color:'transparent', WebkitBackgroundClip:'text', backgroundClip:'text', textAlign:'center'}}
+    <div>
+    <h1 style={{fontFamily:'Bungee', textTransform:'uppercase', fontSize:'84px', fontWeight:'600',  color:'white', textAlign:'center'}}
     >Blocks of Time </h1>
     <header style={{alignItems:'center'}}>
     <NavBar />
     </header>
+    </div>
     </>
 )
 

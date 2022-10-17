@@ -5,6 +5,7 @@ import useLocalStorageState from 'use-local-storage-state';
 import { Register } from './components/register';
 import axios from 'axios';
 import { HomePage } from './components/homepage';
+import '/static/css/index.css'
 
 function App() {
     const [token, setToken] = useLocalStorageState('BlockOfTimeToken', null )
@@ -33,19 +34,21 @@ function App() {
 
     const isLoggedIn = username && token
 
+
     return (
         <>
+        <div style={{backgroundImage:'URL(/static/assets/brick-black.png)', backgroundSize:'cover', minHeight:'100vh',}}>
         <BrowserRouter>
         <HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>
             <Routes>
             <Route
                 path="*"
                 element={
-                <main>
+                    <main>
                     <p>  Welcome </p>
                 </main>
                 }
-            />  
+                />  
             <Route path="/Login"
             element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
             />
@@ -53,6 +56,7 @@ function App() {
             />
             </Routes>          
         </BrowserRouter>
+        </div>
         </>
     )
 }
