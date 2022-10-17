@@ -42,7 +42,7 @@ let level = 1
 let timerDelay = 3000
 let accelXL = -150
 let accelXR = 150
-let numOfLevels = 3
+let numOfLevels = 4
 
 let keyB
 let keyM
