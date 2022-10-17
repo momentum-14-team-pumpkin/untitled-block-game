@@ -14,5 +14,5 @@ class TimeTrial(models.Model):
     time = models.FloatField(null=True, blank=True, default=None)
 
     def __str__(self):
-        return f'{self.player.username} completed in {self.time} seconds'
+        return f'{self.player.username} completed level:{self.level} in {self.time} seconds'
 
