@@ -114,6 +114,7 @@ function create() {
     keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N)
     keyp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
 
+    levelStart = null
     timeText = this.add.text(50, 30)
     startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#f5ee20'})
 
@@ -367,6 +368,7 @@ function update (time, delta)
 }
 
 function onLevelComplete(){
+    completionTime = (this.time.now - levelStart - timerDelay) / 1000 - 1 / 60
     this.song.destroy()
     if (soundEffectsOn){
         this.exitSound.play()
