@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
 
 class TimeTrial(models.Model):
     player = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True, related_name='times')
+    level = models.PositiveIntegerField(null=True, blank=True, default=None)
     time = models.FloatField(null=True, blank=True, default=None)
 
     def __str__(self):
