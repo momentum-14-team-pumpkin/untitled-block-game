@@ -44,6 +44,9 @@ let accelXL = -150
 let accelXR = 150
 let numOfLevels = 3
 
+let groundAccel = 1000
+let airAccel = 200
+
 let keyB
 let keyM
 
@@ -92,6 +95,8 @@ function create() {
         convertTilesToYPixels(mapData.player_start.y) - 4, 'player')
     this.song = this.sound.add('song')
     this.song.loop = true
+    groundAccel = mapData.accel.ground
+    airAccel = mapData.accel.air
     if (musicOn) {
         this.song.play()
     }
@@ -264,7 +269,7 @@ function update (time, delta)
     }
 
     let state
-    const accelForce = player.body.blocked.down ? 1000 : 200
+    const accelForce = player.body.blocked.down ? groundAccel : airAccel
     const velX = player.body.velocity.x
     if (cursors.left.isDown
         || cursors.right.isDown)
