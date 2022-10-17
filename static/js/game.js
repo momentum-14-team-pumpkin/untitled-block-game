@@ -217,7 +217,6 @@ function update (time, delta)
         }`)
     }
 }
-
     if (Phaser.Input.Keyboard.JustDown(keyM)){
         if (musicOn){
             this.song.stop()
@@ -242,6 +241,7 @@ function update (time, delta)
     }
     if (Phaser.Input.Keyboard.JustDown(keyR)){
         this.song.destroy()
+        speedRun += (time - levelStart - timerDelay) / 1000
         this.scene.restart()
     }
 
@@ -384,13 +384,8 @@ function onLevelComplete(){
     }
     level += 1
     if (level > numOfLevels){
-        if (fullRunTime == 0){
-            fullRunTime = speedRun
-        } else {
-            fullRunTime = speedRun - fullRunTime
-        }
-        console.log(speedRun)
-        console.log(fullRunTime)
+        fullRunTime = speedRun
+        speedRun = 0
         alert ("YOU'RE WINNER OF GAME")
         let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
         if (restartLevel == "y" || restartLevel == "yes"){
