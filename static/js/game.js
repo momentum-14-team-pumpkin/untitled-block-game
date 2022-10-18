@@ -46,6 +46,7 @@ let accelXR = 150
 let numOfLevels = 4
 let speedRun = 0
 let fullRunTime = 0
+let levelText
 
 let groundAccel = 1000
 let airAccel = 200
@@ -129,6 +130,7 @@ function create() {
     modCtrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
 
     levelStart = null
+    levelText = this.add.text(50, 15)
     timeText = this.add.text(50, 30)
     startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#fc7303'})
 
@@ -295,7 +297,7 @@ function update (time, delta)
         if (player.body.blocked.down)
         {
             const absVelX = Math.abs(velX)
-            player.setVelocityX(velX - clamp(delta / 1000 * Math.sign(velX) * accelForce, -absVelX, absVelX))
+            player.setVelocityX(velX - clamp(delta / 1000 * Math.sign(velX) * Math.abs(accelForce), -absVelX, absVelX))
         }
         state = 'stand'
     }
