@@ -78,5 +78,5 @@ class FullRunTimeTrial(generics.ListCreateAPIView):
         serializer.save(full_run=True, player=player)
 
 
-def homepage(req):
+def homepage(req, **kwargs):
     return render(req, "game/homepage.html")
