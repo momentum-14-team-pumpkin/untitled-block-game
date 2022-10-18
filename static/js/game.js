@@ -8,6 +8,7 @@ let config = {
     type: Phaser.AUTO,
     width: TILE_SIZE * 22,
     height: TILE_SIZE * 11.5,
+    backgroundColor: "#87ceeb",
     pixelArt: true,
     physics: {
         default: 'arcade',
@@ -43,6 +44,8 @@ let timerDelay = 3000
 let accelXL = -150
 let accelXR = 150
 let numOfLevels = 4
+let speedRun = 0
+let fullRunTime = 0
 
 let keyB
 let keyM
@@ -116,7 +119,7 @@ function create() {
 
     levelStart = null
     timeText = this.add.text(50, 30)
-    startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#f5ee20'})
+    startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#fc7303'})
 
     if (holdingBlock) {
         acquireBlock(this)
@@ -214,7 +217,6 @@ function update (time, delta)
         }`)
     }
 }
-
     if (Phaser.Input.Keyboard.JustDown(keyM)){
         if (musicOn){
             this.song.stop()
@@ -239,6 +241,7 @@ function update (time, delta)
     }
     if (Phaser.Input.Keyboard.JustDown(keyR)){
         this.song.destroy()
+        speedRun += (time - levelStart - timerDelay) / 1000
         this.scene.restart()
     }
 
@@ -374,12 +377,15 @@ function update (time, delta)
 
 function onLevelComplete(){
     completionTime = (this.time.now - levelStart - timerDelay) / 1000 - 1 / 60
+    speedRun = speedRun + completionTime
     this.song.destroy()
     if (soundEffectsOn){
         this.exitSound.play()
     }
     level += 1
     if (level > numOfLevels){
+        fullRunTime = speedRun
+        speedRun = 0
         alert ("YOU'RE WINNER OF GAME")
         let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
         if (restartLevel == "y" || restartLevel == "yes"){
