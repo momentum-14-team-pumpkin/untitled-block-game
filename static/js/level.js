@@ -18,9 +18,6 @@ class LevelScene extends Phaser.Scene {
         this.accelXR = 150
         this.speedRun = 0
         this.fullRunTime = 0
-
-        this.groundAccel = 1000
-        this.airAccel = 200
     }
 
     preload() {
