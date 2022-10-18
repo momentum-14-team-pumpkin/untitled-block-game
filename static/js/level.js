@@ -18,7 +18,6 @@ class LevelScene extends Phaser.Scene {
         this.timerDelay = 3000
         this.accelXL = -150
         this.accelXR = 150
-        this.numOfLevels = 4
         this.speedRun = 0
         this.fullRunTime = 0
 
@@ -310,7 +309,7 @@ class LevelScene extends Phaser.Scene {
             if (!this.holdingBlock && Phaser.Input.Keyboard.JustDown(this.keyB)) {
                 this.acquireBlock(this)
             }
-            if (Phaser.Input.Keyboard.JustDown(this.keyN) && this.level < this.numOfLevels){
+            if (Phaser.Input.Keyboard.JustDown(this.keyN) && this.level < NUM_OF_LEVELS){
                 this.song.destroy()
                 this.level += 1
                 this.scene.restart()
@@ -338,7 +337,7 @@ class LevelScene extends Phaser.Scene {
             this.exitSound.play()
         }
         this.level += 1
-        if (this.level > this.numOfLevels){
+        if (this.level > NUM_OF_LEVELS){
             this.fullRunTime = this.speedRun
             this.speedRun = 0
             alert ("YOU'RE WINNER OF GAME")
