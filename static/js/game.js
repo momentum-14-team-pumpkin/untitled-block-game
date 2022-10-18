@@ -1,4 +1,4 @@
-const TILE_SIZE = 40
+"use strict"
 
 let config = {
     scale: {
@@ -52,7 +52,12 @@ let groundAccel = 1000
 let airAccel = 200
 
 let keyB
+let keyE
 let keyM
+let keyN
+let keyP
+let keyR
+let modCtrl
 
 let game = new Phaser.Game(config)
 
@@ -116,12 +121,13 @@ function create() {
     this.jumpSound = this.sound.add('jump')
     this.exitSound = this.sound.add('exit')
     
+    keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
     keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
-    keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
-    keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
     keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N)
     keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
+    keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
+    modCtrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
 
     levelStart = null
     levelText = this.add.text(50, 15)
@@ -202,29 +208,27 @@ function update (time, delta)
     {
         return
     }
-    else
-    {
-        if (!levelStart) {
-            levelStart = time
-        }
-        if((time - levelStart) < timerDelay){
-            accelXL = 0
-            accelXR = 0
-            player.body.setVelocityX(0)
-            startTimerText.setText(`${
-                convertSecondsToTimeStringForDelay((levelStart - time + timerDelay) / 1000)
-            }`)
-        }
-        if((time - levelStart) > timerDelay){
-            levelText.setText(`Level: ${level}`)
-            accelXL = -150
-            accelXR = 150
-            startTimerText.destroy()
-            timeText.setText(`Time: ${
+
+    if (!levelStart) {
+        levelStart = time
+    }
+    if((time - levelStart) < timerDelay){
+        accelXL = 0
+        accelXR = 0
+        player.body.setVelocityX(0)
+        startTimerText.setText(`${
+            convertSecondsToTimeStringForDelay((levelStart - time + timerDelay) / 1000)
+        }`)
+    }
+    if((time - levelStart) > timerDelay){
+        accelXL = -150
+        accelXR = 150
+        startTimerText.destroy()
+        timeText.setText(`Time: ${
             convertSecondsToTimestring((time - levelStart - timerDelay) / 1000)
         }`)
     }
-}
+
     if (Phaser.Input.Keyboard.JustDown(keyM)){
         if (musicOn){
             this.song.stop()
