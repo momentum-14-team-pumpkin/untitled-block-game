@@ -5,7 +5,9 @@ import useLocalStorageState from 'use-local-storage-state';
 import { Register } from './components/register';
 import axios from 'axios';
 import { HomePage } from './components/homepage';
+import { Leaderboard } from './components/leaderboard';
 import '/static/css/index.css'
+
 
 function App() {
     const [token, setToken] = useLocalStorageState('BlockOfTimeToken', null )
@@ -19,7 +21,7 @@ function App() {
     const handleLogout = () => {
         axios
         .post(
-        'https://young-plateau-94674.herokuapp.com/token/logout',
+        'https://young-plateau-94674.herokuapp.com/auth/token/logout',
         {},
         {
             headers: {
@@ -37,9 +39,9 @@ function App() {
 
     return (
         <>
-        <div style={{backgroundImage:'URL(/static/assets/images/brick-black.png)', backgroundSize:'cover', minHeight:'100vh',}}>
+        <div style={{backgroundImage:'URL(/static/assets/images/brick-black.png)', minWidth:'100vw' ,backgroundSize:'cover', minHeight:'100vh'}}>
         <BrowserRouter>
-        <HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>
+        <HomePage isLoggedIn={isLoggedIn} currUsername={username} handleLogout={handleLogout} setAuth={setAuth} token={token}/>
             <Routes>
             <Route
                 path="*"
@@ -50,10 +52,13 @@ function App() {
                 }
                 />  
             <Route path="/Login"
-            element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
+            element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>} 
             />
-            <Route path="/Register/" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
+            <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
             />
+            <Route path='/leaderboard1' element={<Leaderboard level={1}/>} />
+            <Route path='/leaderboard2' element={<Leaderboard level={2}/>} />
+            <Route path='/leaderboard3' element={<Leaderboard level={3} />} />
             </Routes>          
         </BrowserRouter>
         </div>
