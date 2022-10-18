@@ -118,12 +118,12 @@ function create() {
     this.jumpSound = this.sound.add('jump')
     this.exitSound = this.sound.add('exit')
     
+    keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
     keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
     keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
-    keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
-    keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
     keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N)
     keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
+    keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
     modCtrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
 
     levelStart = null
