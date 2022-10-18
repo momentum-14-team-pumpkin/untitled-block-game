@@ -14,7 +14,6 @@ class LevelScene extends Phaser.Scene {
         this.musicOn = true
         this.soundEffectsOn = true
         this.level = 1
-        this.timerDelay = 3000
         this.accelXL = -150
         this.accelXR = 150
         this.speedRun = 0
@@ -170,20 +169,20 @@ class LevelScene extends Phaser.Scene {
         if (!this.levelStart) {
             this.levelStart = time
         }
-        if((time - this.levelStart) < this.timerDelay){
+        if((time - this.levelStart) < TIMER_DELAY){
             this.accelXL = 0
             this.accelXR = 0
             this.player.body.setVelocityX(0)
             this.startTimerText.setText(`${
-                convertSecondsToTimeStringForDelay((this.levelStart - time + this.timerDelay) / 1000)
+                convertSecondsToTimeStringForDelay((this.levelStart - time + TIMER_DELAY) / 1000)
             }`)
         }
-        if((time - this.levelStart) > this.timerDelay){
+        if((time - this.levelStart) > TIMER_DELAY){
             this.accelXL = -150
             this.accelXR = 150
             this.startTimerText.destroy()
             this.timeText.setText(`Time: ${
-                convertSecondsToTimestring((time - this.levelStart - this.timerDelay) / 1000)
+                convertSecondsToTimestring((time - this.levelStart - TIMER_DELAY) / 1000)
             }`)
         }
 
@@ -211,7 +210,7 @@ class LevelScene extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyR)){
             this.song.destroy()
-            this.speedRun += (time - this.levelStart - this.timerDelay) / 1000
+            this.speedRun += (time - this.levelStart - TIMER_DELAY) / 1000
             this.scene.restart()
         }
 
@@ -329,7 +328,7 @@ class LevelScene extends Phaser.Scene {
     }
 
     onLevelComplete(){
-        this.completionTime = (this.time.now - this.levelStart - this.timerDelay) / 1000 - 1 / 60
+        this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
         this.speedRun = this.speedRun + this.completionTime
         this.song.destroy()
         if (this.soundEffectsOn){
