@@ -3,6 +3,10 @@
     "tile_data": "level3.csv",
     "tiles": "rock-tiles.png",
     "bg": "cave.png",
+    "accel": {
+        "ground": 1000,
+        "air": 200
+    },
     "player_start": {
         "x": 5,
         "y": 1
