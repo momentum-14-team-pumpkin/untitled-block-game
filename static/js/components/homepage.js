@@ -4,7 +4,7 @@ import { Login } from "./login"
 import "/static/css/index.css"
 
 
-export const HomePage =({setAuth, isLoggedIn})=> {
+export const HomePage =({setAuth, isLoggedIn, handleLogout, currUsername})=> {
 console.log(setAuth)
 return(
     <>
@@ -13,7 +13,7 @@ return(
         >Blocks of Time </h1>
         <div style={{display:'flex', justifyContent:'center'}}>
             <header style={{alignItems:'center'}}>
-            <Login setAuth={setAuth} isLoggedIn={isLoggedIn}/>
+            <Login currUsername={currUsername} setAuth={setAuth} isLoggedIn={isLoggedIn} handleLogout={handleLogout}/>
             <NavBar setAuth={setAuth} isLoggedIn={isLoggedIn}/>
             </header>
         </div>

@@ -2,8 +2,10 @@ import React from "react"
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom"
+import "/static/css/index.css"
 
-export const Login = ({setAuth, isLoggedIn, handleLogout}) => {
+
+export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
     const navigate = useNavigate()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -19,7 +21,6 @@ export const Login = ({setAuth, isLoggedIn, handleLogout}) => {
             password: password,
         })
         .then((res) => {
-            setUsername(res.data)
             // console.log(res.data)
             const token = res.data.auth_token
             setAuth(username, token)
@@ -40,7 +41,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout}) => {
     if (!isLoggedIn){
     return (  
         <>
-        <div style={{textAlign:'center'}}>
+        <div style={{textAlign:'center', color:'white'}}>
         <h1>Sign In</h1>
         <form id="login-form" onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
@@ -68,12 +69,12 @@ export const Login = ({setAuth, isLoggedIn, handleLogout}) => {
                 <br />
                 <br />
 
-                <button style={{borderRadius:'10px'}}>Sign In</button>
+                <button style={{borderRadius:'10px', textDecoration:'none', color:'black'}}>Sign In</button>
         </form>
             <br />
             <div className="register-link">
                 Don't have an account? <br />
-            <a href="./Register">Sign Up</a>
+            <Link to="/Register" style={{textDecoration:'none', color:'white', fontWeight:'bolder'}}>Sign Up </Link>
             </div>
         </div>
         </>
@@ -84,10 +85,10 @@ export const Login = ({setAuth, isLoggedIn, handleLogout}) => {
             <>
             <div style={{textAlign:'center'}}>
                 <div >
-                    <p>Ready to play {username}?</p>
+                    <p style={{color:'white'}}>Ready to play {currUsername}?</p>
                 </div>
                 <div>
-                    <Link to="/homepage/" onClick={handleLogout} style={{textDecoration:'none', color:'darkgray', paddingRight:'30px'}}>
+                    <Link to="/homepage/" onClick={handleLogout} style={{textDecoration:'none', color:'white', paddingRight:'30px'}}>
                     Logout</Link>
                 </div>
             

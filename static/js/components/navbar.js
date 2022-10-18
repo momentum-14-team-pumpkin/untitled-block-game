@@ -1,5 +1,5 @@
 import React from "react"
-
+import "/static/css/index.css"
 import {Link} from 'react-router-dom'
 
 export const NavBar = () => {
@@ -22,9 +22,9 @@ export const NavBar = () => {
             </div> */}
 
             <div style={{marginTop:'30px' }}>
-                    <Link to="/leaderboard1/" style={{textDecoration:'none', color:'darkgray', paddingRight:'30px'}} >LeaderBoard (Level 1)</Link>
-                    <Link to="/" style={{textDecoration:'none', color:'darkgray', paddingRight:'30px'}} >LeaderBoard (Level 2)</Link>
-                    <Link to="/" style={{textDecoration:'none', color:'darkgray', paddingRight:'30px'}} >LeaderBoard (Level 3)</Link>
+                    <Link to="/leaderboard1/" style={{textDecoration:'none', color:'white', paddingRight:'30px'}} >LeaderBoard (Level 1)</Link>
+                    <Link to="/leaderboard2/" style={{textDecoration:'none', color:'white', paddingRight:'30px'}} >LeaderBoard (Level 2)</Link>
+                    <Link to="/leaderboard3/" style={{textDecoration:'none', color:'white', paddingRight:'30px'}} >LeaderBoard (Level 3)</Link>
             </div>
             <br></br>
 

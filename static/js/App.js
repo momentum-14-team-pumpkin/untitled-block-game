@@ -7,6 +7,8 @@ import axios from 'axios';
 import { HomePage } from './components/homepage';
 import { LeaderboardOne } from './components/leaderboard1';
 import '/static/css/index.css'
+import { LeaderboardTwo } from './components/leaderboard2';
+import { LeaderboardThree } from './components/leaderboard3';
 
 function App() {
     const [token, setToken] = useLocalStorageState('BlockOfTimeToken', null )
@@ -20,7 +22,7 @@ function App() {
     const handleLogout = () => {
         axios
         .post(
-        'https://young-plateau-94674.herokuapp.com/token/logout',
+        'https://young-plateau-94674.herokuapp.com/auth/token/logout',
         {},
         {
             headers: {
@@ -40,7 +42,7 @@ function App() {
         <>
         <div style={{backgroundImage:'URL(/static/assets/brick-black.png)', backgroundSize:'cover', minHeight:'100vh',}}>
         <BrowserRouter>
-        <HomePage isLoggedIn={isLoggedIn} handleLogout={handleLogout} setAuth={setAuth} token={token}/>
+        <HomePage isLoggedIn={isLoggedIn} currUsername={username} handleLogout={handleLogout} setAuth={setAuth} token={token}/>
             <Routes>
             <Route
                 path="*"
@@ -56,6 +58,8 @@ function App() {
             <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
             />
             <Route path='/leaderboard1' element={<LeaderboardOne />} />
+            <Route path='/leaderboard2' element={<LeaderboardTwo />} />
+            <Route path='/leaderboard3' element={<LeaderboardThree />} />
             </Routes>          
         </BrowserRouter>
         </div>

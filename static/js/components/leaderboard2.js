@@ -4,7 +4,7 @@ import axios from "axios";
 import "/static/css/index.css"
 
 
-export const LeaderboardOne =() => {
+export const LeaderboardTwo =() => {
     const [bestTimes, setBestTimes] = useState('')
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export const LeaderboardOne =() => {
             <div style={{color:'white', width:'75%', margin:'auto', fontFamily:'helvetica' ,textAlign:'center', border: 'solid', borderBlockStyle:'dotted'}}>
                 <div >
                     <h1>
-                        Best Times For Level 1
+                        Best Times For Level 2
                     </h1>
                 </div>
                 <div>
