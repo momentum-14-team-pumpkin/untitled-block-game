@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import CustomUser, TimeTrial
+from .models import CustomUser, TimeTrial, Level
+
 
 class CustomUserSerializer(serializers.ModelSerializer):
 
@@ -10,7 +11,15 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 class TimeTrialSerializer(serializers.ModelSerializer):
     player = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    level = serializers.SlugRelatedField(slug_field="number", read_only=True)
 
     class Meta:
         model = TimeTrial
-        fields = ('id', 'player', 'time', )
+        fields = ('id', 'player', 'level', 'time',)
+
+
+class LevelSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Level
+        fields = ('id', 'number',)

@@ -8,6 +8,7 @@ let config = {
     type: Phaser.AUTO,
     width: TILE_SIZE * 22,
     height: TILE_SIZE * 11.5,
+    backgroundColor: "#87ceeb",
     pixelArt: true,
     physics: {
         default: 'arcade',
@@ -42,7 +43,12 @@ let level = 1
 let timerDelay = 3000
 let accelXL = -150
 let accelXR = 150
-let numOfLevels = 3
+let numOfLevels = 4
+let speedRun = 0
+let fullRunTime = 0
+
+let groundAccel = 1000
+let airAccel = 200
 
 let keyB
 let keyM
@@ -92,6 +98,8 @@ function create() {
         convertTilesToYPixels(mapData.player_start.y) - 4, 'player')
     this.song = this.sound.add('song')
     this.song.loop = true
+    groundAccel = mapData.accel.ground
+    airAccel = mapData.accel.air
     if (musicOn) {
         this.song.play()
     }
@@ -116,7 +124,7 @@ function create() {
 
     levelStart = null
     timeText = this.add.text(50, 30)
-    startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#f5ee20'})
+    startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#fc7303'})
 
     if (holdingBlock) {
         acquireBlock(this)
@@ -214,7 +222,6 @@ function update (time, delta)
         }`)
     }
 }
-
     if (Phaser.Input.Keyboard.JustDown(keyM)){
         if (musicOn){
             this.song.stop()
@@ -239,6 +246,7 @@ function update (time, delta)
     }
     if (Phaser.Input.Keyboard.JustDown(keyR)){
         this.song.destroy()
+        speedRun += (time - levelStart - timerDelay) / 1000
         this.scene.restart()
     }
 
@@ -268,7 +276,7 @@ function update (time, delta)
     }
 
     let state
-    const accelForce = player.body.blocked.down ? 1000 : 200
+    const accelForce = player.body.blocked.down ? groundAccel : airAccel
     const velX = player.body.velocity.x
     if (cursors.left.isDown
         || cursors.right.isDown)
@@ -374,12 +382,15 @@ function update (time, delta)
 
 function onLevelComplete(){
     completionTime = (this.time.now - levelStart - timerDelay) / 1000 - 1 / 60
+    speedRun = speedRun + completionTime
     this.song.destroy()
     if (soundEffectsOn){
         this.exitSound.play()
     }
     level += 1
     if (level > numOfLevels){
+        fullRunTime = speedRun
+        speedRun = 0
         alert ("YOU'RE WINNER OF GAME")
         let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
         if (restartLevel == "y" || restartLevel == "yes"){

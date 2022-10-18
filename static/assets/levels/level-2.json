@@ -3,6 +3,10 @@
     "tile_data": "level2.csv",
     "tiles": "ice-tiles.png",
     "bg": "ice-age.png",
+    "accel": {
+        "ground": 200,
+        "air": 50
+    },
     "player_start": {
         "x": 16,
         "y": 3
