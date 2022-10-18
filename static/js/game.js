@@ -218,10 +218,10 @@ function update (time, delta)
             accelXR = 150
             startTimerText.destroy()
             timeText.setText(`Time: ${
-            convertSecondsToTimestring((time - levelStart - timerDelay) / 1000)
-        }`)
+                convertSecondsToTimestring((time - levelStart - timerDelay) / 1000)
+            }`)
+        }
     }
-}
     if (Phaser.Input.Keyboard.JustDown(keyM)){
         if (musicOn){
             this.song.stop()
