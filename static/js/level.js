@@ -13,7 +13,6 @@ class LevelScene extends Phaser.Scene {
         this.levelStart = null
         this.musicOn = true
         this.soundEffectsOn = true
-        this.haxCode = "UUDDLRLR"
         this.level = 1
         this.timerDelay = 3000
         this.accelXL = -150
@@ -362,9 +361,9 @@ class LevelScene extends Phaser.Scene {
         if (this.zomgHax) {
             return
         }
-        if (this.haxCode[this.haxProgress] == char) {
+        if (HAX_CODE[this.haxProgress] == char) {
             this.haxProgress++
-            if (this.haxProgress == haxCode.length) {
+            if (this.haxProgress == HAX_CODE.length) {
                 this.zomgHax = true
             }
         } else {
