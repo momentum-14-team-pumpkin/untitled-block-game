@@ -1,3 +1,5 @@
+"use strict"
+
 class EditorScene extends Phaser.Scene {
     constructor() {
         this.tilemap = this.make.tilemap({

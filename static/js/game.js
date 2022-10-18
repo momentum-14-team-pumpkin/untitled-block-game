@@ -1,3 +1,5 @@
+"use strict"
+
 let config = {
     scale: {
         parent: 'gameDiv',
