@@ -49,7 +49,11 @@ let groundAccel = 1000
 let airAccel = 200
 
 let keyB
+let keyE
 let keyM
+let keyN
+let keyP
+let keyR
 let modCtrl
 
 let game = new Phaser.Game(config)
