@@ -48,6 +48,7 @@ export const Register = ({setAuth, isLoggedIn, registered}) => {
 
     return (  
         <>
+        <div style={{margin:'auto', textAlign:'center'}}>
         <h1 style={{fontFamily:'bungee', color:'white'}}>Registration Page</h1>
         {error && <div className="error">{error} <br /> <br /></div>}
         <form id="registration-form" onSubmit={handleSubmit}>
@@ -89,6 +90,7 @@ export const Register = ({setAuth, isLoggedIn, registered}) => {
             <div className="back-to-login-link">
                 <Link style={{color:'white', fontFamily:'bungee', borderRadius:'10px', textDecoration:'none'}}  to="/Login">Back to Login</Link>
             </div>
+        </div>
         </>
 
         

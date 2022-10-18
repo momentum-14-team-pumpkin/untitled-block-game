@@ -4,14 +4,23 @@ import axios from "axios";
 import "/static/css/index.css"
 
 
-export const LeaderboardTwo =() => {
+export const Leaderboard =({level}) => {
     const [bestTimes, setBestTimes] = useState('')
 
     useEffect(() => {
         axios
-        .get('https://young-plateau-94674.herokuapp.com/levels/2/times/')
+        .get(`https://young-plateau-94674.herokuapp.com/levels/${level}/times/`)
         .then((res) =>
-        setBestTimes(res.data))},[])
+        setBestTimes(res.data.sort((a,b)=> {
+            let timeDiff = a.time - b.time
+            if (timeDiff != 0){
+                return timeDiff
+            }
+            return 0   //TODO: use created time 
+        } 
+        )))},[level])
+
+    
 
     if (bestTimes){
         return(
@@ -19,7 +28,7 @@ export const LeaderboardTwo =() => {
             <div style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', border: 'solid', borderBlockStyle:'dotted'}}>
                 <div >
                     <h1>
-                        Best Times For Level 2
+                        Best Times For Level {level}
                     </h1>
                 </div>
                 <div>

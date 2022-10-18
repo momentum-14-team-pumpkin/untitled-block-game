@@ -5,10 +5,9 @@ import useLocalStorageState from 'use-local-storage-state';
 import { Register } from './components/register';
 import axios from 'axios';
 import { HomePage } from './components/homepage';
-import { LeaderboardOne } from './components/leaderboard1';
+import { Leaderboard } from './components/leaderboard';
 import '/static/css/index.css'
-import { LeaderboardTwo } from './components/leaderboard2';
-import { LeaderboardThree } from './components/leaderboard3';
+
 
 function App() {
     const [token, setToken] = useLocalStorageState('BlockOfTimeToken', null )
@@ -57,9 +56,9 @@ function App() {
             />
             <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />} 
             />
-            <Route path='/leaderboard1' element={<LeaderboardOne />} />
-            <Route path='/leaderboard2' element={<LeaderboardTwo />} />
-            <Route path='/leaderboard3' element={<LeaderboardThree />} />
+            <Route path='/leaderboard1' element={<Leaderboard level={1}/>} />
+            <Route path='/leaderboard2' element={<Leaderboard level={2}/>} />
+            <Route path='/leaderboard3' element={<Leaderboard level={3} />} />
             </Routes>          
         </BrowserRouter>
         </div>
