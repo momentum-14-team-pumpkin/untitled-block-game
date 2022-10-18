@@ -293,7 +293,7 @@ function update (time, delta)
         if (player.body.blocked.down)
         {
             const absVelX = Math.abs(velX)
-            player.setVelocityX(velX - clamp(delta / 1000 * Math.sign(velX) * accelForce, -absVelX, absVelX))
+            player.setVelocityX(velX - clamp(delta / 1000 * Math.sign(velX) * Math.abs(accelForce), -absVelX, absVelX))
         }
         state = 'stand'
     }
