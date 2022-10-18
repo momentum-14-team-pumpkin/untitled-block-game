@@ -175,6 +175,7 @@ class LevelScene extends Phaser.Scene {
             }`)
         }
         if((time - this.levelStart) > TIMER_DELAY){
+            this.levelText.setText(`Level: ${this.level}`)
             this.accelXL = -150
             this.accelXR = 150
             this.startTimerText.destroy()
