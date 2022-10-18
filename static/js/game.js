@@ -1,5 +1,3 @@
-const TILE_SIZE = 40
-
 let config = {
     scale: {
         parent: 'gameDiv',
