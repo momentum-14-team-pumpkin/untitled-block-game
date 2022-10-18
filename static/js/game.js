@@ -50,6 +50,7 @@ let airAccel = 200
 
 let keyB
 let keyM
+let modCtrl
 
 let game = new Phaser.Game(config)
 
@@ -119,6 +120,7 @@ function create() {
     keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
     keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N)
     keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
+    modCtrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
 
     levelStart = null
     timeText = this.add.text(50, 30)
