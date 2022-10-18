@@ -47,6 +47,7 @@ let numOfLevels = 4
 let speedRun = 0
 let fullRunTime = 0
 let levelText
+let completionTime
 
 let groundAccel = 1000
 let airAccel = 200
