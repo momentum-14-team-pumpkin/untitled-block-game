@@ -7,7 +7,7 @@ import "/static/css/index.css"
 
 
 
-export const Register = ({setAuth, isLoggedIn}) => {
+export const Register = ({setAuth, isLoggedIn, registered}) => {
         const [username, setUsername] = useState('')
         const [password, setPassword] = useState('')
         const [error, setError] = useState(null)
@@ -45,12 +45,13 @@ export const Register = ({setAuth, isLoggedIn}) => {
             return <Navigate to="/homepage/" />
         }
 
+
     return (  
         <>
-        <h1>Registration Page</h1>
+        <h1 style={{fontFamily:'bungee', color:'white'}}>Registration Page</h1>
         {error && <div className="error">{error} <br /> <br /></div>}
         <form id="registration-form" onSubmit={handleSubmit}>
-            <label htmlFor="username">Username: </label>
+            <label style={{color:'white', fontFamily:'bungee'}} htmlFor="username">Username: </label>
             <input 
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
@@ -62,7 +63,7 @@ export const Register = ({setAuth, isLoggedIn}) => {
                 <br />
                 <br />
 
-        <label htmlFor="password">Password: </label>
+        <label style={{color:'white', fontFamily:'bungee'}}  htmlFor="password">Password: </label>
             
             <input 
                 id="password"
@@ -75,6 +76,7 @@ export const Register = ({setAuth, isLoggedIn}) => {
                 <br />
 
                 <button
+                style={{color:'black', fontFamily:'bungee', borderRadius:'10px'}} 
                 type="submit"
                 value="Register"
                 to='/'
@@ -82,9 +84,10 @@ export const Register = ({setAuth, isLoggedIn}) => {
         </form>
 
         <br />
-            Already have an account?
+        <p style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}>Already have an account?</p>
+            
             <div className="back-to-login-link">
-                <Link to="/Login">Back to Login</Link>
+                <Link style={{color:'white', fontFamily:'bungee', borderRadius:'10px', textDecoration:'none'}}  to="/Login">Back to Login</Link>
             </div>
         </>
 

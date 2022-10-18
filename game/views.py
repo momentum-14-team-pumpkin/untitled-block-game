@@ -65,5 +65,5 @@ class LevelTimeTrial(generics.ListCreateAPIView):
         serializer.save(level=level, player=player)
 
 
-def homepage(req):
+def homepage(req, **kwargs):
     return render(req, "game/homepage.html")

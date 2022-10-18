@@ -9,14 +9,14 @@ export const LeaderboardOne =() => {
 
     useEffect(() => {
         axios
-        .get('https://young-plateau-94674.herokuapp.com/times')
+        .get('https://young-plateau-94674.herokuapp.com/levels/1/times/')
         .then((res) =>
         setBestTimes(res.data))},[])
 
     if (bestTimes){
         return(
             <>
-            <div style={{color:'white', width:'75%', margin:'auto', fontFamily:'helvetica' ,textAlign:'center', border: 'solid', borderBlockStyle:'dotted'}}>
+            <div style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', border: 'solid', borderBlockStyle:'dotted'}}>
                 <div >
                     <h1>
                         Best Times For Level 1
