@@ -46,6 +46,7 @@ let accelXR = 150
 let numOfLevels = 4
 let speedRun = 0
 let fullRunTime = 0
+let levelText
 
 let groundAccel = 1000
 let airAccel = 200
@@ -123,6 +124,7 @@ function create() {
     keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
 
     levelStart = null
+    levelText = this.add.text(50, 15)
     timeText = this.add.text(50, 30)
     startTimerText = this.add.text(config.width/2, 20, "", {font: "32px Futura", fill: '#fc7303'})
 
@@ -214,6 +216,7 @@ function update (time, delta)
             }`)
         }
         if((time - levelStart) > timerDelay){
+            levelText.setText(`Level: ${level}`)
             accelXL = -150
             accelXR = 150
             startTimerText.destroy()
