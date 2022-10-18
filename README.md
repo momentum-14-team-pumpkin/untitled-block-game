@@ -27,6 +27,8 @@ ENDPOINTS: the following endpoints are available at the subdirectories listed be
 | GET    | users/<int:pk>/times/  | use pk of user in Subdirectory                    | Specific User Time Trial Details             |                 |
 | GET    | levels/<int:pk>/times/ | use pk of level in Subdirectory                   | Specific Level Time Trial Details            |                 |
 | POST   | levels/<int:pk>/times/ | use pk of level in Subdirectory with Bearer Token | Specific Level Time Trial Details            | Use This One!   |
+| GET    | full-run-times/        | -                                                 | List of all Full Run Times                   |                 |
+| POST   | full-run-times/        | number in JSON body with Bearer Token             | Specific Level Time Trial Details            |                 |
 
 DJOSER ENDPOINTS: in addition to above endpoints, Djoser comes with prebuilt endpoints for registering users and granting tokens, here are a few helpful ones below.
 
@@ -53,6 +55,7 @@ __Example of Username and Password in JSON body:__
 
 __Example of Time in JSON body:__
 _Note: uses Bearer Token to identify logged in user and saves username associated with time automatically_
+_Also: for full run completion times, changes the full_run field to True automatically to help sort_
 ``` js
 {
     "time": put float number here
