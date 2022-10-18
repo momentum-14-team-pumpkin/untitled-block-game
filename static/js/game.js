@@ -200,28 +200,27 @@ function update (time, delta)
     {
         return
     }
-    else
-    {
-        if (!levelStart) {
-            levelStart = time
-        }
-        if((time - levelStart) < timerDelay){
-            accelXL = 0
-            accelXR = 0
-            player.body.setVelocityX(0)
-            startTimerText.setText(`${
-                convertSecondsToTimeStringForDelay((levelStart - time + timerDelay) / 1000)
-            }`)
-        }
-        if((time - levelStart) > timerDelay){
-            accelXL = -150
-            accelXR = 150
-            startTimerText.destroy()
-            timeText.setText(`Time: ${
-                convertSecondsToTimestring((time - levelStart - timerDelay) / 1000)
-            }`)
-        }
+
+    if (!levelStart) {
+        levelStart = time
     }
+    if((time - levelStart) < timerDelay){
+        accelXL = 0
+        accelXR = 0
+        player.body.setVelocityX(0)
+        startTimerText.setText(`${
+            convertSecondsToTimeStringForDelay((levelStart - time + timerDelay) / 1000)
+        }`)
+    }
+    if((time - levelStart) > timerDelay){
+        accelXL = -150
+        accelXR = 150
+        startTimerText.destroy()
+        timeText.setText(`Time: ${
+            convertSecondsToTimestring((time - levelStart - timerDelay) / 1000)
+        }`)
+    }
+
     if (Phaser.Input.Keyboard.JustDown(keyM)){
         if (musicOn){
             this.song.stop()
