@@ -15,7 +15,7 @@ class TimeTrialSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TimeTrial
-        fields = ('id', 'player', 'level', 'time',)
+        fields = ('id', 'player', 'level', 'time', 'full_run',)
 
 
 class LevelSerializer(serializers.ModelSerializer):

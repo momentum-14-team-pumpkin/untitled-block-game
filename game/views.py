@@ -65,5 +65,18 @@ class LevelTimeTrial(generics.ListCreateAPIView):
         serializer.save(level=level, player=player)
 
 
+class FullRunTimeTrial(generics.ListCreateAPIView):
+    queryset = TimeTrial.objects.all().order_by('time')
+    serializer_class = TimeTrialSerializer
+
+    def get_queryset(self):
+        queryset = TimeTrial.objects.filter(full_run=True)
+        return queryset.order_by('time')
+
+    def perform_create(self, serializer):
+        player = self.request.user
+        serializer.save(full_run=True, player=player)
+
+
 def homepage(req, **kwargs):
     return render(req, "game/homepage.html")

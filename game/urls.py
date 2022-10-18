@@ -11,6 +11,7 @@ urlpatterns = [
     path('levels/<int:pk>/', views.LevelDetail.as_view(), name='level-detail'),
     path('users/<int:pk>/times/', views.UserTimeTrial.as_view(), name='user-times'),
     path('levels/<int:pk>/times/', views.LevelTimeTrial.as_view(), name='level-times'),
+    path('full-run-times/', views.FullRunTimeTrial.as_view(), name='full-run-times'),
     path('homepage/', views.homepage, name='Homepage'),
     path('leaderboard<int:pk>/', views.homepage),
 
