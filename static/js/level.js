@@ -29,7 +29,7 @@ class LevelScene extends Phaser.Scene {
         this.load.audio('pick', '/static/assets/audio/pickup.wav')
         this.load.audio('put', '/static/assets/audio/putdown.wav')
         this.load.audio('jump', '/static/assets/audio/jump.wav')
-        this.load.audio('exit', '/static/assets/audio/portal.wav', { volume: 0.1 })
+        this.load.audio('exit', '/static/assets/audio/portal.wav')
         this.load.once('complete', () => {
             this.mapData = this.cache.json.get('map-data')
             this.cache.tilemap.remove('map')
