@@ -1,15 +1,12 @@
 import React from "react"
 import { useState } from "react"
 import axios from "axios"
-import { Navigate, useNavigate } from "react-router-dom"
 import {Link} from "react-router-dom"
 import "/static/css/index.css"
-import { Login } from "./login"
 
 
 
 export const Register = ({setAuth}) => {
-        const navigate = useNavigate()
         const [username, setUsername] = useState('')
         const [password, setPassword] = useState('')
         const [error, setError] = useState(null)
