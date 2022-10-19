@@ -14,6 +14,7 @@ return(
             <header style={{alignItems:'center'}}>
             <Login currUsername={currUsername} setAuth={setAuth} isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>
             <NavBar setAuth={setAuth} isLoggedIn={isLoggedIn}/>
+
             </header>
         </div>
         </div>
