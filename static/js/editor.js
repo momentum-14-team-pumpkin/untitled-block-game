@@ -5,6 +5,10 @@ class EditorScene extends Phaser.Scene {
         super('EditorScene')
     }
 
+    preload() {
+        this.load.image('tiles', '/static/assets/images/drawtiles-spaced.png')
+    }
+
     create() {
         this.map = this.make.tilemap({
             width: MAX_MAP_SIZE,
@@ -12,5 +16,7 @@ class EditorScene extends Phaser.Scene {
             tileWidth: TILE_SIZE,
             tileHeight: TILE_SIZE,
         })
+        let tileset = this.map.addTilesetImage('tiles', null, 32, 32, 1, 2)
+        this.map.createBlankLayer('level', tileset, 0, 60, MAX_MAP_SIZE, MAX_MAP_SIZE)
     }
 }
