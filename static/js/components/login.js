@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom"
 import "/static/css/index.css"
 import { Register } from "./register";
-import { PlayGame } from "./rendergame";
 
 
 export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
@@ -108,9 +107,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
                     <button to="/homepage/" onClick={handleLogout} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
                     Logout</button>
                 </div>
-                <div>
-                    <PlayGame />
-                </div>
+
             
             </div>
             </>
