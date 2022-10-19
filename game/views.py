@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 from .models import CustomUser, TimeTrial, Level
 from .serializers import CustomUserSerializer, TimeTrialSerializer, LevelSerializer
 from django.shortcuts import get_object_or_404, render
@@ -16,6 +16,7 @@ class CustomUserList(generics.ListCreateAPIView):
 class CustomUserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+    permission_classes = [permissions.IsAdminUser, ]
 
 
 class TimeTrialList(generics.ListCreateAPIView):
@@ -29,6 +30,7 @@ class TimeTrialList(generics.ListCreateAPIView):
 class TimeTrialDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = TimeTrial.objects.all()
     serializer_class = TimeTrialSerializer
+    permission_classes = [permissions.IsAdminUser, ]
 
 
 class LevelList(generics.ListCreateAPIView):
@@ -39,9 +41,10 @@ class LevelList(generics.ListCreateAPIView):
 class LevelDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Level.objects.all()
     serializer_class = LevelSerializer
+    permission_classes = [permissions.IsAdminUser, ]
 
 
-class UserTimeTrial(generics.ListCreateAPIView):
+class UserTimeTrialList(generics.ListCreateAPIView):
     queryset = TimeTrial.objects.all().order_by('time')
     serializer_class = TimeTrialSerializer
 
@@ -50,7 +53,17 @@ class UserTimeTrial(generics.ListCreateAPIView):
         return queryset.order_by('time')
 
 
-class LevelTimeTrial(generics.ListCreateAPIView):
+class UserLevelTimeTrialList(generics.ListCreateAPIView):
+    queryset = TimeTrial.objects.all().order_by('time')
+    serializer_class = TimeTrialSerializer
+
+    def get_queryset(self):
+        level = get_object_or_404(Level, pk=self.kwargs['pk'])
+        queryset = level.times.filter(player=self.request.user)
+        return queryset.order_by('time')
+
+
+class LevelTimeTrialList(generics.ListCreateAPIView):
     queryset = TimeTrial.objects.all().order_by('time')
     serializer_class = TimeTrialSerializer
 
@@ -65,7 +78,7 @@ class LevelTimeTrial(generics.ListCreateAPIView):
         serializer.save(level=level, player=player)
 
 
-class FullRunTimeTrial(generics.ListCreateAPIView):
+class FullRunTimeTrialList(generics.ListCreateAPIView):
     queryset = TimeTrial.objects.all().order_by('time')
     serializer_class = TimeTrialSerializer
 
@@ -76,6 +89,16 @@ class FullRunTimeTrial(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         player = self.request.user
         serializer.save(full_run=True, player=player)
+
+
+class FullRunTimeTrialDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = TimeTrial.objects.all().order_by('time')
+    serializer_class = TimeTrialSerializer
+    permission_classes = [permissions.IsAdminUser, ]
+
+    def get_queryset(self):
+        queryset = TimeTrial.objects.filter(full_run=True)
+        return queryset.order_by('time')
 
 
 def homepage(req, **kwargs):
