@@ -163,6 +163,11 @@ class LevelScene extends Phaser.Scene {
             return
         }
 
+        if (this.modCtrl.isDown && this.keyE.isDown) {
+            this.song.stop()
+            this.scene.start('EditorScene')
+        }
+
         if (!this.levelStart) {
             this.levelStart = time
         }
