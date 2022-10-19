@@ -1,5 +1,11 @@
 Blocks of Time
 
+CONTROLS:
+
+Move using the Left and Right Arrow Buttons.
+Lift blocks using the Down Arrow Key
+Jump using the Space Bar.
+
 PRODUCTION URL: https://young-plateau-94674.herokuapp.com/
 
 ENDPOINTS: the following endpoints are available at the subdirectories listed below, just add them to the end of the Production Url above.
