@@ -19,8 +19,4 @@ class EditorScene extends Phaser.Scene {
         let tileset = this.map.addTilesetImage('tiles', null, 32, 32, 1, 2)
         this.map.createBlankLayer('level', tileset, 0, 60, MAX_MAP_SIZE, MAX_MAP_SIZE)
     }
-
-    update() {
-        this.map.putTileAt(1, 5, 5)
-    }
 }
