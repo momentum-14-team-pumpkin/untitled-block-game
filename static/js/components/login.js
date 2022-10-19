@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom"
 import "/static/css/index.css"
 import { Register } from "./register";
+import { PlayGame } from "./rendergame";
 
 
 export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
@@ -38,11 +39,16 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
             setError(error.response.data.password)
         })
         console.log(username, password)
+
     }
 
     if (goRegister){
         return (
-            <Register />
+            <Register setAuth={(username, token) => {
+                setAuth(username, token)
+                setGoRegister(false)
+            }} 
+            />
         )
         
     }
@@ -52,6 +58,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
         <>
         <div style={{textAlign:'center', color:'white', fontFamily:'bungee'}}>
         <h1>Sign In</h1>
+        {error && <div style={{color:'red', fontFamily:'bungee'}} className="error">{error} <br /> <br /></div>}
         <form id="login-form" onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
             <input 
@@ -94,11 +101,15 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
             <>
             <div style={{textAlign:'center'}}>
                 <div >
-                    <p style={{color:'white', fontFamily:'bungee'}}>Ready to play {currUsername}?</p>
+                    <p style={{color:'white', fontFamily:'bungee'}}>Ready to play </p>
+                    <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}} >{currUsername}</p>
                 </div>
                 <div>
-                    <Link to="/homepage/" onClick={handleLogout} style={{textDecoration:'none', color:'white', paddingRight:'30px'}}>
-                    Logout</Link>
+                    <button to="/homepage/" onClick={handleLogout} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
+                    Logout</button>
+                </div>
+                <div>
+                    <PlayGame />
                 </div>
             
             </div>

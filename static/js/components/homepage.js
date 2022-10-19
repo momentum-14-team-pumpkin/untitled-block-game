@@ -2,10 +2,10 @@ import { NavBar } from "./navbar"
 import React from "react"
 import { Login } from "./login"
 import "/static/css/index.css"
+import { PlayGame } from "./rendergame"
 
 
 export const HomePage =({setAuth, isLoggedIn, handleLogout, currUsername})=> {
-console.log(setAuth)
 return(
     <>
     <div>
