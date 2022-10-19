@@ -4,31 +4,35 @@ PRODUCTION URL: https://young-plateau-94674.herokuapp.com/
 
 ENDPOINTS: the following endpoints are available at the subdirectories listed below, just add them to the end of the Production Url above.
 
-| Method | URL Subdirectory       | Input                                             | Output                                       | Notes           |
-| ------ | ---------------------- | ------------------------------------------------- | -------------------------------------------- | --------------- |
-| GET    | users/                 | -                                                 | list of all Users                            |                 |
-| POST   | users/                 | username and password in JSON body                | Created User information along with pk       |                 |
-| GET    | users/<int:pk>/        | use pk of user in Subdirectory                    | Specific User Details                        |                 |
-| PUT    | users/<int:pk>/        | use pk of user in Subdirectory                    | Update all User Details                      |                 |
-| PATCH  | users/<int:pk>/        | use pk of user in Subdirectory                    | Update specific User Details                 |                 |
-| DELETE | users/<int:pk>/        | use pk of user in Subdirectory                    | Delete User                                  |                 |
-| GET    | times/                 | -                                                 | List of all Times                            |                 |
-| POST   | times/                 | time in JSON body with bearer token               | Created Time Trial information along with pk | Level = none    |
-| GET    | times/<int:pk>/        | use pk of time trial in Subdirectory              | Specific Time Trial Details                  |                 |
-| PUT    | times/<int:pk>/        | use pk of time trial in Subdirectory              | Update all Time Trial Details                |                 |
-| PATCH  | times/<int:pk>/        | use pk of time trial in Subdirectory              | Update specific Time Trial Details           |                 |
-| DELETE | times/<int:pk>/        | use pk of time trial in Subdirectory              | Delete Time Trial                            |                 |
-| GET    | levels/                | -                                                 | list of all Levels                           |                 |
-| POST   | levels/                | number in JSON body                               | Created Level information along with pk      |                 |
-| GET    | levels/<int:pk>/       | use pk of level in Subdirectory                   | Specific Level Details                       |                 |
-| PUT    | levels/<int:pk>/       | use pk of level in Subdirectory                   | Update all Level Details                     |                 |
-| PATCH  | levels/<int:pk>/       | use pk of level in Subdirectory                   | Update specific Level Details                |                 |
-| DELETE | levels/<int:pk>/       | use pk of level in Subdirectory                   | Delete Level                                 |                 |
-| GET    | users/<int:pk>/times/  | use pk of user in Subdirectory                    | Specific User Time Trial Details             |                 |
-| GET    | levels/<int:pk>/times/ | use pk of level in Subdirectory                   | Specific Level Time Trial Details            |                 |
-| POST   | levels/<int:pk>/times/ | use pk of level in Subdirectory with Bearer Token | Specific Level Time Trial Details            | Use This One!   |
-| GET    | full-run-times/        | -                                                 | List of all Full Run Times                   |                 |
-| POST   | full-run-times/        | number in JSON body with Bearer Token             | Specific Level Time Trial Details            |                 |
+| Method | URL Subdirectory           | Input                                             | Output                                          | Notes           |
+| ------ | -------------------------- | ------------------------------------------------- | ----------------------------------------------- | --------------- |
+| GET    | users/                     | -                                                 | list of all Users                               |                 |
+| POST   | users/                     | username and password in JSON body                | Created User information along with pk          |                 |
+| GET    | users/<int:pk>/            | use pk of user in Subdirectory                    | Specific User Details                           |                 |
+| PUT    | users/<int:pk>/            | use pk of user in Subdirectory                    | Update all User Details                         |                 |
+| PATCH  | users/<int:pk>/            | use pk of user in Subdirectory                    | Update specific User Details                    |                 |
+| DELETE | users/<int:pk>/            | use pk of user in Subdirectory                    | Delete User                                     |                 |
+| GET    | times/                     | -                                                 | List of all Times                               |                 |
+| POST   | times/                     | time in JSON body with bearer token               | Created Time Trial information along with pk    | Level = none    |
+| GET    | times/<int:pk>/            | use pk of time trial in Subdirectory              | Specific Time Trial Details                     |                 |
+| PUT    | times/<int:pk>/            | use pk of time trial in Subdirectory              | Update all Time Trial Details                   |                 |
+| PATCH  | times/<int:pk>/            | use pk of time trial in Subdirectory              | Update specific Time Trial Details              |                 |
+| DELETE | times/<int:pk>/            | use pk of time trial in Subdirectory              | Delete Time Trial                               |                 |
+| GET    | levels/                    | -                                                 | List of all Levels                              |                 |
+| POST   | levels/                    | number in JSON body                               | Created Level information along with pk         |                 |
+| GET    | levels/<int:pk>/           | use pk of level in Subdirectory                   | Specific Level Details                          |                 |
+| PUT    | levels/<int:pk>/           | use pk of level in Subdirectory                   | Update all Level Details                        |                 |
+| PATCH  | levels/<int:pk>/           | use pk of level in Subdirectory                   | Update specific Level Details                   |                 |
+| DELETE | levels/<int:pk>/           | use pk of level in Subdirectory                   | Delete Level                                    |                 |
+| GET    | users/<int:pk>/times/      | use pk of user in Subdirectory                    | List of Specific User Time Trials               |                 |
+| GET    | user/level/<int:pk>/times/ | use pk of level in Subdirectory                   | List of Specific User Time Trials per Level     |                 |
+| GET    | levels/<int:pk>/times/     | use pk of level in Subdirectory                   | List of Specific Level Time Trials              |                 |
+| POST   | levels/<int:pk>/times/     | use pk of level in Subdirectory with Bearer Token | Update all Level Time Trial Details             | Use This One!   |
+| GET    | full-run-times/            | -                                                 | List of all Full Run Times                      |                 |
+| POST   | full-run-times/            | number in JSON body with Bearer Token             | Created Full Run Time information along with pk |                 |
+| PUT    | full-run-times/<int:pk>/   | use pk of full run time in Subdirectory           | Update all Full Run Time Details                |                 |
+| PATCH  | full-run-times/<int:pk>/   | use pk of full run time in Subdirectory           | Update specific Full Run Time Details           |                 |
+| DELETE | full-run-times/<int:pk>/   | use pk of full run time in Subdirectory           | Delete Full Run Time                            |                 |
 
 DJOSER ENDPOINTS: in addition to above endpoints, Djoser comes with prebuilt endpoints for registering users and granting tokens, here are a few helpful ones below.
 

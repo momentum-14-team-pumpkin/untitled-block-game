@@ -9,10 +9,11 @@ urlpatterns = [
     path('times/<int:pk>/', views.TimeTrialDetail.as_view(), name='time-trial-detail'),
     path('levels/', views.LevelList.as_view(), name='levels'),
     path('levels/<int:pk>/', views.LevelDetail.as_view(), name='level-detail'),
-    path('users/<int:pk>/times/', views.UserTimeTrial.as_view(), name='user-times'),
-    path('levels/<int:pk>/times/', views.LevelTimeTrial.as_view(), name='level-times'),
-    path('full-run-times/', views.FullRunTimeTrial.as_view(), name='full-run-times'),
+    path('users/<int:pk>/times/', views.UserTimeTrialList.as_view(), name='user-times'),
+    path('user/level/<int:pk>/times/', views.UserLevelTimeTrialList.as_view(), name='user-level-times'),
+    path('levels/<int:pk>/times/', views.LevelTimeTrialList.as_view(), name='level-times'),
+    path('full-run-times/', views.FullRunTimeTrialList.as_view(), name='full-run-times'),
+    path('full-run-times/<int:pk>/', views.FullRunTimeTrialDetail.as_view(), name='full-run-times-detail'),
     path('homepage/', views.homepage, name='Homepage'),
     path('leaderboard<int:pk>/', views.homepage),
-
 ]

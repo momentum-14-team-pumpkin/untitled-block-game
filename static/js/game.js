@@ -8,7 +8,7 @@ let config = {
     type: Phaser.AUTO,
     width: TILE_SIZE * 22,
     height: TILE_SIZE * 11.5,
-    backgroundColor: "#87ceeb",
+    backgroundColor: "#000000",
     pixelArt: true,
     physics: {
         default: 'arcade',

@@ -29,7 +29,7 @@ class LevelScene extends Phaser.Scene {
         this.load.audio('pick', '/static/assets/audio/pickup.wav')
         this.load.audio('put', '/static/assets/audio/putdown.wav')
         this.load.audio('jump', '/static/assets/audio/jump.wav')
-        this.load.audio('exit', '/static/assets/audio/door-open.wav')
+        this.load.audio('exit', '/static/assets/audio/portal.wav')
         this.load.once('complete', () => {
             this.mapData = this.cache.json.get('map-data')
             this.cache.tilemap.remove('map')
@@ -74,7 +74,7 @@ class LevelScene extends Phaser.Scene {
         this.pickUpSound = this.sound.add('pick')
         this.putDownSound = this.sound.add('put')
         this.jumpSound = this.sound.add('jump')
-        this.exitSound = this.sound.add('exit')
+        this.exitSound = this.sound.add('exit').setVolume(0.2)
         
         this.keyB = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B)
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E)
@@ -85,8 +85,8 @@ class LevelScene extends Phaser.Scene {
         this.modCtrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
     
         this.levelStart = null
-        this.levelText = this.add.text(50, 15)
-        this.timeText = this.add.text(50, 30)
+        this.levelText = this.add.text(50, 15, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.timeText = this.add.text(50, 30, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.startTimerText = this.add.text(this.game.config.width/2, 20, "", {font: "32px Futura", fill: '#fc7303'})
     
         if (this.holdingBlock) {
@@ -175,6 +175,7 @@ class LevelScene extends Phaser.Scene {
             }`)
         }
         if((time - this.levelStart) > TIMER_DELAY){
+            this.levelText.setText(`Level: ${this.level}`)
             this.accelXL = -150
             this.accelXR = 150
             this.startTimerText.destroy()
