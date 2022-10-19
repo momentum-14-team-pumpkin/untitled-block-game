@@ -5,7 +5,6 @@ import "/static/css/index.css"
 
 
 export const HomePage =({setAuth, isLoggedIn, handleLogout, currUsername})=> {
-console.log(setAuth)
 return(
     <>
     <div>
