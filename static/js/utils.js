@@ -37,5 +37,5 @@ function convertYPixelsToTiles(pixels) {
     // config is defined in game.js, but utils.js gets run first.
     // This is ok because none of these functions will be called
     // until game.js is invoked to start Phaser running.
-    return Math.round((config.height - pixels) / TILE_SIZE - 0.5)
+    return Math.floor(pixels / TILE_SIZE - 1.5)
 }
