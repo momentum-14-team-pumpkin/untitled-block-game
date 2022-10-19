@@ -23,7 +23,7 @@ class EditorScene extends Phaser.Scene {
             this.placeTile(event)
         })
         this.input.on('pointermove', this.placeTile)
-        this.input.on('pointerup', event => {
+        this.input.on('pointerup', () => {
             this.placing = false
         })
     }
