@@ -1,18 +1,18 @@
 {
     "song": "Level1.mp3",
-    "tile_data": "level3.csv",
-    "tiles": "rock-tiles.png",
-    "bg": "cave.png",
+    "tile_data": "level4.csv",
+    "tiles": "drawtiles-spaced.png",
+    "bg": "city_PNG48.png",
     "accel": {
         "ground": 1000,
         "air": 200
     },
     "player_start": {
-        "x": 5,
-        "y": 1
+        "x": 16,
+        "y": 5
     },
     "level_exit": {
-        "x": 19,
-        "y": 9
+        "x": 1,
+        "y": 6
     }
 }
