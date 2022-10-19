@@ -21,5 +21,9 @@ function convertTilesToXPixels(tiles){
     return (tiles + 0.5) * TILE_SIZE
 }
 function convertTilesToYPixels(tiles){
+    // NOTE: config isn't defined yet when this function is declared!
+    // config is defined in game.js, but utils.js gets run first.
+    // This is ok because none of these functions will be called
+    // until game.js is invoked to start Phaser running.
     return config.height - (tiles + 0.5) * TILE_SIZE
 }
