@@ -6,7 +6,7 @@ import "/static/css/index.css"
 import { Register } from "./register";
 
 
-export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
+export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) => {
     const navigate = useNavigate()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -27,6 +27,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
             const token = res.data.auth_token
             setAuth(username, token)
             navigate('/homepage/')
+            console.log(token)
 
         })
         .catch((error) => {
@@ -38,6 +39,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
             setError(error.response.data.password)
         })
         console.log(username, password)
+        
 
     }
 
@@ -102,6 +104,11 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername}) => {
                 <div >
                     <p style={{color:'white', fontFamily:'bungee'}}>Ready to play </p>
                     <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}} >{currUsername}</p>
+                </div>
+                <div style={{color:'white', fontFamily:'bungee'}}>
+                    <Link to='/user/best-times1/' style={{color:'white', fontFamily:'bungee', textDecoration:'none'}}   > <h1>Level 1 Times</h1></Link>
+                    <Link to='/user/best-times2/' style={{color:'white', fontFamily:'bungee', textDecoration:'none'}}  > <h1>Level 2 Times</h1></Link>
+                    <Link to='/user/best-times3/' style={{color:'white', fontFamily:'bungee', textDecoration:'none'}}  > <h1>Level 3 Times</h1></Link>
                 </div>
                 <div>
                     <button to="/homepage/" onClick={handleLogout} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
