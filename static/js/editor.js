@@ -6,7 +6,7 @@ class EditorScene extends Phaser.Scene {
     }
 
     create() {
-        this.tilemap = this.make.tilemap({
+        this.map = this.make.tilemap({
             width: MAX_MAP_SIZE,
             width: MAX_MAP_SIZE,
             tileWidth: TILE_SIZE,
