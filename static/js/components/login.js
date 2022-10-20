@@ -13,7 +13,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [goRegister, setGoRegister] = useState(false)
-    
+
     const handleSubmit = (event) => {
         console.log({ username, password })
         event.preventDefault()
@@ -52,8 +52,8 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
             }} 
             />
         )
-        
     }
+
 
     else if (!isLoggedIn){
     return (  
