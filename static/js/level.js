@@ -167,6 +167,9 @@ class LevelScene extends Phaser.Scene {
             return
         }
 
+        let justDown = {}
+        justDown[this.keyP] = Phaser.Input.Keyboard.JustDown(this.keyP)
+
         if (this.modCtrl.isDown && this.keyE.isDown) {
             this.song.stop()
             this.scene.start('EditorScene')
@@ -214,6 +217,17 @@ class LevelScene extends Phaser.Scene {
                 this.soundEffectsOn = true
                 return
             }
+        }
+        if (justDown[this.keyP] && !this.modCtrl.isDown) {
+            this.physics.world.isPaused ^= true
+            if (this.physics.world.isPaused) {
+                this.anims.pauseAll()
+            } else {
+                this.anims.resumeAll()
+            }
+        }
+        if (this.physics.world.isPaused) {
+            return
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyR)){
             this.song.destroy()
@@ -320,7 +334,7 @@ class LevelScene extends Phaser.Scene {
                 this.level += 1
                 this.scene.restart()
             }
-            if (Phaser.Input.Keyboard.JustDown(this.keyP) && this.level > 1){
+            if (this.modCtrl.isDown && justDown[this.keyP] && this.level > 1){
                 this.song.destroy()
                 this.level -= 1
                 this.scene.restart()
@@ -337,7 +351,9 @@ class LevelScene extends Phaser.Scene {
     onLevelComplete(){
         this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
         this.speedRun = this.speedRun + this.completionTime
-        this.song.destroy()
+        let iframe = document.createElement('iframe')
+        iframe.src = `/leaderboard${this.level}/`
+        document.querySelector('#gameDiv').append(iframe)
         if (this.soundEffectsOn){
             this.exitSound.play()
         }
@@ -360,6 +376,8 @@ class LevelScene extends Phaser.Scene {
                 this.level -= 1
             }
         }
+        this.song.destroy()
+        iframe.remove()
         this.scene.restart()
     }
 
@@ -422,8 +440,6 @@ class LevelScene extends Phaser.Scene {
         for (let i = -1; i <= exactGapHeight; i++) {
             const gapY = convertYPixelsToTiles(this.player.y) + i
             const expectBlock = i < 0 || i == exactGapHeight
-            console.log(`${gapX} ${gapY}`)
-            console.log(`${i} ${(this.map.getTileAt(gapX, gapY).index != 0)}`)
             if ((this.map.getTileAt(gapX, gapY).index != 0) != expectBlock) {
                 return
             }
