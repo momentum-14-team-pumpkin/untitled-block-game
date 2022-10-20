@@ -236,6 +236,7 @@ class LevelScene extends Phaser.Scene {
             this.facing = this.cursors.left.isDown ? 'left' : 'right'
             this.player.setVelocityX(clamp(velX + delta / 1000 * (this.facing == 'left' ? -accelForce : accelForce), this.accelXL, this.accelXR))
             state = 'walk'
+            this.bumpPlayer()
         }
         else
         {
@@ -378,5 +379,56 @@ class LevelScene extends Phaser.Scene {
         this.holdingBlock.setCrop(68, 0, 34, 34)
         this.holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
         this.holdingBlock.setScale(1.25)
+    }
+
+    bumpPlayer() {
+        // player bump - if the player is moving against a 1- or 2-tile high gap,
+        // bump them over so they're aligned with the gap vertically
+        // and slightly into it horizontally
+        const bumpDir = this.facing == 'left' ? -1 : 1
+
+        // don't cause a player bump if the player is grounded
+        if (this.player.body.blocked.down) {
+            return
+        }
+
+        // only allow player bump if the player is (nearly) flush with a tile horizontally
+        const playerModPosX = this.player.x % TILE_SIZE
+        if (this.facing == 'left') {
+            if (playerModPosX < 15.75 || playerModPosX > 16.25) {
+                return
+            }
+        } else {
+            if (playerModPosX < 23.75 || playerModPosX > 24.25) {
+                return
+            }
+        }
+
+        // only allow player bump if the player is (more or less) flush with a tile vertically
+        const playerModPosY = this.player.y % TILE_SIZE
+        if (playerModPosY > 6) {
+            return
+        }
+
+        // check for exact-height gap (1 block without a held block, 2 blocks with)
+        const gapX = convertXPixelsToTiles(this.player.x) + bumpDir
+        const exactGapHeight = this.holdingBlock ? 2 : 1
+        for (let i = -1; i <= exactGapHeight; i++) {
+            const gapY = convertYPixelsToTiles(this.player.y) + i
+            const expectBlock = i < 0 || i == exactGapHeight
+            console.log(`${gapX} ${gapY}`)
+            console.log(`${i} ${(this.map.getTileAt(gapX, gapY).index != 0)}`)
+            if ((this.map.getTileAt(gapX, gapY).index != 0) != expectBlock) {
+                return
+            }
+        }
+
+        console.log('bumping')
+
+        // exact-height gap get! bump player over slightly
+        this.player.y = Math.floor(this.player.y / TILE_SIZE) * TILE_SIZE
+        this.player.x += bumpDir * 8
+        this.player.setVelocityX(this.player.body.velocity.x + bumpDir * 100)
+        this.player.setVelocityY(0)
     }
 }
