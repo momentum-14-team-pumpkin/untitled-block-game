@@ -15,12 +15,6 @@ return(
             <header style={{alignItems:'center'}}>
             <Login currUsername={currUsername} setAuth={setAuth} isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>
             <NavBar setAuth={setAuth} isLoggedIn={isLoggedIn}/>
-            <iframe src='/' 
-            frameBorder='0'
-            style={{
-            width:'100vw',
-            height:'100vh'}}
-            />
             </header>
         </div>
         </div>

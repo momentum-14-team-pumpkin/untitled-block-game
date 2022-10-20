@@ -8,6 +8,7 @@ import { HomePage } from './components/homepage';
 import { Leaderboard } from './components/leaderboard';
 import '/static/css/index.css'
 import { UserTimes } from './components/usertimes';
+import { PlayGame } from './components/gameplay';
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
             <Route path='/user/best-times1' element={<UserTimes level={1} setAuth={setAuth} token={token}/>} />
             <Route path='/user/best-times2' element={<UserTimes level={2} setAuth={setAuth} token={token}/>} />
             <Route path='/user/best-times3' element={<UserTimes level={3} setAuth={setAuth} token={token}/>} />
+            <Route path='/playgame' element={<PlayGame token={token}/>} />
             </Routes>          
         </BrowserRouter>
         </div>
