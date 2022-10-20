@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom"
 import "/static/css/index.css"
 import { Register } from "./register";
+import { PlayGame } from "./gameplay";
 
 
 export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) => {
@@ -12,6 +13,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [goRegister, setGoRegister] = useState(false)
+    const [goToGame, setGoToGame] = useState(false)
     
     const handleSubmit = (event) => {
         console.log({ username, password })
@@ -104,6 +106,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
                 <div >
                     <p style={{color:'white', fontFamily:'bungee'}}>Ready to play </p>
                     <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}} >{currUsername}</p>
+                    <Link to='playgame'>PlayGame</Link>
                 </div>
                 <div style={{color:'white', fontFamily:'bungee'}}>
                     <Link to='/user/best-times1/' style={{color:'white', fontFamily:'bungee', textDecoration:'none'}}   > <h1>Level 1 Times</h1></Link>
