@@ -24,6 +24,13 @@ let config = {
 
 window.addEventListener('message', event => {
     console.log(event)
+    if (event.data.kind === 'sendToken') {
+        config.userToken = event.data.token
+    }
 }, false)
+
+window.parent.postMessage({
+    kind: 'requestToken',
+})
 
 let game = new Phaser.Game(config)

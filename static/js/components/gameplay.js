@@ -3,7 +3,7 @@ import { useEffect } from "react"
 
 export const PlayGame = ({token}) => {
     const passToken = () => {
-        console.log('sending token')
+        window.userToken = token
         document.querySelector("#gameIframe")
             .contentWindow
             .postMessage({
