@@ -220,6 +220,11 @@ class LevelScene extends Phaser.Scene {
         }
         if (justDown[this.keyP] && !this.modCtrl.isDown) {
             this.physics.world.isPaused ^= true
+            if (this.physics.world.isPaused) {
+                this.anims.pauseAll()
+            } else {
+                this.anims.resumeAll()
+            }
         }
         if (this.physics.world.isPaused) {
             return
