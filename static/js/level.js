@@ -19,6 +19,7 @@ class LevelScene extends Phaser.Scene {
         this.speedRun = 0
         this.fullRunTime = 0
         this.resLevel = false
+        this.levelComplete = false
     }
 
     preload() {
@@ -55,7 +56,7 @@ class LevelScene extends Phaser.Scene {
         if (!this.preloadReady) {
             return
         }
-
+        this.levelComplete = false
         this.add.image(this.game.config.width/2, this.game.config.height/2 + 30, 'bg').setScale(0.5)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
@@ -338,8 +339,13 @@ class LevelScene extends Phaser.Scene {
     }
 
     onLevelComplete(){
+        if (this.levelComplete){
+            return
+        }
+        this.levelComplete = true
         this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
         this.speedRun = this.speedRun + this.completionTime
+        console.log(this.song)
         this.song.destroy()
         if (this.soundEffectsOn){
             this.exitSound.play()
@@ -358,9 +364,10 @@ class LevelScene extends Phaser.Scene {
         }
         } else {
             this.winText.setText("YOU'RE WINNER")
-            let helloButton = this.add.text(100, 100, 'Hello Phaser!', { fill: '#0f0' })
-            helloButton.setInteractive()
-            helloButton.on('pointerup', () => { console.log('clicked')})
+            let nextButton = this.add.text(100, 100, 'Next Level', { fill: '#0f0' })
+            nextButton.setInteractive()
+            console.log(this.resLevel)
+            nextButton.on('pointerup', () => { this.scene.restart() })
             if (this.resLevel){
                 this.resLevel = false
                 this.scene.restart()
