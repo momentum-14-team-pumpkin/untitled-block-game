@@ -2,7 +2,7 @@ import React from "react"
 import { useEffect } from "react"
 
 export const PlayGame = ({token}) => {
-    const passToken = () => {
+    useEffect(() => {
         window.userToken = token
         document.querySelector("#gameIframe")
             .contentWindow
@@ -10,8 +10,7 @@ export const PlayGame = ({token}) => {
                 kind: 'sendToken',
                 token,
             })
-    }
-    useEffect(passToken, [token])
+    }, [token])
     return (
         <iframe
             src='/'
