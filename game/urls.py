@@ -16,4 +16,6 @@ urlpatterns = [
     path('full-run-times/<int:pk>/', views.FullRunTimeTrialDetail.as_view(), name='full-run-times-detail'),
     path('homepage/', views.homepage, name='Homepage'),
     path('leaderboard<int:pk>/', views.homepage),
+    path('user/best-times<int:pk>/', views.homepage),
+    path('playgame/', views.homepage)
 ]
