@@ -18,6 +18,7 @@ class LevelScene extends Phaser.Scene {
         this.accelXR = 150
         this.speedRun = 0
         this.fullRunTime = 0
+        this.resLevel = false
     }
 
     preload() {
@@ -26,8 +27,8 @@ class LevelScene extends Phaser.Scene {
         this.load.json('map-data', `/static/assets/levels/level-${this.level}.json`)
         this.load.spritesheet('door', '/static/assets/images/portal.png', { frameWidth: 40, frameHeight: 40 })
         this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
-        this.load.spritesheet('restart', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
-        this.load.spritesheet('next', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
+        this.load.spritesheet('restartBtn', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
+        this.load.spritesheet('nextBtn', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.audio('pick', '/static/assets/audio/pickup.wav')
         this.load.audio('put', '/static/assets/audio/putdown.wav')
         this.load.audio('jump', '/static/assets/audio/jump.wav')
@@ -54,7 +55,7 @@ class LevelScene extends Phaser.Scene {
         if (!this.preloadReady) {
             return
         }
-        
+
         this.add.image(this.game.config.width/2, this.game.config.height/2 + 30, 'bg').setScale(0.5)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
@@ -92,6 +93,8 @@ class LevelScene extends Phaser.Scene {
         this.startTimerText = this.add.text(this.game.config.width/2, 15, "", {font: "32px Futura", fill: '#fc7303'})
         this.winText = this.add.text(config.width/2, 15, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winGameText = this.add.text(config.width/2, 15, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        // this.btnRestart = this.game.add.button(400, 70, 'restartBtn', this.restartSameLevel, this, 0, 1, 0)
+        
         
         if (this.holdingBlock) {
             this.acquireBlock(this)
@@ -355,12 +358,19 @@ class LevelScene extends Phaser.Scene {
         }
         } else {
             this.winText.setText("YOU'RE WINNER")
-            let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
-            if (restartLevel == "y" || restartLevel == "yes"){
-                this.level -= 1
+            let helloButton = this.add.text(100, 100, 'Hello Phaser!', { fill: '#0f0' })
+            helloButton.setInteractive()
+            helloButton.on('pointerup', () => { console.log('clicked')})
+            if (this.resLevel){
+                this.resLevel = false
+                this.scene.restart()
             }
+            // let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
+            // if (restartLevel == "y" || restartLevel == "yes"){
+            //     this.level -= 1
+            // }
         }
-        this.scene.restart()
+        // this.scene.restart()
     }
 
     advanceHax(char) {
@@ -434,5 +444,9 @@ class LevelScene extends Phaser.Scene {
         this.player.x += bumpDir * 8
         this.player.setVelocityX(this.player.body.velocity.x + bumpDir * 100)
         this.player.setVelocityY(0)
+    }
+
+    restartSameLevel(){
+        console.log("clicked")
     }
 }
