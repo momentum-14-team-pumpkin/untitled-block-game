@@ -321,7 +321,6 @@ class LevelScene extends Phaser.Scene {
         {
             this.holdingBlock.x = this.player.x - TILE_SIZE - 2
             this.holdingBlock.y = this.player.y - TILE_SIZE
-            this.player.body.setSize(32, 80).setOffset(0, -40)
         }
     }
 
@@ -369,6 +368,7 @@ class LevelScene extends Phaser.Scene {
     }
 
     acquireBlock() {
+        this.player.body.setSize(32, 80).setOffset(0, -40)
         this.holdingBlock = this.add.image(0, 0, 'tiles')
         this.holdingBlock.setCrop(68, 0, 34, 34)
         this.holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
