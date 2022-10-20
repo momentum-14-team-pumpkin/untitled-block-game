@@ -2,7 +2,7 @@
     "song": "Level1.mp3",
     "tile_data": "level2.csv",
     "tiles": "ice-tiles.png",
-    "bg": "ice-age.png",
+    "bg": "level2_1794_798.png",
     "accel": {
         "ground": 200,
         "air": 50
