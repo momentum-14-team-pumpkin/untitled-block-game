@@ -167,6 +167,9 @@ class LevelScene extends Phaser.Scene {
             return
         }
 
+        let justDown = {}
+        justDown[this.keyP] = Phaser.Input.Keyboard.JustDown(this.keyP)
+
         if (this.modCtrl.isDown && this.keyE.isDown) {
             this.song.stop()
             this.scene.start('EditorScene')
@@ -214,6 +217,12 @@ class LevelScene extends Phaser.Scene {
                 this.soundEffectsOn = true
                 return
             }
+        }
+        if (justDown[this.keyP] && !this.modCtrl.isDown) {
+            this.physics.world.isPaused ^= true
+        }
+        if (this.physics.world.isPaused) {
+            return
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyR)){
             this.song.destroy()
@@ -320,7 +329,7 @@ class LevelScene extends Phaser.Scene {
                 this.level += 1
                 this.scene.restart()
             }
-            if (Phaser.Input.Keyboard.JustDown(this.keyP) && this.level > 1){
+            if (this.modCtrl.isDown && justDown[this.keyP] && this.level > 1){
                 this.song.destroy()
                 this.level -= 1
                 this.scene.restart()
