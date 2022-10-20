@@ -352,6 +352,9 @@ class LevelScene extends Phaser.Scene {
         this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
         this.speedRun = this.speedRun + this.completionTime
         this.song.destroy()
+        let iframe = document.createElement('iframe')
+        iframe.src = `/leaderboard${this.level}/`
+        document.querySelector('#gameDiv').append(iframe)
         if (this.soundEffectsOn){
             this.exitSound.play()
         }
@@ -374,6 +377,7 @@ class LevelScene extends Phaser.Scene {
                 this.level -= 1
             }
         }
+        iframe.remove()
         this.scene.restart()
     }
 
