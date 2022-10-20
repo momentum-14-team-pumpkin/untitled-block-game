@@ -12,14 +12,28 @@ export const PlayGame = ({token}) => {
             })
     }, [token])
     return (
-        <iframe
-            src='/'
-            id='gameIframe'
-            frameBorder='0'
-            style={{
-                width:'100vw',
-                height:'100vh'
-            }}
-        />
+        <>
+            <div>
+            <div style={{color:'white', textAlign:'center', marginTop:'0', fontStyle:'italic'}}>
+                <p>Use Arrows For Left and Right</p>
+                <p>Space to Jump</p>
+                <p>Down Button to Pick Up and Put Down Blocks</p>
+                <p>'M' to Turn On or Shut Off Music</p>
+                <p>'E' to Turn On or Shut Off Element Sounds</p>
+            </div>
+            <iframe
+                allowFullScreen src='/'
+                id='gameIframe'
+                webkitallowfullscreen="true"
+                frameBorder='0'
+                style={{
+                    width:'100vw',
+                    height:'100vh',
+                    marginBottom:'0'
+                }}
+            />
+            </div>
+
+        </>
     )
 }

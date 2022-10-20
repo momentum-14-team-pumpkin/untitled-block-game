@@ -13,7 +13,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [goRegister, setGoRegister] = useState(false)
-    
+
     const handleSubmit = (event) => {
         console.log({ username, password })
         event.preventDefault()
@@ -39,9 +39,6 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         if (error.response.data.password)
             setError(error.response.data.password)
         })
-        
-        
-
     }
 
     if (goRegister){
@@ -52,8 +49,8 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
             }} 
             />
         )
-        
     }
+
 
     else if (!isLoggedIn){
     return (  
@@ -92,7 +89,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
             <br />
             <div className="register-link">
                 Don't have an account? <br />
-                    <button onClick={()=> setGoRegister(true)} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>Sign Up </button>
+                    <button onClick={()=> setGoRegister(true)} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee', marginTop:'10px'}}>Sign Up </button>
             </div>
         </div>
         </>
@@ -105,19 +102,21 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
                 <div >
                     <p style={{color:'white', fontFamily:'bungee'}}>Ready to play </p>
                     <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}} >{currUsername}</p>
-                    <Link to='playgame'>PlayGame</Link>
-                </div>
-                <div style={{color:'white', fontFamily:'bungee'}}>
-                    <Link to='/user/best-times1/' style={{color:'white', fontFamily:'bungee', textDecoration:'none'}}   > <h1>Level 1 Times</h1></Link>
-                    <Link to='/user/best-times2/' style={{color:'white', fontFamily:'bungee', textDecoration:'none'}}  > <h1>Level 2 Times</h1></Link>
-                    <Link to='/user/best-times3/' style={{color:'white', fontFamily:'bungee', textDecoration:'none'}}  > <h1>Level 3 Times</h1></Link>
                 </div>
                 <div>
-                    <button to="/homepage/" onClick={handleLogout} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
+                    <Link to='/playgame/'
+                    style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}
+                    >Play Game</Link>
+                </div>
+                <div style={{color:'white', fontFamily:'bungee', display:'flex', marginTop:'30px', marginBottom:'30px', justifyContent:'center'}}>
+                    <Link to='/user/best-times1/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px'}}> Level 1 Times</Link>
+                    <Link to='/user/best-times2/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px'}}> Level 2 Times</Link>
+                    <Link to='/user/best-times3/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', }}> Level 3 Times</Link>
+                </div>
+                <div>
+                    <button to="/" onClick={handleLogout} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
                     Logout</button>
                 </div>
-
-            
             </div>
             </>
         )
