@@ -27,14 +27,14 @@ export const UserTimes = ({level, currUsername, setAuth, token, isLoggedIn}) => 
 
     
 
-    if (userBestTimes && isLoggedIn){
+    if (userBestTimes){
         return(
             <>
             <div style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', border: 'solid', borderBlockStyle:'dotted'}}>
                 <div >
-                    <h1>
-                        Best Times {currUsername} For Level {level}
-                    </h1>
+                    <h1> {currUsername} </h1>
+                    <h2>Best Times  For Level {level}</h2>
+                    
                 </div>
                 <div>
                     {userBestTimes.map((listOfTimes) => (
