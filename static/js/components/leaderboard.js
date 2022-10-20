@@ -38,9 +38,10 @@ export const Leaderboard =({level}) => {
                             textAlign:'center',
                             margin:'auto',
                         }}>
-                        <div style={{textAlign:'center'}}>
-                            <h2>{listOfTimes.time}</h2>
-                            <p>{listOfTimes.player}</p>
+                        <div style={{display:'flex', justifyContent:'center', fontSize:'1.5rem', margin:'auto', textAlign:'center', maxWidth:'80%'}}>
+                            <p>{listOfTimes.time}</p>
+                            <p>...............{listOfTimes.player}</p>
+                            
                         </div>
                     </div>
                     ))}
