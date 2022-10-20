@@ -1,17 +1,16 @@
 import React from "react"
 import { useState } from "react"
 import axios from "axios"
-import { Navigate } from "react-router-dom"
 import {Link} from "react-router-dom"
 import "/static/css/index.css"
 
 
 
-export const Register = ({setAuth, isLoggedIn, registered}) => {
+export const Register = ({setAuth}) => {
         const [username, setUsername] = useState('')
         const [password, setPassword] = useState('')
         const [error, setError] = useState(null)
-    
+
         const handleSubmit = (e) => {
             e.preventDefault()
             console.log('handle submit')
@@ -29,34 +28,34 @@ export const Register = ({setAuth, isLoggedIn, registered}) => {
                     }
                 )
                 )
-                .then((res) =>
-                    setAuth(username, res.data.auth_token))
+                .then((res) => {
+                    console.log(res.data),
+                    setAuth(username, res.data.auth_token)
+                    })
 
                 .catch((error) => {
+                    console.log(error)
                     if (error.response.data.username)
                         setError(error.response.data.username);
                 
                     if (error.response.data.password)
-                        setError(error.response.data.password)
+                        setError(error.response.data.password);
                 })
-        }
 
-        if (isLoggedIn) {
-            return <Navigate to="/homepage/" />
         }
-
 
     return (  
         <>
         <div style={{margin:'auto', textAlign:'center'}}>
         <h1 style={{fontFamily:'bungee', color:'white'}}>Registration Page</h1>
-        {error && <div className="error">{error} <br /> <br /></div>}
+        {error && <div style={{color:'red', fontFamily:'bungee'}} className="error">{error} <br /> <br /></div>}
         <form id="registration-form" onSubmit={handleSubmit}>
             <label style={{color:'white', fontFamily:'bungee'}} htmlFor="username">Username: </label>
             <input 
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
+                style={{fontFamily:'bungee'}}
                 autoComplete="on"
                 value={username}
                 required
@@ -71,6 +70,7 @@ export const Register = ({setAuth, isLoggedIn, registered}) => {
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 value={password}
+                style={{fontFamily:'bungee'}}
                 required
                 />
                 <br />
@@ -80,15 +80,15 @@ export const Register = ({setAuth, isLoggedIn, registered}) => {
                 style={{color:'black', fontFamily:'bungee', borderRadius:'10px'}} 
                 type="submit"
                 value="Register"
-                to='/'
-                >Sign Up</button>
+                to='/homepage/'
+                >Register</button>
         </form>
 
         <br />
         <p style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}>Already have an account?</p>
             
             <div className="back-to-login-link">
-                <Link style={{color:'white', fontFamily:'bungee', borderRadius:'10px', textDecoration:'none'}}  to="/Login">Back to Login</Link>
+                <Link style={{color:'white', fontFamily:'bungee', borderRadius:'10px', textDecoration:'none', fontSize:'1.5em'}}  to="/homepage/">Back to Login</Link>
             </div>
         </div>
         </>
