@@ -22,4 +22,8 @@ let config = {
     ],
 }
 
+window.addEventListener('message', event => {
+    console.log(event)
+}, false)
+
 let game = new Phaser.Game(config)
