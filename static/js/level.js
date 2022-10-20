@@ -434,14 +434,10 @@ class LevelScene extends Phaser.Scene {
         for (let i = -1; i <= exactGapHeight; i++) {
             const gapY = convertYPixelsToTiles(this.player.y) + i
             const expectBlock = i < 0 || i == exactGapHeight
-            console.log(`${gapX} ${gapY}`)
-            console.log(`${i} ${(this.map.getTileAt(gapX, gapY).index != 0)}`)
             if ((this.map.getTileAt(gapX, gapY).index != 0) != expectBlock) {
                 return
             }
         }
-
-        console.log('bumping')
 
         // exact-height gap get! bump player over slightly
         this.player.y = Math.floor(this.player.y / TILE_SIZE) * TILE_SIZE
