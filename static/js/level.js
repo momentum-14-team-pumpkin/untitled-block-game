@@ -427,8 +427,6 @@ class LevelScene extends Phaser.Scene {
             }
         }
 
-        console.log('bumping')
-
         // exact-height gap get! bump player over slightly
         this.player.y = Math.floor(this.player.y / TILE_SIZE) * TILE_SIZE
         this.player.x += bumpDir * 8
