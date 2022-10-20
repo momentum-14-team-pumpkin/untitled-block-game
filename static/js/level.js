@@ -26,6 +26,8 @@ class LevelScene extends Phaser.Scene {
         this.load.json('map-data', `/static/assets/levels/level-${this.level}.json`)
         this.load.spritesheet('door', '/static/assets/images/portal.png', { frameWidth: 40, frameHeight: 40 })
         this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
+        this.load.spritesheet('restart', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
+        this.load.spritesheet('next', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.audio('pick', '/static/assets/audio/pickup.wav')
         this.load.audio('put', '/static/assets/audio/putdown.wav')
         this.load.audio('jump', '/static/assets/audio/jump.wav')
@@ -52,8 +54,8 @@ class LevelScene extends Phaser.Scene {
         if (!this.preloadReady) {
             return
         }
-
-        this.add.image(this.game.config.width/2, this.game.config.height/2, 'bg').setScale(this.game.config.width/512)
+        
+        this.add.image(this.game.config.width/2, this.game.config.height/2 + 30, 'bg').setScale(0.5)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
         this.map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
@@ -87,8 +89,10 @@ class LevelScene extends Phaser.Scene {
         this.levelStart = null
         this.levelText = this.add.text(50, 15, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.timeText = this.add.text(50, 30, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
-        this.startTimerText = this.add.text(this.game.config.width/2, 20, "", {font: "32px Futura", fill: '#fc7303'})
-    
+        this.startTimerText = this.add.text(this.game.config.width/2, 15, "", {font: "32px Futura", fill: '#fc7303'})
+        this.winText = this.add.text(config.width/2, 15, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.winGameText = this.add.text(config.width/2, 15, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        
         if (this.holdingBlock) {
             this.acquireBlock(this)
         }
@@ -163,6 +167,11 @@ class LevelScene extends Phaser.Scene {
             return
         }
 
+        if (this.modCtrl.isDown && this.keyE.isDown) {
+            this.song.stop()
+            this.scene.start('EditorScene')
+        }
+
         if (!this.levelStart) {
             this.levelStart = time
         }
@@ -231,6 +240,7 @@ class LevelScene extends Phaser.Scene {
             this.facing = this.cursors.left.isDown ? 'left' : 'right'
             this.player.setVelocityX(clamp(velX + delta / 1000 * (this.facing == 'left' ? -accelForce : accelForce), this.accelXL, this.accelXR))
             state = 'walk'
+            this.bumpPlayer()
         }
         else
         {
@@ -321,7 +331,6 @@ class LevelScene extends Phaser.Scene {
         {
             this.holdingBlock.x = this.player.x - TILE_SIZE - 2
             this.holdingBlock.y = this.player.y - TILE_SIZE
-            this.player.body.setSize(32, 80).setOffset(0, -40)
         }
     }
 
@@ -336,7 +345,7 @@ class LevelScene extends Phaser.Scene {
         if (this.level > NUM_OF_LEVELS){
             this.fullRunTime = this.speedRun
             this.speedRun = 0
-            alert ("YOU'RE WINNER OF GAME")
+            this.winGameText.setText("YOU'RE WINNER OF GAME")
             let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
             if (restartLevel == "y" || restartLevel == "yes"){
                 this.level -= 1
@@ -345,7 +354,7 @@ class LevelScene extends Phaser.Scene {
             this.level = 1
         }
         } else {
-            alert ("YOU'RE WINNER")
+            this.winText.setText("YOU'RE WINNER")
             let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
             if (restartLevel == "y" || restartLevel == "yes"){
                 this.level -= 1
@@ -369,35 +378,61 @@ class LevelScene extends Phaser.Scene {
     }
 
     acquireBlock() {
+        this.player.body.setSize(32, 80).setOffset(0, -40)
         this.holdingBlock = this.add.image(0, 0, 'tiles')
         this.holdingBlock.setCrop(68, 0, 34, 34)
         this.holdingBlock.setSize(TILE_SIZE, TILE_SIZE)
         this.holdingBlock.setScale(1.25)
     }
-}
 
-function clamp(value, min, max) {
-    return Math.min(Math.max(value, min), max)
-}
+    bumpPlayer() {
+        // player bump - if the player is moving against a 1- or 2-tile high gap,
+        // bump them over so they're aligned with the gap vertically
+        // and slightly into it horizontally
+        const bumpDir = this.facing == 'left' ? -1 : 1
 
-function convertSecondsToTimestring(seconds) {
-    let hours = String(Math.floor(seconds / 3600))
-    seconds -= hours * 3600
-    let minutes = String(Math.floor(seconds / 60)).padStart(2, '0')
-    seconds -= minutes * 60
-    let fracSecs = seconds % 1
-    seconds = String(Math.floor(seconds)).padStart(2, '0')
-    return `${hours}:${minutes}:${seconds}${fracSecs.toFixed(3).slice(-4)}`
-}
+        // don't cause a player bump if the player is grounded
+        if (this.player.body.blocked.down) {
+            return
+        }
 
-function convertSecondsToTimeStringForDelay(seconds) {
-    seconds = String(Math.ceil(seconds)).padStart(1, '0')
-    return `${seconds}`
-}
+        // only allow player bump if the player is (nearly) flush with a tile horizontally
+        const playerModPosX = this.player.x % TILE_SIZE
+        if (this.facing == 'left') {
+            if (playerModPosX < 15.75 || playerModPosX > 16.25) {
+                return
+            }
+        } else {
+            if (playerModPosX < 23.75 || playerModPosX > 24.25) {
+                return
+            }
+        }
 
-function convertTilesToXPixels(tiles){
-    return (tiles + 0.5) * TILE_SIZE
-}
-function convertTilesToYPixels(tiles){
-    return config.height - (tiles + 0.5) * TILE_SIZE
+        // only allow player bump if the player is (more or less) flush with a tile vertically
+        const playerModPosY = this.player.y % TILE_SIZE
+        if (playerModPosY > 6) {
+            return
+        }
+
+        // check for exact-height gap (1 block without a held block, 2 blocks with)
+        const gapX = convertXPixelsToTiles(this.player.x) + bumpDir
+        const exactGapHeight = this.holdingBlock ? 2 : 1
+        for (let i = -1; i <= exactGapHeight; i++) {
+            const gapY = convertYPixelsToTiles(this.player.y) + i
+            const expectBlock = i < 0 || i == exactGapHeight
+            console.log(`${gapX} ${gapY}`)
+            console.log(`${i} ${(this.map.getTileAt(gapX, gapY).index != 0)}`)
+            if ((this.map.getTileAt(gapX, gapY).index != 0) != expectBlock) {
+                return
+            }
+        }
+
+        console.log('bumping')
+
+        // exact-height gap get! bump player over slightly
+        this.player.y = Math.floor(this.player.y / TILE_SIZE) * TILE_SIZE
+        this.player.x += bumpDir * 8
+        this.player.setVelocityX(this.player.body.velocity.x + bumpDir * 100)
+        this.player.setVelocityY(0)
+    }
 }
