@@ -7,7 +7,8 @@ export const PlayGame = ({token}) => {
         document.querySelector("#gameIframe")
             .contentWindow
             .postMessage({
-                token
+                kind: 'sendToken',
+                token,
             })
     }
     useEffect(passToken, [token])
