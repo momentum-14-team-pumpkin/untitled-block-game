@@ -1,7 +1,7 @@
 {
     "song": "Level1.mp3",
     "tile_data": "level3.csv",
-    "tiles": "rock-tiles.png",
+    "tiles": "wood-tiles.png",
     "bg": "level3_1794_798.png",
     "accel": {
         "ground": 1000,

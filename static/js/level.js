@@ -54,17 +54,13 @@ class LevelScene extends Phaser.Scene {
         if (!this.preloadReady) {
             return
         }
-
-        // let cam = this.cameras.main.setBounds(0, 0, 897, 444)
-        // cam.setZoom(1, 1)
+        
         this.add.image(this.game.config.width/2, this.game.config.height/2 + 30, 'bg').setScale(0.5)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
         this.map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
         this.player = this.physics.add.sprite(convertTilesToXPixels(this.mapData.player_start.x),
             convertTilesToYPixels(this.mapData.player_start.y) - 4, 'player')
-        // this.cameras.main.startFollow(this.player) // follow player with camera
-        // this.player.setScrollFactor(0, 1)
         this.song = this.sound.add('song')
         this.song.loop = true
         if (this.musicOn) {
@@ -96,7 +92,6 @@ class LevelScene extends Phaser.Scene {
         this.startTimerText = this.add.text(this.game.config.width/2, 15, "", {font: "32px Futura", fill: '#fc7303'})
         this.winText = this.add.text(config.width/2, 15, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winGameText = this.add.text(config.width/2, 15, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
-        // this.btnRestart = this.game.add.button(280, 80, 'restart', this.restartLevel, this, 0, 1, 0)
         
         if (this.holdingBlock) {
             this.acquireBlock(this)
@@ -351,8 +346,6 @@ class LevelScene extends Phaser.Scene {
             this.fullRunTime = this.speedRun
             this.speedRun = 0
             this.winGameText.setText("YOU'RE WINNER OF GAME")
-            // this.time.events.add(3000, this.restartLevel, this.winGameText)
-            // alert ("YOU'RE WINNER OF GAME")
             let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
             if (restartLevel == "y" || restartLevel == "yes"){
                 this.level -= 1
@@ -362,12 +355,10 @@ class LevelScene extends Phaser.Scene {
         }
         } else {
             this.winText.setText("YOU'RE WINNER")
-            // this.time.events.add(Phaser.Timer.SECOND * 3, this.winText.setText, this.winText)
-            // alert ("YOU'RE WINNER")
-            // let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
-            // if (restartLevel == "y" || restartLevel == "yes"){
-            //     this.level -= 1
-            // }
+            let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
+            if (restartLevel == "y" || restartLevel == "yes"){
+                this.level -= 1
+            }
         }
         this.scene.restart()
     }
