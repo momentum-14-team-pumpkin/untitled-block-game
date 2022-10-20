@@ -362,6 +362,7 @@ class LevelScene extends Phaser.Scene {
         console.log(this.song)
         let iframe = document.createElement('iframe')
         iframe.src = `/leaderboard${this.level}/`
+        iframe.style = 'width: 100%; height: 100%; pointer-events: none; position: absolute; left: 0; right: 0;'
         document.querySelector('#gameDiv').append(iframe)
         if (this.soundEffectsOn){
             this.exitSound.play()
@@ -383,7 +384,10 @@ class LevelScene extends Phaser.Scene {
             let nextButton = this.add.text(100, 100, 'Next Level', { fill: '#0f0' })
             nextButton.setInteractive()
             console.log(this.resLevel)
-            nextButton.on('pointerup', () => { this.scene.restart() })
+            nextButton.on('pointerup', () => {
+                iframe.remove()
+                this.scene.restart()
+            })
             if (this.resLevel){
                 this.resLevel = false
                 this.scene.restart()
@@ -394,7 +398,6 @@ class LevelScene extends Phaser.Scene {
             // }
         }
         this.song.destroy()
-        iframe.remove()
         // this.scene.restart()
     }
 

@@ -13,6 +13,7 @@ body
 
 #gameDiv
 {
+    position: relative;
     width: calc(min(100vw, 150vh));
     height: calc(min(100vh, 200vw / 3));
 }
