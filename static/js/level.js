@@ -392,7 +392,9 @@ class LevelScene extends Phaser.Scene {
         const bumpDir = this.facing == 'left' ? -1 : 1
 
         // don't cause a player bump if the player is grounded
-        if (this.player.body.blocked.down) {
+        // or has no block
+        if (this.player.body.blocked.down
+            || !this.holdingBlock) {
             return
         }
 
