@@ -38,7 +38,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         if (error.response.data.password)
             setError(error.response.data.password)
         })
-        console.log(username, password)
+        
         
 
     }
