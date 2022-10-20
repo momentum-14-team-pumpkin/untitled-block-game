@@ -2,7 +2,7 @@
     "song": "Level1.mp3",
     "tile_data": "level1.csv",
     "tiles": "drawtiles-spaced.png",
-    "bg": "city_PNG48.png",
+    "bg": "level1_1794_798.png",
     "accel": {
         "ground": 1000,
         "air": 200
