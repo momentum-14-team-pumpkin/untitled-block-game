@@ -16,10 +16,10 @@ export const UserTimesTotal = ({level, currUsername, setAuth, token, isLoggedIn}
             },
         })
         .then((res) =>
-        setUserBestTimesTotal(res.data.sort((a,b)=> {
-            let timeDiff = a.time + b.time
-            if (timeDiff != 0){
-                return timeDiff
+        setUserBestTimesTotal(res.data.sort((a,b,c,d)=> {
+            let timeTotal = a.time + b.time + c.time + d.time
+            if (timeTotal != 0){
+                return timeTotal
             }
             return 0   //TODO: use created time ??
         } 
