@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.show_game, name='BLOCK_IN_TIME'),
+    path('', views.homepage, name='Homepage'),
+    path('game/', views.show_game, name='BLOCK_IN_TIME'),
     path('users/', views.CustomUserList.as_view(), name='users'),
     path('users/<int:pk>/', views.CustomUserDetail.as_view(), name='user-detail'),
     path('times/', views.TimeTrialList.as_view(), name='time-trial'),
@@ -14,8 +15,8 @@ urlpatterns = [
     path('levels/<int:pk>/times/', views.LevelTimeTrialList.as_view(), name='level-times'),
     path('full-run-times/', views.FullRunTimeTrialList.as_view(), name='full-run-times'),
     path('full-run-times/<int:pk>/', views.FullRunTimeTrialDetail.as_view(), name='full-run-times-detail'),
-    path('homepage/', views.homepage, name='Homepage'),
+    path('homepage/', views.homepage, name='Homepage-alt'),
     path('leaderboard<int:pk>/', views.homepage),
     path('user/best-times<int:pk>/', views.homepage),
-    path('playgame/', views.homepage)
+    path('playgame/', views.homepage),
 ]

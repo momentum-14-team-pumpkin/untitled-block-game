@@ -22,7 +22,7 @@ export const PlayGame = ({token}) => {
                 <p>'E' to Turn On or Shut Off Element Sounds</p>
             </div>
             <iframe
-                allowFullScreen src='/'
+                allowFullScreen src='/game/'
                 id='gameIframe'
                 webkitallowfullscreen="true"
                 frameBorder='0'
