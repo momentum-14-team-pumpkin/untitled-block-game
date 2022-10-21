@@ -40,7 +40,7 @@ export const Leaderboard =({level}) => {
                             margin:'auto',
                         }}>
                         <div style={{display:'flex', justifyContent:'center', fontSize:'1.5rem', margin:'auto', textAlign:'center', maxWidth:'80%'}}>
-                            <p>{listOfTimes.time}</p>
+                            <p>{convertSecondsToTimestring(listOfTimes.time)}</p>
                             <p>...............{listOfTimes.player}</p>
                             
                         </div>
