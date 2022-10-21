@@ -395,6 +395,7 @@ class LevelScene extends Phaser.Scene {
         if (this.soundEffectsOn){
             this.exitSound.play()
         }
+        iframe.remove()
         this.level += 1
         if (this.level > NUM_OF_LEVELS){
             this.fullRunTime = this.speedRun
