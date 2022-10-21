@@ -12,7 +12,7 @@ export const Leaderboard =({level}) => {
         axios
         .get(`https://young-plateau-94674.herokuapp.com/levels/${level}/times/`)
         .then((res) =>
-        setBestTimes(res.data.sort((a,b)=> {
+        setBestTimes(res.data.results.sort((a,b)=> {
             let timeDiff = a.time - b.time
             if (timeDiff != 0){
                 return timeDiff
@@ -40,7 +40,7 @@ export const Leaderboard =({level}) => {
                             margin:'auto',
                         }}>
                         <div style={{display:'flex', justifyContent:'center', fontSize:'1.5rem', margin:'auto', textAlign:'center', maxWidth:'80%'}}>
-                            <p>{listOfTimes.time}</p>
+                            <p>{convertSecondsToTimestring(listOfTimes.time)}</p>
                             <p>...............{listOfTimes.player}</p>
                             
                         </div>

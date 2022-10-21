@@ -288,6 +288,7 @@ class LevelScene extends Phaser.Scene {
             return
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyR)){
+            this.holdingBlock = null
             this.song.destroy()
             this.speedRun += (time - this.levelStart - TIMER_DELAY) / 1000
             this.scene.restart()
@@ -423,10 +424,16 @@ class LevelScene extends Phaser.Scene {
             this.exitSound.play()
         }
         iframe.remove()
+        if (!this.zomgHax) {
+            submitTime(this.completionTime, this.level)
+        }
         this.level += 1
         if (this.level > NUM_OF_LEVELS){
             this.fullRunTime = this.speedRun
             this.speedRun = 0
+            if (!this.zomgHax) {
+                submitTime(this.fullRunTime)
+            }
             this.winGameText.setText("YOU'RE WINNER OF GAME")
             this.winGameText.setOrigin(0.5, 0.5)
             this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
@@ -456,7 +463,7 @@ class LevelScene extends Phaser.Scene {
             })
             this.btnNext.visible = true
             this.btnNext.setInteractive()
-            this.btnNext.on('pointerup', () => {
+            this.btnNext.on('pointerup', () =>  {
                 this.btnNext.play('clickNext')
                 cleanup()
             })
