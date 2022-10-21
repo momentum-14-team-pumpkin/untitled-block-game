@@ -26,11 +26,11 @@ export const Leaderboard =({level}) => {
     if (bestTimes){
         return(
             <>
-            <div style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', borderBlockStyle:'dotted', borderRightStyle:'dotted', borderLeftStyle:'dotted', paddingBottom:'50px'}}>
+            <div className="box" style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', paddingBottom:'50px'}}>
                 <div>
-                    <h1>
+                    <p style={{fontSize:'3rem'}}>
                         Best Times For Level {level}
-                    </h1>
+                    </p>
                 </div>
                 <div>
                     {bestTimes.map((listOfTimes) => (
