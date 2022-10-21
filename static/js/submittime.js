@@ -8,6 +8,5 @@ function submitTime (time, level) {
         headers: {
             Authorization: `Token ${config.userToken}`
         },
-    }) .then(console.log)
-
+    })
 }
