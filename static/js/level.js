@@ -62,8 +62,10 @@ class LevelScene extends Phaser.Scene {
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
         this.map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
+        this.cameras.main.setBounds(0, 0, this.map.width * TILE_SIZE, this.game.config.height)
         this.player = this.physics.add.sprite(convertTilesToXPixels(this.mapData.player_start.x),
             convertTilesToYPixels(this.mapData.player_start.y) - 4, 'player')
+        this.cameras.main.startFollow(this.player)
         this.song = this.sound.add('song')
         this.song.loop = true
         if (this.musicOn) {
@@ -71,7 +73,7 @@ class LevelScene extends Phaser.Scene {
         }
         let tileset = this.map.addTilesetImage('tiles', null, 32, 32, 1, 2)
         let layer = this.map.createLayer(0, tileset, 0, 60)
-        this.player.setCollideWorldBounds(true)
+        this.player.setCollideWorldBounds(false)
         this.physics.add.existing(this.player)
         this.physics.add.collider(this.player, layer)
         this.physics.add.overlap(this.player, doors, this.onLevelComplete, null, this)
@@ -91,12 +93,41 @@ class LevelScene extends Phaser.Scene {
     
         this.levelStart = null
         this.levelText = this.add.text(40, 15, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.levelText.setScrollFactor(0)
         this.timeText = this.add.text(40, 30, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.timeText.setScrollFactor(0)
         this.startTimerText = this.add.text(this.game.config.width/2, 15, "", {font: "32px Futura", fill: '#fc7303'})
+        this.startTimerText.setScrollFactor(0)
         this.winText = this.add.text(config.width/2 - 100, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.winText.setScrollFactor(0)
         this.winGameText = this.add.text(config.width/2 - 60, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.winGameText.setScrollFactor(0)
         this.compLevelText = this.add.text(40, 15, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.compTimeText = this.add.text(40, 30, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
+        this.btnRestart.setOrigin(0.5, 0.5)
+        this.btnRestart.visible = false
+        this.btnRestart.setScrollFactor(0)
+        this.btnNext = this.add.sprite(790, 30, 'nextBtn')
+        this.btnNext.setOrigin(0.5, 0.5)
+        this.btnNext.visible = false
+        this.btnNext.setScrollFactor(0)
+        this.btnExit = this.add.sprite(790, 30, 'exitBtn')
+        this.btnExit.setOrigin(0.5, 0.5)
+        this.btnExit.visible = false
+        this.btnExit.setScrollFactor(0)
+        this.pauseText = this.add.text(
+            config.width/2, config.height/2, "PAUSED", {fill: "#ffffff", backgroundColor: "rgba(255, 0, 0, 1)"}
+            )
+        this.pauseText.setOrigin(0.5, 0.5)
+        this.pauseText.setScrollFactor(0)
+        this.pauseText.visible = false
+        this.pauseWarnText = this.add.text(
+            config.width/2, config.height/2 + 15, "WARNING: TIME DOES NOT STOP", {fill: "#ffffff", backgroundColor: "rgba(255, 0, 0, 1)"}
+            )
+        this.pauseWarnText.setOrigin(0.5, 0.5)
+        this.pauseWarnText.setScrollFactor(0)
+        this.pauseWarnText.visible = false
         
         if (this.holdingBlock) {
             this.acquireBlock(this)
@@ -244,18 +275,12 @@ class LevelScene extends Phaser.Scene {
         if (justDown[this.keyP] && !this.modCtrl.isDown) {
             this.physics.world.isPaused ^= true
             if (this.physics.world.isPaused) {
-                this.pauseText = this.add.text(
-                    config.width/2, config.height/2, "PAUSED", {fill: "#ffffff", backgroundColor: "rgba(255, 0, 0, 1)"}
-                    )
-                this.pauseText.setOrigin(0.5, 0.5)
-                this.pauseWarnText = this.add.text(
-                    config.width/2, config.height/2 + 15, "WARNING: TIME DOES NOT STOP", {fill: "#ffffff", backgroundColor: "rgba(255, 0, 0, 1)"}
-                    )
-                this.pauseWarnText.setOrigin(0.5, 0.5)
+                this.pauseText.visible = true
+                this.pauseWarnText.visible = true
                 this.anims.pauseAll()
             } else {
-                this.pauseText.destroy()
-                this.pauseWarnText.destroy()
+                this.pauseText.visible = false
+                this.pauseWarnText.visible = false
                 this.anims.resumeAll()
             }
         }
@@ -386,6 +411,8 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = true
+        this.player.visible = false
+        this.player.body.destroy()
         this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
         this.speedRun = this.speedRun + this.completionTime
         let iframe = document.createElement('iframe')
@@ -404,34 +431,30 @@ class LevelScene extends Phaser.Scene {
             this.winGameText.setOrigin(0.5, 0.5)
             this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
             this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
-            this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
-            this.btnRestart.setOrigin(0.5, 0.5)
+            this.btnRestart.visible = true
             this.btnRestart.setInteractive()
             this.btnRestart.on('pointerup', () => { this.btnRestart.play('clickRestart'); this.level -= 1; this.scene.restart() })
-            this.btnExit = this.add.sprite(790, 30, 'exitBtn')
-            this.btnExit.setOrigin(0.5, 0.5)
+            this.btnExit.visible = true
             this.btnExit.setInteractive()
             this.btnExit.on('pointerup', () => { this.btnExit.play('clickExit'); this.level = 1; this.scene.restart() })
         } else {
             // this.levelText.setText(`Level: ${this.level} Complete!`, {fill: '#FFFF00'}) Update Level text
             this.winText.setText("YOU'RE WINNER")
+            this.winText.setOrigin(0.5, 0.5)
             let cleanup = () => {
                 iframe.remove()
                 this.scene.restart()
             }
-            this.winText.setOrigin(0.5, 0.5)
             this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
             this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
-            this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
-            this.btnRestart.setOrigin(0.5, 0.5)
+            this.btnRestart.visible = true
             this.btnRestart.setInteractive()
             this.btnRestart.on('pointerup', () => {
                 this.btnRestart.play('clickRestart')
                 this.level -= 1
                 cleanup()
             })
-            this.btnNext = this.add.sprite(790, 30, 'nextBtn')
-            this.btnNext.setOrigin(0.5, 0.5)
+            this.btnNext.visible = true
             this.btnNext.setInteractive()
             this.btnNext.on('pointerup', () => {
                 this.btnNext.play('clickNext')
