@@ -33,7 +33,7 @@ export const UserTimes = ({level, currUsername, setAuth, token, isLoggedIn}) => 
             <div style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', border: 'solid', borderBlockStyle:'dotted'}}>
                 <div >
                     <h1> {currUsername} </h1>
-                    <h2>Best Times  For Level {level}</h2>
+                    <h2>Best Times For Level {level}</h2>
                     
                 </div>
                 <div>
