@@ -396,8 +396,10 @@ class LevelScene extends Phaser.Scene {
             this.exitSound.play()
         }
         iframe.remove()
+        submitTime(1234, this.level)
         this.level += 1
         if (this.level > NUM_OF_LEVELS){
+            submitTime(1234)
             this.fullRunTime = this.speedRun
             this.speedRun = 0
             this.winGameText.setText("YOU'RE WINNER OF GAME")
@@ -434,7 +436,6 @@ class LevelScene extends Phaser.Scene {
             this.btnNext.setOrigin(0.5, 0.5)
             this.btnNext.setInteractive()
             this.btnNext.on('pointerup', () =>  {
-                submitTime(1234, this.level)
                 this.btnNext.play('clickNext')
                 cleanup()
             })
