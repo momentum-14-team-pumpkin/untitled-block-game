@@ -433,7 +433,8 @@ class LevelScene extends Phaser.Scene {
             this.btnNext = this.add.sprite(790, 30, 'nextBtn')
             this.btnNext.setOrigin(0.5, 0.5)
             this.btnNext.setInteractive()
-            this.btnNext.on('pointerup', () => {
+            this.btnNext.on('pointerup', () =>  {
+                submitTime(1234, this.level)
                 this.btnNext.play('clickNext')
                 cleanup()
             })
