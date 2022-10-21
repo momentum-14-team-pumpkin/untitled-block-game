@@ -30,6 +30,7 @@ class LevelScene extends Phaser.Scene {
         this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
         this.load.spritesheet('restartBtn', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('nextBtn', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
+        this.load.spritesheet('exitBtn', '/static/assets/images/exit-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.audio('pick', '/static/assets/audio/pickup.wav')
         this.load.audio('put', '/static/assets/audio/putdown.wav')
         this.load.audio('jump', '/static/assets/audio/jump.wav')
@@ -89,18 +90,36 @@ class LevelScene extends Phaser.Scene {
         this.modCtrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
     
         this.levelStart = null
-        this.levelText = this.add.text(50, 15, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
-        this.timeText = this.add.text(50, 30, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.levelText = this.add.text(40, 15, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.timeText = this.add.text(40, 30, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.startTimerText = this.add.text(this.game.config.width/2, 15, "", {font: "32px Futura", fill: '#fc7303'})
-        this.winText = this.add.text(config.width/2, 15, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
-        this.winGameText = this.add.text(config.width/2, 15, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
-        // this.btnRestart = this.game.add.button(400, 70, 'restartBtn', this.restartSameLevel, this, 0, 1, 0)
-        
+        this.winText = this.add.text(config.width/2 - 100, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.winGameText = this.add.text(config.width/2 - 60, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.compLevelText = this.add.text(40, 15, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.compTimeText = this.add.text(40, 30, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
         
         if (this.holdingBlock) {
             this.acquireBlock(this)
         }
-    
+        
+        this.anims.create({
+            key: 'clickRestart',
+            frames: this.anims.generateFrameNumbers('restartBtn', { start: 0, end: 1 }),
+            frameRate: 10,
+        })
+
+        this.anims.create({
+            key: 'clickNext',
+            frames: this.anims.generateFrameNumbers('nextBtn', { start: 0, end: 1 }),
+            frameRate: 10,
+        })
+
+        this.anims.create({
+            key: 'clickExit',
+            frames: this.anims.generateFrameNumbers('exitBtn', { start: 0, end: 1 }),
+            frameRate: 10,
+        })
+        
         this.anims.create({
             key: 'rotate',
             frames: this.anims.generateFrameNumbers('door', { start: 0, end: 3 }),
@@ -225,8 +244,18 @@ class LevelScene extends Phaser.Scene {
         if (justDown[this.keyP] && !this.modCtrl.isDown) {
             this.physics.world.isPaused ^= true
             if (this.physics.world.isPaused) {
+                this.pauseText = this.add.text(
+                    config.width/2, config.height/2, "PAUSED", {fill: "#ffffff", backgroundColor: "rgba(255, 0, 0, 1)"}
+                    )
+                this.pauseText.setOrigin(0.5, 0.5)
+                this.pauseWarnText = this.add.text(
+                    config.width/2, config.height/2 + 15, "WARNING: TIME DOES NOT STOP", {fill: "#ffffff", backgroundColor: "rgba(255, 0, 0, 1)"}
+                    )
+                this.pauseWarnText.setOrigin(0.5, 0.5)
                 this.anims.pauseAll()
             } else {
+                this.pauseText.destroy()
+                this.pauseWarnText.destroy()
                 this.anims.resumeAll()
             }
         }
@@ -359,7 +388,6 @@ class LevelScene extends Phaser.Scene {
         this.levelComplete = true
         this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
         this.speedRun = this.speedRun + this.completionTime
-        console.log(this.song)
         let iframe = document.createElement('iframe')
         iframe.src = `/leaderboard${this.level}?inline=true/`
         iframe.style = 'width: 100%; height: 100%; pointer-events: none; position: absolute; left: 0; right: 0;'
@@ -372,30 +400,42 @@ class LevelScene extends Phaser.Scene {
             this.fullRunTime = this.speedRun
             this.speedRun = 0
             this.winGameText.setText("YOU'RE WINNER OF GAME")
-            let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
-            if (restartLevel == "y" || restartLevel == "yes"){
-                this.level -= 1
-            } else{
-            alert ("Returning to first level")
-            this.level = 1
-        }
+            this.winGameText.setOrigin(0.5, 0.5)
+            this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
+            this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
+            this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
+            this.btnRestart.setOrigin(0.5, 0.5)
+            this.btnRestart.setInteractive()
+            this.btnRestart.on('pointerup', () => { this.btnRestart.play('clickRestart'); this.level -= 1; this.scene.restart() })
+            this.btnExit = this.add.sprite(790, 30, 'exitBtn')
+            this.btnExit.setOrigin(0.5, 0.5)
+            this.btnExit.setInteractive()
+            this.btnExit.on('pointerup', () => { this.btnExit.play('clickExit'); this.level = 1; this.scene.restart() })
         } else {
+            // this.levelText.setText(`Level: ${this.level} Complete!`, {fill: '#FFFF00'}) Update Level text
             this.winText.setText("YOU'RE WINNER")
-            let nextButton = this.add.text(100, 100, 'Next Level', { fill: '#0f0' })
-            nextButton.setInteractive()
-            console.log(this.resLevel)
-            nextButton.on('pointerup', () => {
+            let cleanup = () => {
                 iframe.remove()
                 this.scene.restart()
-            })
-            if (this.resLevel){
-                this.resLevel = false
-                this.scene.restart()
             }
-            // let restartLevel = prompt("Do you want to restart the level?").toLowerCase()
-            // if (restartLevel == "y" || restartLevel == "yes"){
-            //     this.level -= 1
-            // }
+            this.winText.setOrigin(0.5, 0.5)
+            this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
+            this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
+            this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
+            this.btnRestart.setOrigin(0.5, 0.5)
+            this.btnRestart.setInteractive()
+            this.btnRestart.on('pointerup', () => {
+                this.btnRestart.play('clickRestart')
+                this.level -= 1
+                cleanup()
+            })
+            this.btnNext = this.add.sprite(790, 30, 'nextBtn')
+            this.btnNext.setOrigin(0.5, 0.5)
+            this.btnNext.setInteractive()
+            this.btnNext.on('pointerup', () => {
+                this.btnNext.play('clickNext')
+                cleanup()
+            })
         }
         this.song.destroy()
         // this.scene.restart()
@@ -470,9 +510,5 @@ class LevelScene extends Phaser.Scene {
         this.player.x += bumpDir * 8
         this.player.setVelocityX(this.player.body.velocity.x + bumpDir * 100)
         this.player.setVelocityY(0)
-    }
-
-    restartSameLevel(){
-        console.log("clicked")
     }
 }
