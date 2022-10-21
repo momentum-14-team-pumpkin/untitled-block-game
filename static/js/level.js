@@ -389,11 +389,13 @@ class LevelScene extends Phaser.Scene {
         this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
         this.speedRun = this.speedRun + this.completionTime
         let iframe = document.createElement('iframe')
-        iframe.src = `/leaderboard${this.level}/`
+        iframe.src = `/leaderboard${this.level}?inline=true/`
+        iframe.style = 'width: 100%; height: 100%; pointer-events: none; position: absolute; left: 0; right: 0;'
         document.querySelector('#gameDiv').append(iframe)
         if (this.soundEffectsOn){
             this.exitSound.play()
         }
+        iframe.remove()
         this.level += 1
         if (this.level > NUM_OF_LEVELS){
             this.fullRunTime = this.speedRun
@@ -413,20 +415,30 @@ class LevelScene extends Phaser.Scene {
         } else {
             // this.levelText.setText(`Level: ${this.level} Complete!`, {fill: '#FFFF00'}) Update Level text
             this.winText.setText("YOU'RE WINNER")
+            let cleanup = () => {
+                iframe.remove()
+                this.scene.restart()
+            }
             this.winText.setOrigin(0.5, 0.5)
             this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
             this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
             this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
             this.btnRestart.setOrigin(0.5, 0.5)
             this.btnRestart.setInteractive()
-            this.btnRestart.on('pointerup', () => { this.btnRestart.play('clickRestart'); this.level -= 1; this.scene.restart() })
+            this.btnRestart.on('pointerup', () => {
+                this.btnRestart.play('clickRestart')
+                this.level -= 1
+                cleanup()
+            })
             this.btnNext = this.add.sprite(790, 30, 'nextBtn')
             this.btnNext.setOrigin(0.5, 0.5)
             this.btnNext.setInteractive()
-            this.btnNext.on('pointerup', () => { this.btnNext.play('clickNext'); this.scene.restart() })
+            this.btnNext.on('pointerup', () => {
+                this.btnNext.play('clickNext')
+                cleanup()
+            })
         }
         this.song.destroy()
-        iframe.remove()
         // this.scene.restart()
     }
 
