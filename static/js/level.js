@@ -396,12 +396,16 @@ class LevelScene extends Phaser.Scene {
             this.exitSound.play()
         }
         iframe.remove()
-        submitTime(this.completionTime, this.level)
+        if (!this.zomgHax) {
+            submitTime(this.completionTime, this.level)
+        }
         this.level += 1
         if (this.level > NUM_OF_LEVELS){
             this.fullRunTime = this.speedRun
             this.speedRun = 0
-            submitTime(this.fullRunTime)
+            if (!this.zomgHax) {
+                submitTime(this.fullRunTime)
+            }
             this.winGameText.setText("YOU'RE WINNER OF GAME")
             this.winGameText.setOrigin(0.5, 0.5)
             this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
