@@ -41,7 +41,7 @@ function App() {
 
     return (
         <>
-        <div style={{backgroundImage:'URL(/static/assets/images/brick-black.png)', minWidth:'100vw' ,backgroundSize:'cover', minHeight:'100vh'}}>
+        <div style={{backgroundImage:'URL(/static/assets/images/brick-black.png)', minWidth:'100vw', position:'absolute', backgroundRepeat:'yes', minHeight:'100vh'}}>
         <BrowserRouter>
         <HomePage isLoggedIn={isLoggedIn} currUsername={username} handleLogout={handleLogout} setAuth={setAuth} token={token}/>
             <Routes>
