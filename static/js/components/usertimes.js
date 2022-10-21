@@ -31,9 +31,9 @@ export const UserTimes = ({level, currUsername, setAuth, token, isLoggedIn}) => 
         return(
             <>
             <div className='box' style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center'}}>
-                <div >
-                    <h1> {currUsername} </h1>
-                    <h2>Best Times  For Level {level}</h2>
+                <div style={{fontSize:'3rem'}}>
+                    <p> {currUsername} </p>
+                    <p>Best Times  For Level {level}</p>
                     
                 </div>
                 <div>
