@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useNavigate, BrowserRouter } from 'react-router-dom'
 import { Login } from './components/login';
 import useLocalStorageState from 'use-local-storage-state';
@@ -15,9 +15,14 @@ function App() {
     const [token, setToken] = useLocalStorageState('BlockOfTimeToken', null )
     const [username, setUsername] =  useLocalStorageState('BlockOfTimeUsername', '')
 
+    useEffect(() => {
+        window.userToken = token
+    })
+
     const setAuth = (username, token) => {
         setToken(token)
         setUsername(username)
+        window.userToken = token
     }
 
     const handleLogout = () => {
