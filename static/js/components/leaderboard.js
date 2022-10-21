@@ -25,7 +25,7 @@ export const Leaderboard =({level}) => {
     if (bestTimes){
         return(
             <>
-            <div style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', borderBlockStyle:'dotted', borderRightStyle:'dotted', borderLeftStyle:'dotted', paddingBottom:'50px'}}>
+            <div className="box" style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', paddingBottom:'50px'}}>
                 <div>
                     <h1>
                         Best Times For Level {level}
