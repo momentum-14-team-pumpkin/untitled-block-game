@@ -17,7 +17,7 @@ function App() {
 
     useEffect(() => {
         window.userToken = token
-    })
+    }, [])
 
     const setAuth = (username, token) => {
         setToken(token)
