@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { useState } from "react";
 import axios from "axios";
 import "/static/css/index.css"
+import { useSearchParams } from "react-router-dom";
 
 
 export const Leaderboard =({level}) => {

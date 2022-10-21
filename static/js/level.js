@@ -361,7 +361,7 @@ class LevelScene extends Phaser.Scene {
         this.speedRun = this.speedRun + this.completionTime
         console.log(this.song)
         let iframe = document.createElement('iframe')
-        iframe.src = `/leaderboard${this.level}/`
+        iframe.src = `/leaderboard${this.level}?inline=true/`
         iframe.style = 'width: 100%; height: 100%; pointer-events: none; position: absolute; left: 0; right: 0;'
         document.querySelector('#gameDiv').append(iframe)
         if (this.soundEffectsOn){
