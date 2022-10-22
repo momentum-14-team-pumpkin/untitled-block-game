@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { useState } from "react";
 import axios from "axios";
 import "/static/css/index.css"
+import { useSearchParams } from "react-router-dom";
 
 
 export const Leaderboard =({level}) => {
@@ -39,7 +40,7 @@ export const Leaderboard =({level}) => {
                             margin:'auto',
                         }}>
                         <div style={{display:'flex', justifyContent:'center', fontSize:'1.5rem', margin:'auto', textAlign:'center', maxWidth:'80%'}}>
-                            <p>{listOfTimes.time}</p>
+                            <p>{convertSecondsToTimestring(listOfTimes.time)}</p>
                             <p>...............{listOfTimes.player}</p>
                             
                         </div>
