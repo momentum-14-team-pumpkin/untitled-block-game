@@ -87,6 +87,7 @@ class LevelScene extends Phaser.Scene {
         this.keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N)
         this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
+        this.keyZ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z)
         this.modCtrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
     
         this.levelStart = null
@@ -97,6 +98,7 @@ class LevelScene extends Phaser.Scene {
         this.winGameText = this.add.text(config.width/2 - 60, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.compLevelText = this.add.text(40, 15, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.compTimeText = this.add.text(40, 30, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.undoStack = []
         
         if (this.holdingBlock) {
             this.acquireBlock(this)
@@ -269,6 +271,20 @@ class LevelScene extends Phaser.Scene {
             this.scene.restart()
         }
 
+        if (this.keyZ.isDown) {
+            // continuous undo
+            let undoFrame = this.undoStack.pop()
+            if (undoFrame) {
+                this.player.setX(undoFrame.position.x)
+                this.player.setY(undoFrame.position.y)
+                this.player.setVelocityX(undoFrame.velocity.x)
+                this.player.setVelocityY(undoFrame.velocity.y)
+                this.player.setTexture('player', undoFrame.currFrame)
+                this.facing = undoFrame.facing
+                return
+            }
+        }
+
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.advanceHax('L')
         }
@@ -300,6 +316,20 @@ class LevelScene extends Phaser.Scene {
             state = 'stand'
         }
         this.player.anims.play(`${this.holdingBlock ? 'carry-' : ''}${state}-${this.facing}`, true)
+
+        let undoFrame = {
+            position: {
+                x: this.player.x,
+                y: this.player.y,
+            },
+            velocity: {
+                x: this.player.body.velocity.x,
+                y: this.player.body.velocity.y,
+            },
+            facing: this.facing,
+            currFrame: this.player.anims.currentFrame.textureFrame,
+        }
+        this.undoStack.push(undoFrame)
 
         if (Phaser.Input.Keyboard.JustDown(this.cursors.space) && this.player.body.blocked.down)
         {
