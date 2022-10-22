@@ -312,7 +312,7 @@ class LevelScene extends Phaser.Scene {
             this.scene.restart()
         }
 
-        if (this.keyZ.isDown) {
+        if (this.keyZ.isDown && !this.levelComplete) {
             // continuous undo
             let undoFrame = this.undoStack.pop()
             if (undoFrame) {
