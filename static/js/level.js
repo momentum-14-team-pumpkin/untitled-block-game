@@ -281,6 +281,23 @@ class LevelScene extends Phaser.Scene {
                 this.player.setVelocityY(undoFrame.velocity.y)
                 this.player.setTexture('player', undoFrame.currFrame)
                 this.facing = undoFrame.facing
+                let point
+                if (point = undoFrame.tookBlock) {
+                    if (this.holdingBlock) {
+                        this.holdingBlock.destroy()
+                    }
+                    this.holdingBlock = null
+                    this.map.putTileAt(2, point.x, point.y)
+                }
+                if (point = undoFrame.placedBlock) {
+                    this.acquireBlock()
+                    this.map.putTileAt(0, point.x, point.y)
+                }
+                if (this.holdingBlock)
+                {
+                    this.holdingBlock.x = this.player.x - TILE_SIZE - 2
+                    this.holdingBlock.y = this.player.y - TILE_SIZE
+                }
                 return
             }
         }
@@ -353,6 +370,10 @@ class LevelScene extends Phaser.Scene {
                     && this.map.getTileAt(point.x, point.y -1).index == 0){
                     this.map.putTileAt(0, point.x, point.y)
                     this.acquireBlock(this)
+                    undoFrame.tookBlock = {
+                        x: point.x,
+                        y: point.y,
+                    }
                     if (this.soundEffectsOn){
                         this.pickUpSound.play()
                     }
@@ -375,6 +396,10 @@ class LevelScene extends Phaser.Scene {
                     this.player.body.setSize(32, 40)
                     this.holdingBlock.destroy()
                     this.holdingBlock = null
+                    undoFrame.placedBlock = {
+                        x: point.x,
+                        y: point.y,
+                    }
                     if (this.soundEffectsOn){
                         this.putDownSound.play()
                     }
