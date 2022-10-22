@@ -26,10 +26,12 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
             <div style={{ display:'flex', justifyContent:'center', color:'white', paddingTop:'20px', fontFamily:'bungee', marginBottom:'20px'}} >
                 Don't have a login?<Link to="/register" style={{ color:'white', paddingRight:'30px', paddingLeft:'10px'}} >  Register Here</Link>
             </div>
-            <div style={{marginTop:'30px', margin:'auto', fontFamily:'bungee', textAlign:'center'}}>
-                    <Link to="/leaderboard1/" style={{ color:'white', paddingRight:'30px'}} >LeaderBoard (Level 1)</Link>
-                    <Link to="/leaderboard2/" style={{ color:'white', paddingRight:'30px'}} >LeaderBoard (Level 2)</Link>
-                    <Link to="/leaderboard3/" style={{ color:'white', paddingRight:'30px'}} >LeaderBoard (Level 3)</Link>
+            <div style={{marginTop:'30px', margin:'auto', fontFamily:'bungee', textAlign:'center', width:'100%'}}>
+                    <Link to="/leaderboard1/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 1)</Link>
+                    <Link to="/leaderboard2/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 2)</Link>
+                    <Link to="/leaderboard3/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 3)</Link>
+                    <Link to="/leaderboard4/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 4)</Link>
+
             </div>
             <div>
                 <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>
