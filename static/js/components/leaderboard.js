@@ -11,7 +11,7 @@ export const Leaderboard =({level}) => {
         axios
         .get(`https://young-plateau-94674.herokuapp.com/levels/${level}/times/`)
         .then((res) =>
-        setBestTimes(res.data.sort((a,b)=> {
+        setBestTimes(res.data.results.sort((a,b)=> {
             let timeDiff = a.time - b.time
             if (timeDiff != 0){
                 return timeDiff

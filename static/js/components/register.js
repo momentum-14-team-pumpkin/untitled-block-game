@@ -88,7 +88,7 @@ export const Register = ({setAuth}) => {
         <p style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}>Already have an account?</p>
             
             <div className="back-to-login-link">
-                <Link style={{color:'white', fontFamily:'bungee', borderRadius:'10px', textDecoration:'none', fontSize:'1.5em'}}  to="/homepage/">Back to Login</Link>
+                <Link style={{color:'white', fontFamily:'bungee', borderRadius:'10px', textDecoration:'none', fontSize:'1.5em'}}  to="/login/">Back to Login</Link>
             </div>
         </div>
         </>
