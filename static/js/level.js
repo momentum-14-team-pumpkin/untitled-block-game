@@ -28,6 +28,7 @@ class LevelScene extends Phaser.Scene {
         this.load.json('map-data', `/static/assets/levels/level-${this.level}.json`)
         this.load.spritesheet('door', '/static/assets/images/portal.png', { frameWidth: 40, frameHeight: 40 })
         this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
+        this.load.spritesheet('player-enter', '/static/assets/images/player-portal.png', { frameWidth: 40, frameHeight: 40 })
         this.load.spritesheet('restartBtn', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('nextBtn', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('exitBtn', '/static/assets/images/exit-button.png', { frameWidth: 160, frameHeight: 40 })
@@ -61,6 +62,8 @@ class LevelScene extends Phaser.Scene {
         this.add.image(this.game.config.width/2, this.game.config.height/2 + 30, 'bg').setScale(0.5)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
+        this.enter = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.player_start.x),
+        convertTilesToYPixels(this.mapData.player_start.y), 'player-enter')
         this.map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
         this.cameras.main.setBounds(0, 0, this.map.width * TILE_SIZE, this.game.config.height)
         this.player = this.physics.add.sprite(convertTilesToXPixels(this.mapData.player_start.x),
@@ -159,6 +162,14 @@ class LevelScene extends Phaser.Scene {
         })
     
         doors.play('rotate')
+
+        this.anims.create({
+            key: 'playerEnter',
+            frames: this.anims.generateFrameNumbers('player-enter', { start: 0, end: 5 }),
+            frameRate: 10,
+        })
+
+        this.enter.play('playerEnter')
     
         this.anims.create({
             key: 'stand-left',
@@ -235,6 +246,7 @@ class LevelScene extends Phaser.Scene {
         if((time - this.levelStart) < TIMER_DELAY){
             this.accelXL = 0
             this.accelXR = 0
+            this.player.visible = false
             this.player.body.setVelocityX(0)
             this.startTimerText.setText(`${
                 convertSecondsToTimeStringForDelay((this.levelStart - time + TIMER_DELAY) / 1000)
@@ -244,6 +256,10 @@ class LevelScene extends Phaser.Scene {
             this.levelText.setText(`Level: ${this.level}`)
             this.accelXL = -150
             this.accelXR = 150
+            this.enter.visible = false
+            if (!this.levelComplete){
+                this.player.visible = true
+            }
             this.startTimerText.destroy()
             this.timeText.setText(`Time: ${
                 convertSecondsToTimestring((time - this.levelStart - TIMER_DELAY) / 1000)
