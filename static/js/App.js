@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, useNavigate, BrowserRouter } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, useNavigate, BrowserRouter, redirect } from 'react-router-dom'
 import { Login } from './components/login';
 import useLocalStorageState from 'use-local-storage-state';
 import { Register } from './components/register';
@@ -40,7 +40,9 @@ function App() {
         )
         .then(() =>
         setAuth('', null),
-        redirect('/homepage/')
+        )
+        .catch(() => 
+        setAuth('', null)
         )
     }
 
@@ -62,7 +64,7 @@ function App() {
                 }
                 />  
             <Route path="/Login"
-            element={<Login setAuth={setAuth} isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>} 
+            element={<Login setAuth={setAuth} currUsername={username} isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>} 
             />
             <Route path='/homepage' element={<HomePage isLoggedIn={isLoggedIn} currUsername={username} handleLogout={handleLogout} setAuth={setAuth} token={token}/>}/>
             <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />}/>

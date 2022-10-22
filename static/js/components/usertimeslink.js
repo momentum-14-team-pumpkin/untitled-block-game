@@ -1,10 +1,7 @@
 import React from "react"
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, redirect } from "react-router-dom"
 import "/static/css/index.css"
-import { Register } from "./register";
-import { PlayGame } from "./gameplay";
+
 
 
 
@@ -19,7 +16,7 @@ export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout})
             <Link to='/user/best-times4/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 4 Times</Link>
         </div>
         <div style={{textAlign:'center'}}>
-            <button to="/homepage/" onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
+            <button to="/" onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
             Logout</button>
         </div>
         </>
