@@ -1,8 +1,9 @@
 import React from "react"
 import { useState } from "react"
 import axios from "axios"
-import {Link} from "react-router-dom"
+import {Link, redirect, useNavigate} from "react-router-dom"
 import "/static/css/index.css"
+import { ShowUserTimes } from "./usertimeslink"
 
 
 
@@ -10,6 +11,7 @@ export const Register = ({setAuth}) => {
         const [username, setUsername] = useState('')
         const [password, setPassword] = useState('')
         const [error, setError] = useState(null)
+        const navigate = useNavigate()
 
         const handleSubmit = (e) => {
             e.preventDefault()
@@ -30,7 +32,8 @@ export const Register = ({setAuth}) => {
                 )
                 .then((res) => {
                     console.log(res.data),
-                    setAuth(username, res.data.auth_token)
+                    setAuth(username, res.data.auth_token),
+                    navigate('/homepage/')
                     })
 
                 .catch((error) => {
@@ -75,12 +78,10 @@ export const Register = ({setAuth}) => {
                 />
                 <br />
                 <br />
-
                 <button
                 style={{color:'black', fontFamily:'bungee', borderRadius:'10px'}} 
                 type="submit"
                 value="Register"
-                to='/homepage/'
                 >Register</button>
         </form>
 
@@ -94,5 +95,4 @@ export const Register = ({setAuth}) => {
         </>
 
         
-    )
-}
+    )}

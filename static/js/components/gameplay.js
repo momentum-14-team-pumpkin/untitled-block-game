@@ -18,11 +18,11 @@ export const PlayGame = ({token}) => {
                 <p>Use Arrows For Left and Right</p>
                 <p>Space to Jump</p>
                 <p>Down Button to Pick Up and Put Down Blocks</p>
-                <p>'M' to Turn On or Shut Off Music</p>
                 <p>'E' to Turn On or Shut Off Element Sounds</p>
+                <p>'M' to Turn On or Shut Off Music</p>
                 <p>'P' to Pause Game (time won't stop when paused)</p>
-                <p>'Z' to Reverse Time</p>
                 <p>'R' to Reset Level</p>
+                <p>Hold 'Z' to Reverse Time</p>
 
             </div>
             <iframe

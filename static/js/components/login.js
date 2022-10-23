@@ -27,7 +27,6 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
             // console.log(res.data)
             const token = res.data.auth_token
             setAuth(username, token)
-            navigate('/')
             console.log(token)
 
         })

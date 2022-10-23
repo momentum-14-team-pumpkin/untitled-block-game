@@ -20,4 +20,5 @@ urlpatterns = [
     path('user/best-times<int:pk>/', views.homepage),
     path('playgame/', views.homepage),
     path('login/', views.homepage),
+    path('register/', views.homepage),
 ]

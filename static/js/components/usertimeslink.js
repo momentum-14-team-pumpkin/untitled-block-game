@@ -16,8 +16,9 @@ export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout})
             <Link to='/user/best-times4/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 4 Times</Link>
         </div>
         <div style={{textAlign:'center'}}>
-            <button to="/" onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
-            Logout</button>
+            <Link to="/homepage/">
+            <button onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
+            Logout</button></Link>
         </div>
         </>
     )
