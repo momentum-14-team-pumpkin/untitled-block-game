@@ -92,6 +92,7 @@ class LevelScene extends Phaser.Scene {
         this.keyN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.N)
         this.keyP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P)
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
+        this.keyZ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z)
         this.modCtrl = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
     
         this.levelStart = null
@@ -121,16 +122,17 @@ class LevelScene extends Phaser.Scene {
         this.btnExit.setScrollFactor(0)
         this.pauseText = this.add.text(
             config.width/2, config.height/2, "PAUSED", {fill: "#ffffff", backgroundColor: "rgba(255, 0, 0, 1)"}
-            )
+        )
         this.pauseText.setOrigin(0.5, 0.5)
         this.pauseText.setScrollFactor(0)
         this.pauseText.visible = false
         this.pauseWarnText = this.add.text(
             config.width/2, config.height/2 + 15, "WARNING: TIME DOES NOT STOP", {fill: "#ffffff", backgroundColor: "rgba(255, 0, 0, 1)"}
-            )
+        )
         this.pauseWarnText.setOrigin(0.5, 0.5)
         this.pauseWarnText.setScrollFactor(0)
         this.pauseWarnText.visible = false
+        this.undoStack = []
         
         if (this.holdingBlock) {
             this.acquireBlock(this)
@@ -310,6 +312,37 @@ class LevelScene extends Phaser.Scene {
             this.scene.restart()
         }
 
+        if (this.keyZ.isDown && !this.levelComplete) {
+            // continuous undo
+            let undoFrame = this.undoStack.pop()
+            if (undoFrame) {
+                this.player.setX(undoFrame.position.x)
+                this.player.setY(undoFrame.position.y)
+                this.player.setVelocityX(undoFrame.velocity.x)
+                this.player.setVelocityY(undoFrame.velocity.y)
+                this.player.setTexture('player', undoFrame.currFrame)
+                this.facing = undoFrame.facing
+                let point
+                if (point = undoFrame.tookBlock) {
+                    if (this.holdingBlock) {
+                        this.holdingBlock.destroy()
+                    }
+                    this.holdingBlock = null
+                    this.map.putTileAt(2, point.x, point.y)
+                }
+                if (point = undoFrame.placedBlock) {
+                    this.acquireBlock()
+                    this.map.putTileAt(0, point.x, point.y)
+                }
+                if (this.holdingBlock)
+                {
+                    this.holdingBlock.x = this.player.x - TILE_SIZE - 2
+                    this.holdingBlock.y = this.player.y - TILE_SIZE
+                }
+                return
+            }
+        }
+
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.advanceHax('L')
         }
@@ -342,6 +375,20 @@ class LevelScene extends Phaser.Scene {
         }
         this.player.anims.play(`${this.holdingBlock ? 'carry-' : ''}${state}-${this.facing}`, true)
 
+        let undoFrame = {
+            position: {
+                x: this.player.x,
+                y: this.player.y,
+            },
+            velocity: {
+                x: this.player.body.velocity.x,
+                y: this.player.body.velocity.y,
+            },
+            facing: this.facing,
+            currFrame: this.player.anims.currentFrame.textureFrame,
+        }
+        this.undoStack.push(undoFrame)
+
         if (Phaser.Input.Keyboard.JustDown(this.cursors.space) && this.player.body.blocked.down)
         {
             this.player.setVelocityY(-350)
@@ -364,6 +411,10 @@ class LevelScene extends Phaser.Scene {
                     && this.map.getTileAt(point.x, point.y -1).index == 0){
                     this.map.putTileAt(0, point.x, point.y)
                     this.acquireBlock(this)
+                    undoFrame.tookBlock = {
+                        x: point.x,
+                        y: point.y,
+                    }
                     if (this.soundEffectsOn){
                         this.pickUpSound.play()
                     }
@@ -386,6 +437,10 @@ class LevelScene extends Phaser.Scene {
                     this.player.body.setSize(32, 40)
                     this.holdingBlock.destroy()
                     this.holdingBlock = null
+                    undoFrame.placedBlock = {
+                        x: point.x,
+                        y: point.y,
+                    }
                     if (this.soundEffectsOn){
                         this.putDownSound.play()
                     }
