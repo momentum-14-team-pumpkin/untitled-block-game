@@ -59,7 +59,7 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = false
-        this.add.image(this.game.config.width/2, this.game.config.height/2 + 30, 'bg').setScale(0.5)
+        this.add.image(0, 60, 'bg').setScale(0.5).setOrigin(0, 0)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
         this.enter = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.player_start.x),
