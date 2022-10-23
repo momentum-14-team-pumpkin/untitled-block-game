@@ -107,7 +107,9 @@ class LevelScene extends Phaser.Scene {
         this.winGameText = this.add.text(config.width/2 - 60, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winGameText.setScrollFactor(0)
         this.compLevelText = this.add.text(40, 15, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.compLevelText.setScrollFactor(0)
         this.compTimeText = this.add.text(40, 30, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.compTimeText.setScrollFactor(0)
         this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
         this.btnRestart.setOrigin(0.5, 0.5)
         this.btnRestart.visible = false
