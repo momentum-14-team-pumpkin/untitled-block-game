@@ -5,16 +5,19 @@ import { ShowUserTimes } from "./usertimeslink"
 
 export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
 
-
     return(
         <>
         <div>
+            <Link to='/' style={{textDecoration:'none'}}>
             <h1 style={{fontFamily:'Bungee', textTransform:'uppercase', fontSize:'84px', fontWeight:'600',  color:'white', textAlign:'center', marginTop:'0', paddingTop:'4rem'}}
-            >Blocks of Time </h1>
+            >Blocks of Time </h1></Link>
             <div style={{ display:'flex', justifyContent:'center', color:'white', fontFamily:'bungee'}}>
                     <div>
                         <Link to={"/login/"} element =''style={{color:'white', fontFamily:'bungee', paddingRight:'30px'}}
                         >Login</Link>
+                        <Link to='/playgame/'
+                        style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}
+                        >Play Game</Link>
                     </div>
                     <br></br>
                     {/* <div>

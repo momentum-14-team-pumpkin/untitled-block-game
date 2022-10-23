@@ -9,7 +9,7 @@ export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout})
     if (isLoggedIn){
     return(
         <>
-        <div style={{color:'white', fontFamily:'bungee', display:'flex', marginTop:'30px', marginBottom:'30px', justifyContent:'center', width:'100%'}}>
+        <div style={{color:'white', fontFamily:'bungee', display:'flex', float:'left', marginTop:'30px', marginBottom:'30px', justifyContent:'center', width:'100%'}}>
             <Link to='/user/best-times1/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px', textAlign:'center'}}> User Level 1 Times</Link>
             <Link to='/user/best-times2/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px', textAlign:'center'}}> User Level 2 Times</Link>
             <Link to='/user/best-times3/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 3 Times</Link>
