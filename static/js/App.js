@@ -10,6 +10,7 @@ import '/static/css/index.css'
 import { UserTimes } from './components/usertimes';
 import { PlayGame } from './components/gameplay';
 import { NavBar } from './components/navbar';
+import CONSTS from './consts';
 
 
 
@@ -68,14 +69,28 @@ function App() {
             />
             <Route path='/homepage' element={<HomePage isLoggedIn={isLoggedIn} currUsername={username} handleLogout={handleLogout} setAuth={setAuth} token={token}/>}/>
             <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />}/>
-            <Route path='/leaderboard1' element={<Leaderboard level={1}/>} />
-            <Route path='/leaderboard2' element={<Leaderboard level={2}/>} />
-            <Route path='/leaderboard3' element={<Leaderboard level={3} />} />
-            <Route path='/leaderboard4' element={<Leaderboard level={4} />} />
-            <Route path='/user/best-times1' element={<UserTimes level={1} setAuth={setAuth} token={token} handleLogout={handleLogout} currUsername={username}/>} />
-            <Route path='/user/best-times2' element={<UserTimes level={2} setAuth={setAuth} token={token} currUsername={username}/>} />
-            <Route path='/user/best-times3' element={<UserTimes level={3} setAuth={setAuth} token={token} currUsername={username}/>} />
-            <Route path='/user/best-times4' element={<UserTimes level={4} setAuth={setAuth} token={token} currUsername={username}/>} />
+            {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                <Route
+                    key={i}
+                    path={`/leaderboard${i + 1}`}
+                    element={<Leaderboard level={i + 1}/>}
+                />
+            )}
+            {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                <Route
+                    key={i}
+                    path={`/user/best-times${i + 1}`}
+                    element={
+                        <UserTimes
+                            level={i + 1}
+                            setAuth={setAuth}
+                            token={token}
+                            handleLogout={handleLogout}
+                            currUsername={username}
+                        />
+                    }
+                />
+            )}
             <Route path='/playgame' element={<PlayGame token={token}/>} />
             </Routes>          
         </BrowserRouter>

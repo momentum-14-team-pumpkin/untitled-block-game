@@ -18,13 +18,21 @@ function clamp(value, min, max) {
 }
 
 function convertSecondsToTimestring(seconds) {
-    let hours = String(Math.floor(seconds / 3600))
+    let hours = Math.floor(seconds / 3600)
     seconds -= hours * 3600
-    let minutes = String(Math.floor(seconds / 60)).padStart(2, '0')
+    let minutes = Math.floor(seconds / 60)
+    if (hours) {
+        minutes = String(minutes).padStart(2, '0')
+    }
     seconds -= minutes * 60
     let fracSecs = seconds % 1
     seconds = String(Math.floor(seconds)).padStart(2, '0')
-    return `${hours}:${minutes}:${seconds}${fracSecs.toFixed(3).slice(-4)}`
+    fracSecs = fracSecs.toFixed(3).slice(-4)
+    if (hours) {
+        return `${hours}:${minutes}:${seconds}${fracSecs}`
+    } else {
+        return `${minutes}:${seconds}${fracSecs}`
+    }
 }
 
 function convertSecondsToTimeStringForDelay(seconds) {
