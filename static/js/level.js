@@ -556,7 +556,6 @@ class LevelScene extends Phaser.Scene {
         } else {
             this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
         }
-        console.log(this.completionTime)
         this.speedRun = this.speedRun + this.completionTime
         let iframe = document.createElement('iframe')
         iframe.src = `/leaderboard${this.level}?inline=true/`
@@ -578,11 +577,6 @@ class LevelScene extends Phaser.Scene {
             }
             this.winGameText.setText("YOU'RE WINNER OF GAME")
             this.winGameText.setOrigin(0.5, 0.5)
-            this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
-            this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
-            this.btnRestart.visible = true
-            this.btnRestart.setInteractive()
-            this.btnRestart.on('pointerup', () => { this.btnRestart.play('clickRestart'); this.level -= 1; this.scene.restart() })
             this.btnExit.visible = true
             this.btnExit.setInteractive()
             this.btnExit.on('pointerup', () => {
