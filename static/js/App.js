@@ -72,10 +72,12 @@ function App() {
             <Route path='/leaderboard2' element={<Leaderboard level={2}/>} />
             <Route path='/leaderboard3' element={<Leaderboard level={3} />} />
             <Route path='/leaderboard4' element={<Leaderboard level={4} />} />
+            <Route path='/leaderboard5' element={<Leaderboard level={5} />} />
             <Route path='/user/best-times1' element={<UserTimes level={1} setAuth={setAuth} token={token} handleLogout={handleLogout} currUsername={username}/>} />
             <Route path='/user/best-times2' element={<UserTimes level={2} setAuth={setAuth} token={token} currUsername={username}/>} />
             <Route path='/user/best-times3' element={<UserTimes level={3} setAuth={setAuth} token={token} currUsername={username}/>} />
             <Route path='/user/best-times4' element={<UserTimes level={4} setAuth={setAuth} token={token} currUsername={username}/>} />
+            <Route path='/user/best-times5' element={<UserTimes level={5} setAuth={setAuth} token={token} currUsername={username}/>} />
             <Route path='/playgame' element={<PlayGame token={token}/>} />
             </Routes>          
         </BrowserRouter>

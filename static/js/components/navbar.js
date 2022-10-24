@@ -2,6 +2,8 @@ import React from "react"
 import "/static/css/index.css"
 import {Link} from 'react-router-dom'
 import { ShowUserTimes } from "./usertimeslink"
+import { Stanley } from "./stanley"
+
 
 export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
 
@@ -10,7 +12,7 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
         <div>
             <Link to='/' style={{textDecoration:'none'}}>
             <h1 style={{fontFamily:'Bungee', textTransform:'uppercase', fontSize:'84px', fontWeight:'600',  color:'white', textAlign:'center', marginTop:'0', paddingTop:'4rem'}}
-            >Blocks of Time </h1></Link>
+            >Blocks of Time </h1></Link> 
             <div style={{ display:'flex', justifyContent:'center', color:'white', fontFamily:'bungee'}}>
                     <div>
                         <Link to={"/login/"} element =''style={{color:'white', fontFamily:'bungee', paddingRight:'30px'}}
@@ -33,6 +35,8 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
                     <Link to="/leaderboard2/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 2)</Link>
                     <Link to="/leaderboard3/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 3)</Link>
                     <Link to="/leaderboard4/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 4)</Link>
+                    <Link to="/leaderboard5/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 5)</Link>
+
 
             </div>
             <div>

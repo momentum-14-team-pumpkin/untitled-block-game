@@ -14,6 +14,7 @@ export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout})
             <Link to='/user/best-times2/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px', textAlign:'center'}}> User Level 2 Times</Link>
             <Link to='/user/best-times3/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 3 Times</Link>
             <Link to='/user/best-times4/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 4 Times</Link>
+            <Link to='/user/best-times5/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 5 Times</Link>
         </div>
         <div style={{textAlign:'center'}}>
             <Link to="/homepage/">
