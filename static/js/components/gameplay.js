@@ -1,7 +1,16 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 
 export const PlayGame = ({token}) => {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        window.onWonGame = () => {
+            window.onWonGame = null
+            navigate('/')
+        }
+    }, [])
     useEffect(() => {
         window.userToken = token
         document.querySelector("#gameIframe")
@@ -11,6 +20,7 @@ export const PlayGame = ({token}) => {
                 token,
             })
     }, [token])
+
     return (
         <>
             <div>

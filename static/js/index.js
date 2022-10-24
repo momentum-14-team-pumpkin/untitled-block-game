@@ -11,6 +11,10 @@ window.addEventListener('message', event => {
             kind: 'sendToken',
             token: window.userToken,
         })
+    } else if (event.data.kind === 'wonGame') {
+        if (window.onWonGame) {
+            window.onWonGame()
+        }
     }
 })
 

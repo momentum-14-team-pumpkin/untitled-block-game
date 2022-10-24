@@ -520,10 +520,19 @@ class LevelScene extends Phaser.Scene {
             this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
             this.btnRestart.visible = true
             this.btnRestart.setInteractive()
-            this.btnRestart.on('pointerup', () => { this.btnRestart.play('clickRestart'); this.level -= 1; this.scene.restart() })
+            this.btnRestart.on('pointerup', () => {
+                this.btnRestart.play('clickRestart')
+                this.level--
+                this.scene.restart()
+            })
             this.btnExit.visible = true
             this.btnExit.setInteractive()
-            this.btnExit.on('pointerup', () => { this.btnExit.play('clickExit'); this.level = 1; this.scene.restart() })
+            this.btnExit.on('pointerup', () => {
+                this.btnExit.play('clickExit')
+                window.parent.postMessage({
+                    kind: 'wonGame',
+                })
+            })
         } else {
             // this.levelText.setText(`Level: ${this.level} Complete!`, {fill: '#FFFF00'}) Update Level text
             this.winText.setText("YOU'RE WINNER")
