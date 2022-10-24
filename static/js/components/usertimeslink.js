@@ -10,10 +10,19 @@ export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout})
     return(
         <>
         <div style={{color:'white', fontFamily:'bungee', display:'flex', float:'left', marginTop:'30px', marginBottom:'30px', justifyContent:'center', width:'100%'}}>
-            <Link to='/user/best-times1/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px', textAlign:'center'}}> User Level 1 Times</Link>
-            <Link to='/user/best-times2/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px', textAlign:'center'}}> User Level 2 Times</Link>
-            <Link to='/user/best-times3/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 3 Times</Link>
-            <Link to='/user/best-times4/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 4 Times</Link>
+            {Array(window.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                <Link
+                    key={i}
+                    to={`/user/best-times${i}/`}
+                    style={{
+                        fontSize: '1.5rem',
+                        color: 'white',
+                        fontFamily: 'bungee',
+                        paddingRight: '30px',
+                        textAlign: 'center'
+                    }}
+                >User Level {i} Times</Link>
+            )}
         </div>
         <div style={{textAlign:'center'}}>
             <Link to="/homepage/">
