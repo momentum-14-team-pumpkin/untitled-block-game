@@ -60,6 +60,8 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = false
+        this.avatar = this.add.image(790, 32, this.mapData.char.texture).setScale(3).setOrigin(0.25, 0.25)
+        this.avatar.visible = true
         this.add.image(0, 60, 'bg').setScale(0.5).setOrigin(0, 0)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
@@ -109,7 +111,7 @@ class LevelScene extends Phaser.Scene {
         this.startTimerText.setScrollFactor(0)
         this.winText = this.add.text(config.width/2 - 100, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winText.setScrollFactor(0)
-        this.winGameText = this.add.text(config.width/2 - 60, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.winGameText = this.add.text(config.width/2, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winGameText.setScrollFactor(0)
         this.compLevelText = this.add.text(40, 15, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.compLevelText.setScrollFactor(0)
@@ -142,6 +144,9 @@ class LevelScene extends Phaser.Scene {
         this.rewind = this.add.image(this.game.config.width/2, 30, 'rewind').setScale(1/4.5).setOrigin(0.5, 0.5)
         this.rewind.setScrollFactor(0)
         this.rewind.visible = false
+        this.dialogue = this.add.text(20, 15, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.dialogue.visible = true
+        this.avatar.setScrollFactor(0)
         this.undoStack = []
         
         if (this.holdingBlock) {
@@ -273,7 +278,7 @@ class LevelScene extends Phaser.Scene {
         if (!this.levelStart) {
             this.levelStart = time
         }
-        if((time - this.levelStart) < TIMER_DELAY){
+        if((time - this.levelStart) < TIMER_DELAY && !this.levelComplete){
             this.accelXL = 0
             this.accelXR = 0
             this.player.visible = false
@@ -281,8 +286,27 @@ class LevelScene extends Phaser.Scene {
             this.startTimerText.setText(`${
                 convertSecondsToTimeStringForDelay((this.levelStart - time + TIMER_DELAY) / 1000)
             }`)
+            if (this.level === NUM_OF_LEVELS){
+                this.dialogue.setText(
+                    "Prof Pretzel:\nI'm back home! What a relief!",
+                    {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+                this.startTimerText.setText("")
+            }else if (this.level > 1){
+                this.dialogue.setText(
+                    "Prof Pretzel:\nWhere am I? WHO am I? I need to get back!",
+                    {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+            } else {
+                this.dialogue.setText(
+                    "I must have fell through the portal!\nMaybe that portal will take me back!",
+                    {font: "60px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+            }
+            
         }
-        if((time - this.levelStart) > TIMER_DELAY){
+        if((time - this.levelStart) > TIMER_DELAY && !this.levelComplete){
+            this.dialogue.visible = false
             this.levelText.setText(`Level: ${this.level}`)
             this.accelXL = -150
             this.accelXR = 150
@@ -294,6 +318,10 @@ class LevelScene extends Phaser.Scene {
             this.timeText.setText(`Time: ${
                 convertSecondsToTimestring((time - this.levelStart - TIMER_DELAY) / 1000)
             }`)
+            if (this.level == NUM_OF_LEVELS){
+                this.levelText.setText("")
+                this.timeText.setText("")
+            }
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.keyM)){
@@ -373,7 +401,6 @@ class LevelScene extends Phaser.Scene {
                     this.holdingBlock.x = this.player.x - TILE_SIZE - 2
                     this.holdingBlock.y = this.player.y - TILE_SIZE
                 }
-                // this.rewind.visible = false
                 return
             }
         }
@@ -519,9 +546,17 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = true
+        this.avatar.visible = false
         this.player.visible = false
         this.player.body.destroy()
-        this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
+        this.levelText.setText("")
+        this.timeText.setText("")
+        if (this.level == NUM_OF_LEVELS){
+            this.completionTime = 0
+        } else {
+            this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
+        }
+        console.log(this.completionTime)
         this.speedRun = this.speedRun + this.completionTime
         let iframe = document.createElement('iframe')
         iframe.src = `/leaderboard${this.level}?inline=true/`
@@ -543,11 +578,6 @@ class LevelScene extends Phaser.Scene {
             }
             this.winGameText.setText("YOU'RE WINNER OF GAME")
             this.winGameText.setOrigin(0.5, 0.5)
-            this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
-            this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
-            this.btnRestart.visible = true
-            this.btnRestart.setInteractive()
-            this.btnRestart.on('pointerup', () => { this.btnRestart.play('clickRestart'); this.level -= 1; this.scene.restart() })
             this.btnExit.visible = true
             this.btnExit.setInteractive()
             this.btnExit.on('pointerup', () => { this.btnExit.play('clickExit'); this.level = 1; this.scene.restart() })
