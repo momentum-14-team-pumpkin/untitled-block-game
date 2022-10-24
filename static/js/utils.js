@@ -1,3 +1,17 @@
+function checkedGetTileAt(x, y) {
+    if (x < 0 || y < 0 || x >= this.width || y >= this.height) {
+        return 0
+    }
+    return this.getTileAt(x, y)
+}
+
+function checkedPutTileAt(tile, x, y) {
+    if (x < 0 || y < 0 || x >= this.width || y >= this.height) {
+        return
+    }
+    this.putTileAt(tile, x, y)
+}
+
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max)
 }
