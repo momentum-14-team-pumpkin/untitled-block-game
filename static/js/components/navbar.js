@@ -5,6 +5,7 @@ import { ShowUserTimes } from "./usertimeslink"
 import { Title } from "./title"
 import "/static/css/title.css"
 import { LoginOrShowUser } from "./login-or-showuser"
+import CONSTS from "../consts"
 
 
 export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, level}) => {
@@ -33,9 +34,22 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, 
                     <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>
                 </div>
             </div>
-
+            <div style={{marginTop:'30px', display:'flex', fontFamily:'bungee', justifyContent:'center', width:'100%'}}>
+                {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                    <Link
+                        key={i}
+                        to={`/leaderboard${i + 1}/`}
+                        style={{
+                            color: 'white',
+                            paddingRight: '30px',
+                            textAlign: 'center'
+                        }}
+                    >Leaderboard (Level {i + 1})</Link>
+                )}
+            </div>
             </div>
         </div>
+
     </>
     )
 }

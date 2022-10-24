@@ -1,5 +1,6 @@
 import React from "react"
 import { useNavigate, Link, redirect } from "react-router-dom"
+import CONSTS from "../consts"
 import "/static/css/index.css"
 
 
