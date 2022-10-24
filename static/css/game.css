@@ -13,7 +13,8 @@ body
 
 #gameDiv
 {
+    --aspectRatio: calc(22.0 / 11.5);
     position: relative;
-    width: calc(min(100vw, 220vh / 1.15));
-    height: calc(min(100vh, 115vw / 2.2));
+    width: calc(min(100vw, 100vh * var(--aspectRatio)));
+    height: calc(min(100vh, 100vw / var(--aspectRatio)));
 }
