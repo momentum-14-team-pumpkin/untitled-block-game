@@ -7,9 +7,10 @@ function checkedGetTileAt(x, y) {
 
 function checkedPutTileAt(tile, x, y) {
     if (x < 0 || y < 0 || x >= this.width || y >= this.height) {
-        return
+        return false
     }
     this.putTileAt(tile, x, y)
+    return true
 }
 
 function clamp(value, min, max) {
