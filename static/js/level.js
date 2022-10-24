@@ -27,8 +27,6 @@ class LevelScene extends Phaser.Scene {
         this.cache.json.remove('map-data')
         this.load.json('map-data', `/static/assets/levels/level-${this.level}.json`)
         this.load.spritesheet('door', '/static/assets/images/portal.png', { frameWidth: 40, frameHeight: 40 })
-        // this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
-        // this.load.spritesheet('player-enter', '/static/assets/images/player-portal.png', { frameWidth: 40, frameHeight: 40 })
         this.load.spritesheet('restartBtn', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('nextBtn', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('exitBtn', '/static/assets/images/exit-button.png', { frameWidth: 160, frameHeight: 40 })
@@ -181,8 +179,6 @@ class LevelScene extends Phaser.Scene {
             frameRate: 10,
         })
 
-        this.enter.play('playerEnter')
-
         this.anims.remove('stand-left')
     
         this.anims.create({
@@ -250,6 +246,8 @@ class LevelScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
         })
+
+        this.enter.play('playerEnter')
     
         this.cursors = this.input.keyboard.createCursorKeys()
     }
@@ -547,7 +545,6 @@ class LevelScene extends Phaser.Scene {
             this.btnExit.setInteractive()
             this.btnExit.on('pointerup', () => { this.btnExit.play('clickExit'); this.level = 1; this.scene.restart() })
         } else {
-            // this.levelText.setText(`Level: ${this.level} Complete!`, {fill: '#FFFF00'}) Update Level text
             this.winText.setText("YOU'RE WINNER")
             this.winText.setOrigin(0.5, 0.5)
             let cleanup = () => {
@@ -571,7 +568,6 @@ class LevelScene extends Phaser.Scene {
             })
         }
         this.song.destroy()
-        // this.scene.restart()
     }
 
     advanceHax(char) {
