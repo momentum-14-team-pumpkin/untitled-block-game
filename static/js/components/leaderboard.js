@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useState } from "react";
 import axios from "axios";
 import "/static/css/index.css"
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 
 
 export const Leaderboard =({level}) => {
@@ -31,6 +31,7 @@ export const Leaderboard =({level}) => {
                     <p style={{fontSize:'3rem'}}>
                         Best Times For Level {level}
                     </p>
+                    <p style={{fontSize:'1rem', fontStyle:'italic'}}>Must <Link to="/login/" style={{color:'white'}}>Login </Link>To Make Leaderboard</p>
                 </div>
                 <div>
                     {bestTimes.map((listOfTimes) => (

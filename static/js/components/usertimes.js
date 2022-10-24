@@ -16,7 +16,7 @@ export const UserTimes = ({level, currUsername, setAuth, token, isLoggedIn}) => 
             },
         })
         .then((res) =>
-        setUserBestTimes(res.data.sort((a,b)=> {
+        setUserBestTimes(res.data.results.sort((a,b)=> {
             let timeDiff = a.time - b.time
             if (timeDiff != 0){
                 return timeDiff

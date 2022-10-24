@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom"
 import "/static/css/index.css"
 import { Register } from "./register";
-import { PlayGame } from "./gameplay";
+
 
 
 export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) => {
@@ -27,7 +27,6 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
             // console.log(res.data)
             const token = res.data.auth_token
             setAuth(username, token)
-            navigate('/homepage/')
             console.log(token)
 
         })
@@ -98,9 +97,9 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
     else if (isLoggedIn){
         return(
             <>
-            <div style={{textAlign:'center'}}>
+            <div style={{textAlign:'center', marginTop:'50px'}}>
                 <div >
-                    <p style={{color:'white', fontFamily:'bungee'}}>Ready to play </p>
+                    <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}}>Ready to play </p>
                     <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}} >{currUsername}</p>
                 </div>
                 <div>
@@ -108,15 +107,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
                     style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}
                     >Play Game</Link>
                 </div>
-                <div style={{color:'white', fontFamily:'bungee', display:'flex', marginTop:'30px', marginBottom:'30px', justifyContent:'center'}}>
-                    <Link to='/user/best-times1/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px'}}> Level 1 Times</Link>
-                    <Link to='/user/best-times2/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px'}}> Level 2 Times</Link>
-                    <Link to='/user/best-times3/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', }}> Level 3 Times</Link>
-                </div>
-                <div>
-                    <button to="/" onClick={handleLogout} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
-                    Logout</button>
-                </div>
+
             </div>
             </>
         )
