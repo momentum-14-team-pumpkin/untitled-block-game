@@ -10,6 +10,7 @@ import '/static/css/index.css'
 import { UserTimes } from './components/usertimes';
 import { PlayGame } from './components/gameplay';
 import { NavBar } from './components/navbar';
+import CONSTS from './consts';
 
 
 
@@ -68,14 +69,14 @@ function App() {
             />
             <Route path='/homepage' element={<HomePage isLoggedIn={isLoggedIn} currUsername={username} handleLogout={handleLogout} setAuth={setAuth} token={token}/>}/>
             <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />}/>
-            {Array(window.NUM_OF_LEVELS).fill(0).map((_, i) =>
+            {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
                 <Route
                     key={i}
                     path={`/leaderboard${i + 1}`}
                     element={<Leaderboard level={i + 1}/>}
                 />
             )}
-            {Array(window.NUM_OF_LEVELS).fill(0).map((_, i) =>
+            {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
                 <Route
                     key={i}
                     path={`/user/best-times${i + 1}`}

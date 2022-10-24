@@ -2,6 +2,7 @@ import React from "react"
 import "/static/css/index.css"
 import {Link} from 'react-router-dom'
 import { ShowUserTimes } from "./usertimeslink"
+import CONSTS from "../consts"
 
 export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
 
@@ -29,7 +30,7 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
                 Don't have a login?<Link to="/register" style={{ color:'white', paddingRight:'30px', paddingLeft:'10px'}} >  Register Here</Link>
             </div>
             <div style={{marginTop:'30px', display:'flex', fontFamily:'bungee', justifyContent:'center', width:'100%'}}>
-                {Array(window.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
                     <Link
                         key={i}
                         to={`/leaderboard${i + 1}/`}
