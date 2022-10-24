@@ -71,17 +71,17 @@ function App() {
             {Array(window.NUM_OF_LEVELS).fill(0).map((_, i) =>
                 <Route
                     key={i}
-                    path={`/leaderboard${i}`}
-                    element={<Leaderboard level={i}/>}
+                    path={`/leaderboard${i + 1}`}
+                    element={<Leaderboard level={i + 1}/>}
                 />
             )}
             {Array(window.NUM_OF_LEVELS).fill(0).map((_, i) =>
                 <Route
                     key={i}
-                    path={`/user/best-times${i}`}
+                    path={`/user/best-times${i + 1}`}
                     element={
                         <UserTimes
-                            level={i}
+                            level={i + 1}
                             setAuth={setAuth}
                             token={token}
                             handleLogout={handleLogout}

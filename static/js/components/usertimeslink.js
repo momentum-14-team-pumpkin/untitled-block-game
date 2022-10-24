@@ -13,7 +13,7 @@ export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout})
             {Array(window.NUM_OF_LEVELS).fill(0).map((_, i) =>
                 <Link
                     key={i}
-                    to={`/user/best-times${i}/`}
+                    to={`/user/best-times${i + 1}/`}
                     style={{
                         fontSize: '1.5rem',
                         color: 'white',
@@ -21,7 +21,7 @@ export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout})
                         paddingRight: '30px',
                         textAlign: 'center'
                     }}
-                >User Level {i} Times</Link>
+                >User Level {i + 1} Times</Link>
             )}
         </div>
         <div style={{textAlign:'center'}}>

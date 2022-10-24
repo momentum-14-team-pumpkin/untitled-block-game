@@ -32,13 +32,13 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
                 {Array(window.NUM_OF_LEVELS).fill(0).map((_, i) =>
                     <Link
                         key={i}
-                        to={`/leaderboard${i}/`}
+                        to={`/leaderboard${i + 1}/`}
                         style={{
                             color: 'white',
                             paddingRight: '30px',
                             textAlign: 'center'
                         }}
-                    >Leaderboard (Level {i})</Link>
+                    >Leaderboard (Level {i + 1})</Link>
                 )}
             </div>
             <div>
