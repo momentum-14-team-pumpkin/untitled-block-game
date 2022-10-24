@@ -5,14 +5,16 @@ export const Title =() => {
     return(
         <div>
         <Link to='/' style={{textDecoration:'none'}}>
-        <h1 style={{fontFamily:'Bungee', textTransform:'uppercase', fontSize:'84px', fontWeight:'600',  color:'white', textAlign:'center', marginTop:'0', paddingTop:'4rem'}}
+        <h1 style={{fontFamily:'Bungee', height:'5rem', textTransform:'uppercase', fontSize:'5rem', fontWeight:'600',  color:'white', textAlign:'center', marginTop:'4rem'}}
         >
-            Blocks of 
+            Blocks of&nbsp;
             <div id="flip">
-            <div><div>Time</div></div>
-            <div><div>Time</div></div>
-            <div><div>Time</div></div>
+            <div><div className='trebuchet' >Time</div></div>
+            <div><div className="bungee">Time</div></div>
+            <div><div className="gill-sans">Time</div></div>
+            <div><div className='trebuchet' >Time</div></div>
             </div>
+
             </h1></Link>
         </div>
 

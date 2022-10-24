@@ -4,48 +4,38 @@ import {Link} from 'react-router-dom'
 import { ShowUserTimes } from "./usertimeslink"
 import { Title } from "./title"
 import "/static/css/title.css"
+import { NavNotLoggedIn } from "./login-or-showuser"
 
 
-export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
+export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, level}) => {
 
     return(
         <>
         <div>
             <Title />
+            <NavNotLoggedIn isLoggedIn={isLoggedIn} currUsername={currUsername} handleLogout={handleLogout}/>
             <div style={{ display:'flex', justifyContent:'center', color:'white', fontFamily:'bungee'}}>
-                    <div>
-                        <Link to={"/login/"} element =''style={{color:'white', fontFamily:'bungee', paddingRight:'30px'}}
-                        >Login</Link>
-                        <Link to='/playgame/'
-                        style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}
-                        >Play Game</Link>
+
+            <div style={{justifyContent:'center', display:'flex', marginBottom:'30px'}}>
+                <div className='btn-group' role="group" style={{borderRadius:'10px', overflow:'none'}}>
+                    <div className="btn-group" role="group" >
+                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                            style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}>
+                                LeaderBoard
+                            </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1"  style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}>
+                            <li> <a className="dropdown-item" href='/leaderboard1/'> Level 1 </a></li>
+                            <li> <a className="dropdown-item" href='/leaderboard2/'> Level 2 </a></li>
+                            <li> <a className="dropdown-item" href='/leaderboard3/'> Level 3 </a></li>
+                            <li> <a className="dropdown-item" href='/leaderboard4/'> Level 4 </a></li>
+                            <li> <a className="dropdown-item" href='/leaderboard5/'> Level 5 </a></li>
+                        </ul>
                     </div>
-                    <br></br>
-            </div>  
-            <div style={{ display:'flex', justifyContent:'center', color:'white', paddingTop:'20px', fontFamily:'bungee', marginBottom:'20px'}} >
-                Don't have a login?<Link to="/register" style={{ color:'white', paddingRight:'30px', paddingLeft:'10px'}} >  Register Here</Link>
-            </div>
-            <div style={{textAlign:'center'}}>
-                <div className="btn-group dropend">
-                    <button type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
-                    style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}
-                    >
-                        LeaderBoard
-                    </button>
-                <ul className="dropdown-menu" style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}>
-                    <li> <a className="dropdown-item" href='/leaderboard1/'> Level 1 </a></li>
-                    <li> <a className="dropdown-item" href='/leaderboard2/'> Level 2 </a></li>
-                    <li> <a className="dropdown-item" href='/leaderboard3/'> Level 3 </a></li>
-                    <li> <a className="dropdown-item" href='/leaderboard4/'> Level 4 </a></li>
-                    <li> <a className="dropdown-item" href='/leaderboard5/'> Level 5 </a></li>
-                </ul>
+                    <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>
                 </div>
             </div>
-            <div>
-                <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>
+
             </div>
-
-
         </div>
     </>
     )

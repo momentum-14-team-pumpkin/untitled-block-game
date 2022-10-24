@@ -85,31 +85,8 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
 
                 <button style={{borderRadius:'10px', textDecoration:'none', color:'black', fontFamily:'bungee'}}>Sign In</button>
         </form>
-            <br />
-            <div className="register-link">
-                Don't have an account? <br />
-                    <button onClick={()=> setGoRegister(true)} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee', marginTop:'10px'}}>Sign Up </button>
-            </div>
         </div>
         </>
     )}
 
-    else if (isLoggedIn){
-        return(
-            <>
-            <div style={{textAlign:'center', marginTop:'50px'}}>
-                <div >
-                    <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}}>Ready to play </p>
-                    <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}} >{currUsername}</p>
-                </div>
-                <div>
-                    <Link to='/playgame/'
-                    style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}
-                    >Play Game</Link>
-                </div>
-
-            </div>
-            </>
-        )
     }
-}
