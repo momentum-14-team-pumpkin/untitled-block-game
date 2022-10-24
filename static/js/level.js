@@ -349,7 +349,7 @@ class LevelScene extends Phaser.Scene {
                 this.player.setY(undoFrame.position.y)
                 this.player.setVelocityX(undoFrame.velocity.x)
                 this.player.setVelocityY(undoFrame.velocity.y)
-                this.player.setTexture('player', undoFrame.currFrame)
+                this.player.setTexture(this.mapData.char.texture, undoFrame.currFrame)
                 this.facing = undoFrame.facing
                 let point
                 if (point = undoFrame.tookBlock) {
