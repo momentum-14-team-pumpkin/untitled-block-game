@@ -3,6 +3,12 @@
     "tile_data": "level3.csv",
     "tiles": "wood-tiles.png",
     "bg": "level3_1794_798.png",
+    "char": {
+        "texture": "viking"
+    },
+    "charPortal": {
+        "texture": "viking-portal"
+    },
     "accel": {
         "ground": 1000,
         "air": 200

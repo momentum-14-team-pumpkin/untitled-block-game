@@ -27,8 +27,8 @@ class LevelScene extends Phaser.Scene {
         this.cache.json.remove('map-data')
         this.load.json('map-data', `/static/assets/levels/level-${this.level}.json`)
         this.load.spritesheet('door', '/static/assets/images/portal.png', { frameWidth: 40, frameHeight: 40 })
-        this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
-        this.load.spritesheet('player-enter', '/static/assets/images/player-portal.png', { frameWidth: 40, frameHeight: 40 })
+        // this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
+        // this.load.spritesheet('player-enter', '/static/assets/images/player-portal.png', { frameWidth: 40, frameHeight: 40 })
         this.load.spritesheet('restartBtn', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('nextBtn', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('exitBtn', '/static/assets/images/exit-button.png', { frameWidth: 160, frameHeight: 40 })
@@ -46,6 +46,8 @@ class LevelScene extends Phaser.Scene {
             this.load.tilemapCSV('map', `/static/assets/maps/${this.mapData.tile_data}`)
             this.load.audio('song', `/static/assets/audio/${this.mapData.song}`)
             this.load.image('bg', `/static/assets/images/${this.mapData.bg}`)
+            this.load.spritesheet(this.mapData.char.texture, `/static/assets/images/${this.mapData.char.texture}.png`, { frameWidth: 32, frameHeight: 40 })
+            this.load.spritesheet(this.mapData.charPortal.texture, `/static/assets/images/${this.mapData.charPortal.texture}.png`, { frameWidth: 40, frameHeight: 40 })
             this.load.start()
             this.load.once('complete', () => {
                 this.preloadReady = true
@@ -62,14 +64,16 @@ class LevelScene extends Phaser.Scene {
         this.add.image(0, 60, 'bg').setScale(0.5).setOrigin(0, 0)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
+        let portal = this.mapData.charPortal.texture
         this.enter = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.player_start.x),
-        convertTilesToYPixels(this.mapData.player_start.y), 'player-enter')
+        convertTilesToYPixels(this.mapData.player_start.y), portal)
         this.map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
         this.map.checkedGetTileAt = checkedGetTileAt
         this.map.checkedPutTileAt = checkedPutTileAt
         this.cameras.main.setBounds(0, 0, this.map.width * TILE_SIZE, this.game.config.height)
+        let player = this.mapData.char.texture
         this.player = this.physics.add.sprite(convertTilesToXPixels(this.mapData.player_start.x),
-            convertTilesToYPixels(this.mapData.player_start.y) - 4, 'player')
+            convertTilesToYPixels(this.mapData.player_start.y) - 4, player)
         this.cameras.main.startFollow(this.player)
         this.song = this.sound.add('song')
         this.song.loop = true
@@ -169,62 +173,80 @@ class LevelScene extends Phaser.Scene {
     
         doors.play('rotate')
 
+        this.anims.remove('playerEnter')
+
         this.anims.create({
             key: 'playerEnter',
-            frames: this.anims.generateFrameNumbers('player-enter', { start: 0, end: 5 }),
+            frames: this.anims.generateFrameNumbers(portal, { start: 0, end: 5 }),
             frameRate: 10,
         })
 
         this.enter.play('playerEnter')
+
+        this.anims.remove('stand-left')
     
         this.anims.create({
             key: 'stand-left',
-            frames: [ { key: 'player', frame: 0 } ],
+            frames: [ { key: player, frame: 0 } ],
             frameRate: 20
         })
+
+        this.anims.remove('stand-right')
     
         this.anims.create({
             key: 'stand-right',
-            frames: [ { key: 'player', frame: 1 } ],
+            frames: [ { key: player, frame: 1 } ],
             frameRate: 20
         })
+
+        this.anims.remove('walk-left')
     
         this.anims.create({
             key: 'walk-left',
-            frames: this.anims.generateFrameNumbers('player', { start: 2, end: 5 }),
+            frames: this.anims.generateFrameNumbers(player, { start: 2, end: 5 }),
             frameRate: 10,
             repeat: -1
         })
+
+        this.anims.remove('walk-right')
     
         this.anims.create({
             key: 'walk-right',
-            frames: this.anims.generateFrameNumbers('player', { start: 6, end: 9 }),
+            frames: this.anims.generateFrameNumbers(player, { start: 6, end: 9 }),
             frameRate: 10,
             repeat: -1
         })
+
+        this.anims.remove('carry-stand-left')
     
         this.anims.create({
             key: 'carry-stand-left',
-            frames: [ { key: 'player', frame: 11 } ],
+            frames: [ { key: player, frame: 11 } ],
             frameRate: 20
         })
+
+        this.anims.remove('carry-stand-right')
     
         this.anims.create({
             key: 'carry-stand-right',
-            frames: [ { key: 'player', frame: 15 } ],
+            frames: [ { key: player, frame: 15 } ],
             frameRate: 20
         })
+
+        this.anims.remove('carry-walk-left')
     
         this.anims.create({
             key: 'carry-walk-left',
-            frames: this.anims.generateFrameNumbers('player', { start: 10, end: 13 }),
+            frames: this.anims.generateFrameNumbers(player, { start: 10, end: 13 }),
             frameRate: 10,
             repeat: -1
         })
+
+        this.anims.remove('carry-walk-right')
     
         this.anims.create({
             key: 'carry-walk-right',
-            frames: this.anims.generateFrameNumbers('player', { start: 14, end: 17 }),
+            frames: this.anims.generateFrameNumbers(player, { start: 14, end: 17 }),
             frameRate: 10,
             repeat: -1
         })
