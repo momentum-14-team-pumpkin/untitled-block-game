@@ -2,6 +2,7 @@ import React from "react"
 import "/static/css/index.css"
 import {Link} from 'react-router-dom'
 import { ShowUserTimes } from "./usertimeslink"
+import CONSTS from "../consts"
 
 export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
 
@@ -29,11 +30,17 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
                 Don't have a login?<Link to="/register" style={{ color:'white', paddingRight:'30px', paddingLeft:'10px'}} >  Register Here</Link>
             </div>
             <div style={{marginTop:'30px', display:'flex', fontFamily:'bungee', justifyContent:'center', width:'100%'}}>
-                    <Link to="/leaderboard1/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 1)</Link>
-                    <Link to="/leaderboard2/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 2)</Link>
-                    <Link to="/leaderboard3/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 3)</Link>
-                    <Link to="/leaderboard4/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 4)</Link>
-
+                {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                    <Link
+                        key={i}
+                        to={`/leaderboard${i + 1}/`}
+                        style={{
+                            color: 'white',
+                            paddingRight: '30px',
+                            textAlign: 'center'
+                        }}
+                    >Leaderboard (Level {i + 1})</Link>
+                )}
             </div>
             <div>
                 <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>
