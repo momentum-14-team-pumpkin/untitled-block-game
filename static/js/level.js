@@ -311,6 +311,9 @@ class LevelScene extends Phaser.Scene {
                 this.song.destroy()
                 this.speedRun += (time - this.levelStart - TIMER_DELAY) / 1000
             }
+            else {
+                this.level--
+            }
             this.scene.restart()
         }
 
