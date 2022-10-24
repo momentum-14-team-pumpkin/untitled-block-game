@@ -34,6 +34,7 @@ class LevelScene extends Phaser.Scene {
         this.load.audio('put', '/static/assets/audio/putdown.wav')
         this.load.audio('jump', '/static/assets/audio/jump.wav')
         this.load.audio('exit', '/static/assets/audio/portal.wav')
+        this.load.image('rewind', '/static/assets/images/rewind.png')
         this.load.once('complete', () => {
             this.mapData = this.cache.json.get('map-data')
             this.cache.tilemap.remove('map')
@@ -138,6 +139,9 @@ class LevelScene extends Phaser.Scene {
         this.pauseWarnText.setOrigin(0.5, 0.5)
         this.pauseWarnText.setScrollFactor(0)
         this.pauseWarnText.visible = false
+        this.rewind = this.add.image(this.game.config.width/2, 30, 'rewind').setScale(1/4.5).setOrigin(0.5, 0.5)
+        this.rewind.setScrollFactor(0)
+        this.rewind.visible = false
         this.undoStack = []
         
         if (this.holdingBlock) {
@@ -345,6 +349,7 @@ class LevelScene extends Phaser.Scene {
             // continuous undo
             let undoFrame = this.undoStack.pop()
             if (undoFrame) {
+                this.rewind.visible = true
                 this.player.setX(undoFrame.position.x)
                 this.player.setY(undoFrame.position.y)
                 this.player.setVelocityX(undoFrame.velocity.x)
@@ -368,9 +373,11 @@ class LevelScene extends Phaser.Scene {
                     this.holdingBlock.x = this.player.x - TILE_SIZE - 2
                     this.holdingBlock.y = this.player.y - TILE_SIZE
                 }
+                // this.rewind.visible = false
                 return
             }
         }
+        this.rewind.visible = false
 
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.advanceHax('L')
