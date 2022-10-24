@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom'
 
 
 
-export const NavNotLoggedIn =({isLoggedIn, currUsername, handleLogout}) => {
+export const LoginOrShowUser =({isLoggedIn, currUsername, handleLogout}) => {
     if (!isLoggedIn) {
     return(
         <>
         <div>
-            <div style={{textAlign:'center'}}>
+            <div style={{textAlign:'center', marginTop:'20px'}}>
                 <Link to={"/login/"} element =''style={{color:'white', fontFamily:'bungee', paddingRight:'30px'}}
                 >Login</Link>
                 <Link to='/playgame/'

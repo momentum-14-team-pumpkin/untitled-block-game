@@ -1,9 +1,8 @@
 import React from "react"
 import { useState } from "react"
 import axios from "axios"
-import {Link, redirect, useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import "/static/css/index.css"
-import { ShowUserTimes } from "./usertimeslink"
 
 
 
@@ -53,7 +52,7 @@ export const Register = ({setAuth}) => {
         <h1 style={{fontFamily:'bungee', color:'white'}}>Registration Page</h1>
         {error && <div style={{color:'red', fontFamily:'bungee'}} className="error">{error} <br /> <br /></div>}
         <form id="registration-form" onSubmit={handleSubmit}>
-            <label style={{color:'white', fontFamily:'bungee'}} htmlFor="username">Username: </label>
+            <label style={{color:'white', fontFamily:'bungee'}} htmlFor="username">Username </label>
             <input 
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
@@ -66,7 +65,7 @@ export const Register = ({setAuth}) => {
                 <br />
                 <br />
 
-        <label style={{color:'white', fontFamily:'bungee'}}  htmlFor="password">Password: </label>
+        <label style={{color:'white', fontFamily:'bungee'}}  htmlFor="password">Password </label>
             
             <input 
                 id="password"

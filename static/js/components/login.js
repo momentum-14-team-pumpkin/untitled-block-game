@@ -58,9 +58,9 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         <h1>Sign In</h1>
         {error && <div style={{color:'red', fontFamily:'bungee'}} className="error">{error} <br /> <br /></div>}
         <form id="login-form" onSubmit={handleSubmit}>
-            <label htmlFor="username">Username: </label>
+            <label htmlFor="username">Username </label>
             <input 
-                style={{maxWidth:'100px', fontFamily:'bungee'}}
+                style={{maxWidth:'200px', fontFamily:'bungee'}}
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
@@ -71,9 +71,9 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
                 <br />
                 <br />
 
-<label htmlFor="password">Password: </label>
+<label htmlFor="password">Password </label>
             <input 
-                style={{maxWidth:'100px', fontFamily:'bungee'}}
+                style={{maxWidth:'200px', fontFamily:'bungee'}}
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"

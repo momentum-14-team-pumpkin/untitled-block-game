@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import { ShowUserTimes } from "./usertimeslink"
 import { Title } from "./title"
 import "/static/css/title.css"
-import { NavNotLoggedIn } from "./login-or-showuser"
+import { LoginOrShowUser } from "./login-or-showuser"
 
 
 export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, level}) => {
@@ -12,8 +12,7 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, 
     return(
         <>
         <div>
-            <Title />
-            <NavNotLoggedIn isLoggedIn={isLoggedIn} currUsername={currUsername} handleLogout={handleLogout}/>
+            <LoginOrShowUser isLoggedIn={isLoggedIn} currUsername={currUsername} handleLogout={handleLogout}/>
             <div style={{ display:'flex', justifyContent:'center', color:'white', fontFamily:'bungee'}}>
 
             <div style={{justifyContent:'center', display:'flex', marginBottom:'30px'}}>
