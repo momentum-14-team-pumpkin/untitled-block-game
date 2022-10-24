@@ -2,7 +2,8 @@ import React from "react"
 import "/static/css/index.css"
 import {Link} from 'react-router-dom'
 import { ShowUserTimes } from "./usertimeslink"
-import { Stanley } from "./stanley"
+import { Title } from "./title"
+import "/static/css/title.css"
 
 
 export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
@@ -10,9 +11,7 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
     return(
         <>
         <div>
-            <Link to='/' style={{textDecoration:'none'}}>
-            <h1 style={{fontFamily:'Bungee', textTransform:'uppercase', fontSize:'84px', fontWeight:'600',  color:'white', textAlign:'center', marginTop:'0', paddingTop:'4rem'}}
-            >Blocks of Time </h1></Link> 
+            <Title />
             <div style={{ display:'flex', justifyContent:'center', color:'white', fontFamily:'bungee'}}>
                     <div>
                         <Link to={"/login/"} element =''style={{color:'white', fontFamily:'bungee', paddingRight:'30px'}}
@@ -22,22 +21,25 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
                         >Play Game</Link>
                     </div>
                     <br></br>
-                    {/* <div>
-                        <Link {...isLoggedIn} to="/homepage/" onClick={handleLogout} style={{ color:'white', paddingRight:'30px'}}>
-                            Logout</Link>
-                    </div> */}
             </div>  
             <div style={{ display:'flex', justifyContent:'center', color:'white', paddingTop:'20px', fontFamily:'bungee', marginBottom:'20px'}} >
                 Don't have a login?<Link to="/register" style={{ color:'white', paddingRight:'30px', paddingLeft:'10px'}} >  Register Here</Link>
             </div>
-            <div style={{marginTop:'30px', display:'flex', fontFamily:'bungee', justifyContent:'center', width:'100%'}}>
-                    <Link to="/leaderboard1/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 1)</Link>
-                    <Link to="/leaderboard2/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 2)</Link>
-                    <Link to="/leaderboard3/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 3)</Link>
-                    <Link to="/leaderboard4/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 4)</Link>
-                    <Link to="/leaderboard5/" style={{ color:'white', paddingRight:'30px', textAlign:'center'}} >LeaderBoard (Level 5)</Link>
-
-
+            <div style={{textAlign:'center'}}>
+                <div className="btn-group dropend">
+                    <button type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                    style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}
+                    >
+                        LeaderBoard
+                    </button>
+                <ul className="dropdown-menu" style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}>
+                    <li> <a className="dropdown-item" href='/leaderboard1/'> Level 1 </a></li>
+                    <li> <a className="dropdown-item" href='/leaderboard2/'> Level 2 </a></li>
+                    <li> <a className="dropdown-item" href='/leaderboard3/'> Level 3 </a></li>
+                    <li> <a className="dropdown-item" href='/leaderboard4/'> Level 4 </a></li>
+                    <li> <a className="dropdown-item" href='/leaderboard5/'> Level 5 </a></li>
+                </ul>
+                </div>
             </div>
             <div>
                 <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>

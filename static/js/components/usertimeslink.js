@@ -9,16 +9,25 @@ export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout})
     if (isLoggedIn){
     return(
         <>
-        <div style={{color:'white', fontFamily:'bungee', display:'flex', float:'left', marginTop:'30px', marginBottom:'30px', justifyContent:'center', width:'100%'}}>
-            <Link to='/user/best-times1/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px', textAlign:'center'}}> User Level 1 Times</Link>
-            <Link to='/user/best-times2/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee', paddingRight:'30px', textAlign:'center'}}> User Level 2 Times</Link>
-            <Link to='/user/best-times3/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 3 Times</Link>
-            <Link to='/user/best-times4/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 4 Times</Link>
-            <Link to='/user/best-times5/' style={{fontSize:'1.5rem', color:'white', fontFamily:'bungee',paddingRight:'30px', textAlign:'center'}}> User Level 5 Times</Link>
+        <div style={{textAlign:'center'}}>
+                <div className="btn-group dropend" style={{border:'solid'}}>
+                <button type="button" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                style={{background:'#f0f0f0', fontFamily:'bungee', color:'black', borderRadius:'10px'}}
+                >
+                    Your Best Times
+                </button>
+            <ul className="dropdown-menu" style={{background:'#f0f0f0', fontFamily:'bungee', color:'white'}}>
+                <li> <a className="dropdown-item" href='/user/best-times1/'> Level 1 </a></li>
+                <li> <a className="dropdown-item" href='/user/best-times2/'> Level 2 </a></li>
+                <li> <a className="dropdown-item" href='/user/best-times3/'> Level 3 </a></li>
+                <li> <a className="dropdown-item" href='/user/best-times4/'> Level 4 </a></li>
+                <li> <a className="dropdown-item" href='/user/best-times5/'> Level 5 </a></li>
+            </ul>
+            </div>
         </div>
         <div style={{textAlign:'center'}}>
             <Link to="/homepage/">
-            <button onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
+            <button onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee', background:'#f0f0f0'}}>
             Logout</button></Link>
         </div>
         </>

@@ -59,12 +59,14 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = false
-        this.add.image(this.game.config.width/2, this.game.config.height/2 + 30, 'bg').setScale(0.5)
+        this.add.image(0, 60, 'bg').setScale(0.5).setOrigin(0, 0)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
         this.enter = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.player_start.x),
         convertTilesToYPixels(this.mapData.player_start.y), 'player-enter')
         this.map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
+        this.map.checkedGetTileAt = checkedGetTileAt
+        this.map.checkedPutTileAt = checkedPutTileAt
         this.cameras.main.setBounds(0, 0, this.map.width * TILE_SIZE, this.game.config.height)
         this.player = this.physics.add.sprite(convertTilesToXPixels(this.mapData.player_start.x),
             convertTilesToYPixels(this.mapData.player_start.y) - 4, 'player')
@@ -107,7 +109,9 @@ class LevelScene extends Phaser.Scene {
         this.winGameText = this.add.text(config.width/2 - 60, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winGameText.setScrollFactor(0)
         this.compLevelText = this.add.text(40, 15, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.compLevelText.setScrollFactor(0)
         this.compTimeText = this.add.text(40, 30, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.compTimeText.setScrollFactor(0)
         this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
         this.btnRestart.setOrigin(0.5, 0.5)
         this.btnRestart.visible = false
@@ -307,8 +311,13 @@ class LevelScene extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyR)){
             this.holdingBlock = null
-            this.song.destroy()
-            this.speedRun += (time - this.levelStart - TIMER_DELAY) / 1000
+            if (!this.levelComplete) {
+                this.song.destroy()
+                this.speedRun += (time - this.levelStart - TIMER_DELAY) / 1000
+            }
+            else {
+                this.level--
+            }
             this.scene.restart()
         }
 
@@ -328,11 +337,11 @@ class LevelScene extends Phaser.Scene {
                         this.holdingBlock.destroy()
                     }
                     this.holdingBlock = null
-                    this.map.putTileAt(2, point.x, point.y)
+                    this.map.checkedPutTileAt(2, point.x, point.y)
                 }
                 if (point = undoFrame.placedBlock) {
                     this.acquireBlock()
-                    this.map.putTileAt(0, point.x, point.y)
+                    this.map.checkedPutTileAt(0, point.x, point.y)
                 }
                 if (this.holdingBlock)
                 {
@@ -407,9 +416,9 @@ class LevelScene extends Phaser.Scene {
                 else if (this.facing == 'right'){
                     point = this.map.worldToTileXY(this.player.x + (TILE_SIZE + 2), this.player.y, true)
                 }
-                if (this.map.getTileAt(point.x, point.y).index == 2
-                    && this.map.getTileAt(point.x, point.y -1).index == 0){
-                    this.map.putTileAt(0, point.x, point.y)
+                if (this.map.checkedGetTileAt(point.x, point.y).index == 2
+                    && this.map.checkedGetTileAt(point.x, point.y -1).index == 0){
+                    this.map.checkedPutTileAt(0, point.x, point.y)
                     this.acquireBlock(this)
                     undoFrame.tookBlock = {
                         x: point.x,
@@ -428,12 +437,12 @@ class LevelScene extends Phaser.Scene {
                 else if (this.facing == 'right'){
                     point = this.map.worldToTileXY(this.player.x + (TILE_SIZE + 2), this.player.y, true)
                 }
-                if (this.map.getTileAt(point.x, point.y - 1).index == 0){
+                if (this.map.checkedGetTileAt(point.x, point.y - 1).index == 0){
                     point.y--
-                    while (this.map.getTileAt(point.x, point.y + 1).index == 0) {
+                    while (this.map.checkedGetTileAt(point.x, point.y + 1).index == 0) {
                         point.y++
                     }
-                    this.map.putTileAt(2, point.x, point.y)
+                    this.map.checkedPutTileAt(2, point.x, point.y)
                     this.player.body.setSize(32, 40)
                     this.holdingBlock.destroy()
                     this.holdingBlock = null
@@ -602,7 +611,7 @@ class LevelScene extends Phaser.Scene {
         for (let i = -1; i <= exactGapHeight; i++) {
             const gapY = convertYPixelsToTiles(this.player.y) + i
             const expectBlock = i < 0 || i == exactGapHeight
-            if ((this.map.getTileAt(gapX, gapY).index != 0) != expectBlock) {
+            if ((this.map.checkedGetTileAt(gapX, gapY).index != 0) != expectBlock) {
                 return
             }
         }
