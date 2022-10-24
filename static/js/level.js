@@ -311,8 +311,13 @@ class LevelScene extends Phaser.Scene {
         }
         if (Phaser.Input.Keyboard.JustDown(this.keyR)){
             this.holdingBlock = null
-            this.song.destroy()
-            this.speedRun += (time - this.levelStart - TIMER_DELAY) / 1000
+            if (!this.levelComplete) {
+                this.song.destroy()
+                this.speedRun += (time - this.levelStart - TIMER_DELAY) / 1000
+            }
+            else {
+                this.level--
+            }
             this.scene.restart()
         }
 
