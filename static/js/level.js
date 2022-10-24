@@ -44,8 +44,8 @@ class LevelScene extends Phaser.Scene {
             this.load.tilemapCSV('map', `/static/assets/maps/${this.mapData.tile_data}`)
             this.load.audio('song', `/static/assets/audio/${this.mapData.song}`)
             this.load.image('bg', `/static/assets/images/${this.mapData.bg}`)
-            this.load.spritesheet(this.mapData.char.texture, `/static/assets/images/${this.mapData.char.texture}.png`, { frameWidth: 32, frameHeight: 40 })
-            this.load.spritesheet(this.mapData.charPortal.texture, `/static/assets/images/${this.mapData.charPortal.texture}.png`, { frameWidth: 40, frameHeight: 40 })
+            this.load.spritesheet(this.mapData.char.texture, `/static/assets/images/${this.mapData.char.texture}`, { frameWidth: 32, frameHeight: 40 })
+            this.load.spritesheet(this.mapData.char.portal, `/static/assets/images/${this.mapData.char.portal}`, { frameWidth: 40, frameHeight: 40 })
             this.load.start()
             this.load.once('complete', () => {
                 this.preloadReady = true
@@ -62,7 +62,7 @@ class LevelScene extends Phaser.Scene {
         this.add.image(0, 60, 'bg').setScale(0.5).setOrigin(0, 0)
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
-        let portal = this.mapData.charPortal.texture
+        let portal = this.mapData.char.portal
         this.enter = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.player_start.x),
         convertTilesToYPixels(this.mapData.player_start.y), portal)
         this.map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })

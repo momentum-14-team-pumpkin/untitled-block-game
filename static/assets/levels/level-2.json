@@ -4,10 +4,8 @@
     "tiles": "ice-tiles.png",
     "bg": "level2_1794_798.png",
     "char": {
-        "texture": "iceman"
-    },
-    "charPortal": {
-        "texture": "iceman-portal"
+        "texture": "iceman.png",
+        "portal": "iceman-portal.png"
     },
     "accel": {
         "ground": 200,

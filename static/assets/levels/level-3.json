@@ -4,10 +4,8 @@
     "tiles": "wood-tiles.png",
     "bg": "level3_1794_798.png",
     "char": {
-        "texture": "viking"
-    },
-    "charPortal": {
-        "texture": "viking-portal"
+        "texture": "viking.png",
+        "portal": "viking-portal.png"
     },
     "accel": {
         "ground": 1000,

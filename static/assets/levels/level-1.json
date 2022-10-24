@@ -4,10 +4,8 @@
     "tiles": "drawtiles-spaced.png",
     "bg": "level1_1794_798.png",
     "char": {
-        "texture": "player"
-    },
-    "charPortal": {
-        "texture": "player-portal"
+        "texture": "player.png",
+        "portal": "player-portal.png" 
     },
     "accel": {
         "ground": 1000,

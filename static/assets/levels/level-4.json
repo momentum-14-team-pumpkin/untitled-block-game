@@ -4,10 +4,8 @@
     "tiles": "rock-tiles.png",
     "bg": "level4_1794_798.png",
     "char": {
-        "texture": "cavewoman"
-    },
-    "charPortal": {
-        "texture": "cavewoman-portal"
+        "texture": "cavewoman.png",
+        "portal": "cavewoman-portal.png"
     },
     "accel": {
         "ground": 1000,

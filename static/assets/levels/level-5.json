@@ -4,10 +4,8 @@
     "tiles": "west-tiles.png",
     "bg": "level5_3588_798.png",
     "char": {
-        "texture": "cowgirl"
-    },
-    "charPortal": {
-        "texture": "cowgirl-portal"
+        "texture": "cowgirl.png",
+        "portal": "cowgirl-portal.png"
     },
     "accel": {
         "ground": 1000,
