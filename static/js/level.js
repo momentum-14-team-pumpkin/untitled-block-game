@@ -448,11 +448,13 @@ class LevelScene extends Phaser.Scene {
             this.scene.restart()
         }
 
-        if (this.keyZ.isDown && !this.levelComplete) {
+        if (this.keyZ.isDown && !this.levelComplete && (time - this.levelStart) > TIMER_DELAY) {
             // continuous undo
             let undoFrame = this.undoStack.pop()
             if (undoFrame) {
-                this.rewind.visible = true
+                if (this.level != NUM_OF_LEVELS){
+                    this.rewind.visible = true
+                }
                 this.player.setX(undoFrame.position.x)
                 this.player.setY(undoFrame.position.y)
                 this.player.setVelocityX(undoFrame.velocity.x)
