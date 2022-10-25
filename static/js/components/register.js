@@ -57,7 +57,7 @@ export const Register = ({setAuth}) => {
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
-                style={{fontFamily:'bungee'}}
+                style={{fontFamily:'sans-serif', marginLeft:'1rem'}}
                 autoComplete="on"
                 value={username}
                 required
@@ -72,7 +72,7 @@ export const Register = ({setAuth}) => {
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 value={password}
-                style={{fontFamily:'bungee'}}
+                style={{fontFamily:'sans-serif', marginLeft:'1rem'}}
                 required
                 />
                 <br />

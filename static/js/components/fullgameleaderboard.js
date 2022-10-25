@@ -10,7 +10,7 @@ export const FullGameLeaderboard =({}) => {
 
     useEffect(() => {
         axios
-        .get('https://young-plateau-94674.herokuapp.com/full-run-times/')
+        .get('https://blocks-of-time.herokuapp.com/full-run-times/')
         .then((res) =>
         setBestFullTimes(res.data.results.sort((a,b)=> {
             let timeDiff = a.time - b.time

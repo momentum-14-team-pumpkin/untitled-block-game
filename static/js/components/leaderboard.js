@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useState } from "react";
 import axios from "axios";
 import "/static/css/index.css"
-import { useSearchParams, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 
 export const Leaderboard =({level}) => {
@@ -17,7 +17,7 @@ export const Leaderboard =({level}) => {
             if (timeDiff != 0){
                 return timeDiff
             }
-            return 0   //TODO: use created time 
+            return 0  
         } 
         )))},[level])
 
