@@ -2,9 +2,9 @@ Blocks of Time
 
 STORY: 
 
-Prof. Pretzel while finishing his puzzles in his book ended up walking into his own experiment with time portals, he unintentionally walked into the portal!  It is up to you and Prof. Pretzel to move block to get him back home.
+Prof. Pretzel while finishing his puzzles in his book ended up walking into his own experiment with time portals, he unintentionally walked into the portal!  It is up to you and Prof. Pretzel to move and stack blocks to get him back home.
 
-Help Prof. Pretzel travel through 5 different levels moving blocks to get him back to his current time.
+Help Prof. Pretzel travel through each of the levels, moving blocks to get him back to his current time.
 
 GAME CONTROLS:
 
