@@ -81,7 +81,6 @@ export const PlayGame = ({token}) => {
                             overflow: 'hidden',
                         }}
                     />
-                    <GameDescription />
                 </div>
             </div>
 
