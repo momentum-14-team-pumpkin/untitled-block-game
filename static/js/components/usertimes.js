@@ -44,7 +44,7 @@ export const UserTimes = ({level, currUsername, setAuth, token, isLoggedIn}) => 
                             margin:'auto',
                         }}>
                         <div style={{textAlign:'center'}}>
-                            <h2>{listOfTimes.time}</h2>
+                            <p>{convertSecondsToTimestring(listOfTimes.time)}</p>
                         </div>
                     </div>
                     ))}

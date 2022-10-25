@@ -1,17 +1,15 @@
 import React from "react"
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"
 import "/static/css/index.css"
 import { Register } from "./register";
 
 
 
 export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) => {
-    const navigate = useNavigate()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
+    const [error, setError] = useState(null)
     const [goRegister, setGoRegister] = useState(false)
 
     const handleSubmit = (event) => {
@@ -32,11 +30,11 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         })
         .catch((error) => {
             console.log(error)
-            if (error.response.data.username)
-            setError(error.response.data.username);
+            if (error.response.data.non_field_errors)
+            setError(error.response.data.non_field_errors);
         
-        if (error.response.data.password)
-            setError(error.response.data.password)
+            if (error.response.data.password)
+                setError(error.response.data.password)
         })
     }
 
@@ -58,9 +56,9 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         <h1>Sign In</h1>
         {error && <div style={{color:'red', fontFamily:'bungee'}} className="error">{error} <br /> <br /></div>}
         <form id="login-form" onSubmit={handleSubmit}>
-            <label htmlFor="username">Username: </label>
+            <label htmlFor="username">Username </label>
             <input 
-                style={{maxWidth:'100px', fontFamily:'bungee'}}
+                style={{maxWidth:'200px', fontFamily:'bungee'}}
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
@@ -71,9 +69,9 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
                 <br />
                 <br />
 
-<label htmlFor="password">Password: </label>
+<label htmlFor="password">Password </label>
             <input 
-                style={{maxWidth:'100px', fontFamily:'bungee'}}
+                style={{maxWidth:'200px', fontFamily:'bungee'}}
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
@@ -85,31 +83,8 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
 
                 <button style={{borderRadius:'10px', textDecoration:'none', color:'black', fontFamily:'bungee'}}>Sign In</button>
         </form>
-            <br />
-            <div className="register-link">
-                Don't have an account? <br />
-                    <button onClick={()=> setGoRegister(true)} style={{borderRadius:'10px', textDecoration:'none', color:'black', fontWeight:'bolder', fontFamily:'bungee', marginTop:'10px'}}>Sign Up </button>
-            </div>
         </div>
         </>
     )}
 
-    else if (isLoggedIn){
-        return(
-            <>
-            <div style={{textAlign:'center', marginTop:'50px'}}>
-                <div >
-                    <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}}>Ready to play </p>
-                    <p style={{color:'white', fontFamily:'bungee', fontSize:'1.5rem'}} >{currUsername}</p>
-                </div>
-                <div>
-                    <Link to='/playgame/'
-                    style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}
-                    >Play Game</Link>
-                </div>
-
-            </div>
-            </>
-        )
     }
-}

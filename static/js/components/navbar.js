@@ -1,53 +1,40 @@
 import React from "react"
 import "/static/css/index.css"
-import {Link} from 'react-router-dom'
 import { ShowUserTimes } from "./usertimeslink"
+import "/static/css/title.css"
+import { LoginOrShowUser } from "./login-or-showuser"
+// import CONSTS from "../consts"
+import { useState } from "react"
+import { PlayGame } from "./gameplay"
 import CONSTS from "../consts"
 
-export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, level}) => {
+
+export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, goPlay, level}) => {
 
     return(
         <>
         <div>
-            <Link to='/' style={{textDecoration:'none'}}>
-            <h1 style={{fontFamily:'Bungee', textTransform:'uppercase', fontSize:'84px', fontWeight:'600',  color:'white', textAlign:'center', marginTop:'0', paddingTop:'4rem'}}
-            >Blocks of Time </h1></Link>
+            <LoginOrShowUser isLoggedIn={isLoggedIn} currUsername={currUsername} handleLogout={handleLogout}/>
             <div style={{ display:'flex', justifyContent:'center', color:'white', fontFamily:'bungee'}}>
-                    <div>
-                        <Link to={"/login/"} element =''style={{color:'white', fontFamily:'bungee', paddingRight:'30px'}}
-                        >Login</Link>
-                        <Link to='/playgame/'
-                        style={{color:'white', fontFamily:'bungee', borderRadius:'10px'}}
-                        >Play Game</Link>
+
+            <div style={{justifyContent:'center', display:'flex', marginBottom:'30px'}}>
+                <div className='btn-group' role="group" style={{borderRadius:'10px', overflow:'none'}}>
+                    <div className="btn-group" role="group" >
+                        <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                            style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}>
+                                LeaderBoard
+                            </button>
+                        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1"  style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}>
+                            {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                                <li key={i}> <a className="dropdown-item" href={`/leaderboard${i+1}/`}> Level {i+1} </a></li>
+                            )}
+                        </ul>
                     </div>
-                    <br></br>
-                    {/* <div>
-                        <Link {...isLoggedIn} to="/homepage/" onClick={handleLogout} style={{ color:'white', paddingRight:'30px'}}>
-                            Logout</Link>
-                    </div> */}
-            </div>  
-            <div style={{ display:'flex', justifyContent:'center', color:'white', paddingTop:'20px', fontFamily:'bungee', marginBottom:'20px'}} >
-                Don't have a login?<Link to="/register" style={{ color:'white', paddingRight:'30px', paddingLeft:'10px'}} >  Register Here</Link>
+                    <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>
+                </div>
             </div>
-            <div style={{marginTop:'30px', display:'flex', fontFamily:'bungee', justifyContent:'center', width:'100%'}}>
-                {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
-                    <Link
-                        key={i}
-                        to={`/leaderboard${i + 1}/`}
-                        style={{
-                            color: 'white',
-                            paddingRight: '30px',
-                            textAlign: 'center'
-                        }}
-                    >Leaderboard (Level {i + 1})</Link>
-                )}
             </div>
-            <div>
-                <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>
-            </div>
-
-
         </div>
+
     </>
-    )
-}
+    )}
