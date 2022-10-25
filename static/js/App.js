@@ -32,7 +32,7 @@ function App() {
     const handleLogout = () => {
         axios
         .post(
-        'https://young-plateau-94674.herokuapp.com/auth/token/logout',
+        'https://blocks-of-time.herokuapp.com/auth/token/logout',
         {},
         {
             headers: {

@@ -16,13 +16,13 @@ export const Register = ({setAuth}) => {
             e.preventDefault()
             console.log('handle submit')
             axios
-                .post('https://young-plateau-94674.herokuapp.com/auth/users/', {
+                .post('https://blocks-of-time.herokuapp.com/auth/users/', {
                     username: username,
                     password: password,
                 })
                 .then(() =>
                     axios.post(
-                    'https://young-plateau-94674.herokuapp.com/auth/token/login/',
+                    'https://blocks-of-time.herokuapp.com/auth/token/login/',
                     {
                     username: username,
                     password: password,
