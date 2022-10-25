@@ -43,7 +43,7 @@ export const UserTimes = ({level, currUsername, token}) => {
                             textAlign:'center',
                             margin:'auto',
                         }}>
-                        <div style={{textAlign:'center'}}>
+                        <div style={{textAlign:'center', fontSize:"1.5rem"}}>
                             <p>{convertSecondsToTimestring(listOfTimes.time)}</p>
                         </div>
                     </div>
