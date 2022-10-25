@@ -74,7 +74,8 @@ export const PlayGame = ({token}) => {
                             margin: 'auto',
                             width: 'calc(min(100vw, 880px))',
                             height: 'calc(min(100vh, 460px))',
-                            marginBottom: '0'
+                            marginBottom: '0',
+                            overflow: 'hidden',
                         }}
                     />
                 </div>
