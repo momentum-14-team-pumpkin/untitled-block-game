@@ -61,17 +61,23 @@ export const PlayGame = ({token}) => {
                         </div>
                     </div>
                 </div>
-                <iframe
-                    allowFullScreen src='/game/'
-                    id='gameIframe'
-                    webkitallowfullscreen="true"
-                    frameBorder='0'
-                    style={{
-                        width:'100vw',
-                        height:'100vh',
-                        marginBottom:'0'
-                    }}
-                />
+                <div style={{
+                    display: 'flex',
+                    width: '100vw',
+                    justifyContent: 'center',
+                }}>
+                    <iframe
+                        allowFullScreen src='/game/'
+                        id='gameIframe'
+                        webkitallowfullscreen="true"
+                        style={{
+                            margin: 'auto',
+                            width: 'calc(min(100vw, 880px))',
+                            height: 'calc(min(100vh, 460px))',
+                            marginBottom: '0'
+                        }}
+                    />
+                </div>
             </div>
 
         </>
