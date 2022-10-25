@@ -132,3 +132,5 @@ webpack-stats.json
 dist/
 staticfiles/
 node_modules
+
+new-obstacles.md
