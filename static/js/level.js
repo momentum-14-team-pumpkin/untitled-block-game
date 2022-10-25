@@ -41,7 +41,6 @@ class LevelScene extends Phaser.Scene {
         this.load.image('stephen', '/static/assets/images/stephen.png')
         this.load.image('tom', '/static/assets/images/tom.png')
         this.load.image('thanks', '/static/assets/images/thanks.png')
-        // this.load.image('bricks', '/static/assets/images/brick-black.png')
         this.load.once('complete', () => {
             this.mapData = this.cache.json.get('map-data')
             this.cache.tilemap.remove('map')
@@ -67,7 +66,6 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = false
-        // this.add.image(0, 0, 'bricks').setScale(1).setOrigin(0, 0)
         this.avatar = this.add.image(790, 32, this.mapData.char.texture).setScale(3).setOrigin(0.25, 0.25)
         this.avatar.visible = true
         this.add.image(0, 60, 'bg').setScale(0.5).setOrigin(0, 0)
@@ -308,18 +306,39 @@ class LevelScene extends Phaser.Scene {
             }`)
             if (this.level === NUM_OF_LEVELS){
                 this.dialogue.setText(
-                    `Prof Pretzel:\n"I'm back home! What a relief!"`,
+                    `Prof Pretzel:   "I'm back home! What a relief!"
+                "I need to watch where I'm walking!"`,
                     {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
                     )
                 this.startTimerText.setText("")
-            }else if (this.level > 1){
+            }else if (this.level === 2){
                 this.dialogue.setText(
-                    `Prof Pretzel:\n"Where am I? WHO am I? I need to get back!"`,
+                    `Prof Pretzel:   "Where am I? WHO am I?"
+                "I need to get back!"`,
+                    {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+            } else if (this.level === 3){
+                this.dialogue.setText(
+                    `Prof Pretzel:   "Now I'm a viking and my puzzle is an axe?!"
+                "Matter is changing based on time period!"`,
+                    {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+            } else if (this.level === 4){
+                this.dialogue.setText(
+                    `Prof Pretzel:   "My puzzlebook is altering the environment 
+                 when it goes through the portal!"`,
+                    {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+            } else if (this.level === 5){
+                this.dialogue.setText(
+                    `Prof Pretzel:   "It's based on speed! Of course!"
+                "I need to solve the puzzles quickly!"`,
                     {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
                     )
             } else {
                 this.dialogue.setText(
-                    `Prof Pretzel: "I fell into the portal!"\n"Maybe that portal will take me back!"`,
+                    `Prof Pretzel:   "I fell into the portal!"
+                "Maybe that portal will take me back!"`,
                     {font: "60px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
                     )
             }
@@ -342,7 +361,7 @@ class LevelScene extends Phaser.Scene {
             if(this.level == NUM_OF_LEVELS){
                 this.levelText.setText("")
                 this.timeText.setText("")
-                this.winGameText.setText("YOU'RE WINNER OF GAME")
+                this.winGameText.setText("CONGRATULATIONS!")
                 this.winGameText.setOrigin(0.5, 0.5)
                 if((time - this.levelStart) > TIMER_DELAY * 1.3){
                     this.credits.alpha = 1
@@ -620,8 +639,6 @@ class LevelScene extends Phaser.Scene {
         this.avatar.visible = false
         this.player.visible = false
         this.player.body.destroy()
-        // this.levelText.setText("")
-        // this.timeText.setText("")
         if (this.level == NUM_OF_LEVELS){
             this.completionTime = 0
         } else {
@@ -646,7 +663,7 @@ class LevelScene extends Phaser.Scene {
             if (!this.zomgHax) {
                 submitTime(this.fullRunTime)
             }
-            this.winGameText.setText("YOU'RE WINNER OF GAME")
+            this.winGameText.setText("CONGRATULATIONS")
             this.winGameText.setOrigin(0.5, 0.5)
             this.btnExit.visible = true
             this.btnExit.setInteractive()
@@ -665,13 +682,13 @@ class LevelScene extends Phaser.Scene {
             this.thanks.alpha = 1
             
         } else {
-            this.winText.setText("YOU'RE WINNER")
+            this.winText.setText("LEVEL COMPLETE!")
             this.winText.setOrigin(0.5, 0.5)
             let cleanup = () => {
                 iframe.remove()
                 this.scene.restart()
             }
-            this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
+            this.compLevelText.setText(`Level: ${this.level - 1}`)
             this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
             this.btnRestart.visible = true
             this.btnRestart.setInteractive()
