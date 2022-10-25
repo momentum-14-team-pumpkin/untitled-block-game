@@ -32,7 +32,7 @@ class LevelScene extends Phaser.Scene {
         this.load.spritesheet('exitBtn', '/static/assets/images/exit-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.audio('pick', '/static/assets/audio/pickup.wav')
         this.load.audio('put', '/static/assets/audio/putdown.wav')
-        this.load.audio('jump', '/static/assets/audio/jump.wav')
+        this.load.audio('jump', '/static/assets/audio/jump.mp3')
         this.load.audio('exit', '/static/assets/audio/portal.wav')
         this.load.image('rewind', '/static/assets/images/rewind.png')
         this.load.image('credits', '/static/assets/images/credits.png')
@@ -301,6 +301,7 @@ class LevelScene extends Phaser.Scene {
             this.accelXR = 0
             this.player.visible = false
             this.player.body.setVelocityX(0)
+            this.jumpSound.setMute(true)
             this.startTimerText.setText(`${
                 convertSecondsToTimeStringForDelay((this.levelStart - time + TIMER_DELAY) / 1000)
             }`)
@@ -351,6 +352,7 @@ class LevelScene extends Phaser.Scene {
             this.accelXL = -150
             this.accelXR = 150
             this.enter.visible = false
+            this.jumpSound.setMute(false)
             if(!this.levelComplete){
                 this.player.visible = true
             }
