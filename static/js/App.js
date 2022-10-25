@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, useNavigate, BrowserRouter, redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
 import { Login } from './components/login';
 import useLocalStorageState from 'use-local-storage-state';
 import { Register } from './components/register';

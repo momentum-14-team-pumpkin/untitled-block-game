@@ -17,7 +17,7 @@ export const Leaderboard =({level}) => {
             if (timeDiff != 0){
                 return timeDiff
             }
-            return 0   //TODO: use created time 
+            return 0  
         } 
         )))},[level])
 

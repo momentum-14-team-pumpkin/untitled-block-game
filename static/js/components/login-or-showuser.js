@@ -3,7 +3,7 @@ import "/static/css/index.css"
 
 
 
-export const LoginOrShowUser =({isLoggedIn, currUsername, token, setAuth, handleLogout}) => {
+export const LoginOrShowUser =({isLoggedIn, handleLogout}) => {
 
 
     if (!isLoggedIn) {

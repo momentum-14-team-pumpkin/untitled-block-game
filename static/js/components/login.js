@@ -6,7 +6,7 @@ import { Register } from "./register";
 
 
 
-export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) => {
+export const Login = ({setAuth, isLoggedIn}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
