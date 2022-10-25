@@ -41,7 +41,6 @@ export const LoginOrShowUser =({isLoggedIn, currUsername, token, setAuth, handle
                     <button onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee', background:'#f0f0f0', marginTop:'20px'}}>
                     Logout</button></Link>
                 </div>
-                <UserFullGameLeaderboard token={token} setAuth={setAuth} currUsername={currUsername}/>
             </div>
             </>
         )
