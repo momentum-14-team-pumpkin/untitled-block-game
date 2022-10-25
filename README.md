@@ -1,10 +1,24 @@
 Blocks of Time
 
-CONTROLS:
+STORY: 
+
+Prof. Pretzel while finishing his puzzles in his book ended up walking into his own experiment with time portals, he unintentionally walked into the portal!  It is up to you and Prof. Pretzel to move block to get him back home.
+
+Help Prof. Pretzel travel through 5 different levels moving blocks to get him back to his current time.
+
+GAME CONTROLS:
 
 Move using the Left and Right Arrow Buttons.
 Lift blocks using the Down Arrow Key
 Jump using the Space Bar.
+
+Use 'R' to Reset the level back to the very beginning.
+Use 'Z' to Reverse time to fix mistakes.
+
+SETTINGS:
+
+Press E to mute the sound effects
+Press M to mute the music
 
 PRODUCTION URL: https://young-plateau-94674.herokuapp.com/
 
