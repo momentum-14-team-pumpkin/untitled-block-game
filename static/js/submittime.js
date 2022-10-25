@@ -1,8 +1,8 @@
 function submitTime (time, level) {
     axios
     .post(level
-        ? `https://young-plateau-94674.herokuapp.com/levels/${level}/times/`
-        : 'https://young-plateau-94674.herokuapp.com/full-run-times/', {
+        ? `https://blocks-of-time.herokuapp.com/levels/${level}/times/`
+        : 'https://blocks-of-time.herokuapp.com/full-run-times/', {
         time
     }, {
         headers: {

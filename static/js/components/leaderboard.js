@@ -10,7 +10,7 @@ export const Leaderboard =({level}) => {
 
     useEffect(() => {
         axios
-        .get(`https://young-plateau-94674.herokuapp.com/levels/${level}/times/`)
+        .get(`https://blocks-of-time.herokuapp.com/levels/${level}/times/`)
         .then((res) =>
         setBestTimes(res.data.results.sort((a,b)=> {
             let timeDiff = a.time - b.time
