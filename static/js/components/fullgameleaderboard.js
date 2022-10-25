@@ -25,7 +25,7 @@ export const FullGameLeaderboard =({}) => {
 
     if (bestFullTimes){
         let timeEntries = bestFullTimes.map((timeEntry, index) =>
-            `${(index + 1 + '.').padEnd(4)}${convertSecondsToTimestring(timeEntry.time)}...${timeEntry.player}`)
+            `${(index + 1 + '.').padEnd(4)}${timeEntry.player}...${convertSecondsToTimestring(timeEntry.time)}`)
         const longestEntry = timeEntries.reduce((acc, elem) => Math.max(acc, elem.length), 0)
         timeEntries = timeEntries.map(text => text.replace('...', Array(longestEntry - text.length + 4).join('.')))
 
