@@ -1,22 +1,13 @@
-import { NavBar } from "./navbar"
 import React from "react"
-import { Login } from "./login"
+import { GameDescription } from "./gamedetails"
 import "/static/css/index.css"
+import { Link } from "react-router-dom"
 
 
 
-export const HomePage =({setAuth, isLoggedIn, handleLogout, currUsername, token})=> {
+export const HomePage =({})=> {
 return(
-    <>
-    <div>
-        <div style={{display:'flex', justifyContent:'center'}}>
-            <div style={{alignItems:'center'}}>
-            <Login currUsername={currUsername} setAuth={setAuth} isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>
-            <br></br>
-            </div>
-        </div>
-    </div>
-    </>
-)
+    <GameDescription />
+    )
 
 }

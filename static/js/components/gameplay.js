@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import "/static/css/keys.css"
+import { GameDescription } from "./gamedetails"
 
 
 export const PlayGame = ({token}) => {
@@ -80,6 +81,7 @@ export const PlayGame = ({token}) => {
                             overflow: 'hidden',
                         }}
                     />
+                    <GameDescription />
                 </div>
             </div>
 
