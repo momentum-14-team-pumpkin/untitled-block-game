@@ -9,27 +9,17 @@ import "/static/css/index.css"
 export const ShowUserTimes = ({isLoggedIn, token, setAuth, level, handleLogout}) => {
     if (isLoggedIn){
     return(
-        <>
-        <div style={{color:'white', fontFamily:'bungee', display:'flex', float:'left', marginTop:'30px', marginBottom:'30px', justifyContent:'center', width:'100%'}}>
+            <div className="btn-group" role="group">
+                <button type="button" id="dropDownMenuBotton2" className="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+                style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}
+                >
+                    Your Best Times
+                </button>
+            <ul className="dropdown-menu" aria-labelledby="dropDownMenuBotton2" style={{background:'#f0f0f0', fontFamily:'bungee', color:'white'}}>
             {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
-                <Link
-                    key={i}
-                    to={`/user/best-times${i + 1}/`}
-                    style={{
-                        fontSize: '1.5rem',
-                        color: 'white',
-                        fontFamily: 'bungee',
-                        paddingRight: '30px',
-                        textAlign: 'center'
-                    }}
-                >User Level {i + 1} Times</Link>
+                <li key={i}> <a className="dropdown-item" href={`/user/best-times${i+1}/`}> Level {i+1} </a></li>
             )}
-        </div>
-        <div style={{textAlign:'center'}}>
-            <Link to="/homepage/">
-            <button onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee'}}>
-            Logout</button></Link>
-        </div>
-        </>
+            </ul>
+            </div>
     )
 }}

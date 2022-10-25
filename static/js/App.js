@@ -10,6 +10,7 @@ import '/static/css/index.css'
 import { UserTimes } from './components/usertimes';
 import { PlayGame } from './components/gameplay';
 import { NavBar } from './components/navbar';
+import { Title } from './components/title';
 import CONSTS from './consts';
 
 
@@ -54,6 +55,7 @@ function App() {
         <>
         <div style={{backgroundImage:'URL(/static/assets/images/brick-black.png)', minWidth:'100vw', position:'absolute', backgroundRepeat:'yes', minHeight:'100vh'}}>
         <BrowserRouter>
+        <Title />
         <NavBar setAuth={setAuth} handleLogout={handleLogout} isLoggedIn={isLoggedIn} token={token} currUsername={username}/>
             <Routes>
             <Route

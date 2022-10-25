@@ -1,22 +1,22 @@
 {
     "song": "Level1.mp3",
-    "tile_data": "level1.csv",
+    "tile_data": "end.csv",
     "tiles": "drawtiles-spaced.png",
-    "bg": "level1_1794_798.png",
+    "bg": "laboratory.png",
     "char": {
         "texture": "player.png",
-        "portal": "player-portal.png" 
+        "portal": "player-portal.png"
     },
     "accel": {
         "ground": 1000,
         "air": 200
     },
     "player_start": {
-        "x": 16,
-        "y": 5
+        "x": 14,
+        "y": 1
     },
     "level_exit": {
         "x": 1,
-        "y": 6
+        "y": 5
     }
 }

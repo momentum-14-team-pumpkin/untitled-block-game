@@ -27,8 +27,6 @@ class LevelScene extends Phaser.Scene {
         this.cache.json.remove('map-data')
         this.load.json('map-data', `/static/assets/levels/level-${this.level}.json`)
         this.load.spritesheet('door', '/static/assets/images/portal.png', { frameWidth: 40, frameHeight: 40 })
-        this.load.spritesheet('player', '/static/assets/images/player.png', { frameWidth: 32, frameHeight: 40 })
-        this.load.spritesheet('player-enter', '/static/assets/images/player-portal.png', { frameWidth: 40, frameHeight: 40 })
         this.load.spritesheet('restartBtn', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('nextBtn', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.spritesheet('exitBtn', '/static/assets/images/exit-button.png', { frameWidth: 160, frameHeight: 40 })
@@ -36,6 +34,14 @@ class LevelScene extends Phaser.Scene {
         this.load.audio('put', '/static/assets/audio/putdown.wav')
         this.load.audio('jump', '/static/assets/audio/jump.wav')
         this.load.audio('exit', '/static/assets/audio/portal.wav')
+        this.load.image('rewind', '/static/assets/images/rewind.png')
+        this.load.image('credits', '/static/assets/images/credits.png')
+        this.load.image('alexis', '/static/assets/images/alexis.png')
+        this.load.image('corey', '/static/assets/images/corey.png')
+        this.load.image('stephen', '/static/assets/images/stephen.png')
+        this.load.image('tom', '/static/assets/images/tom.png')
+        this.load.image('thanks', '/static/assets/images/thanks.png')
+        // this.load.image('bricks', '/static/assets/images/brick-black.png')
         this.load.once('complete', () => {
             this.mapData = this.cache.json.get('map-data')
             this.cache.tilemap.remove('map')
@@ -46,6 +52,8 @@ class LevelScene extends Phaser.Scene {
             this.load.tilemapCSV('map', `/static/assets/maps/${this.mapData.tile_data}`)
             this.load.audio('song', `/static/assets/audio/${this.mapData.song}`)
             this.load.image('bg', `/static/assets/images/${this.mapData.bg}`)
+            this.load.spritesheet(this.mapData.char.texture, `/static/assets/images/${this.mapData.char.texture}`, { frameWidth: 32, frameHeight: 40 })
+            this.load.spritesheet(this.mapData.char.portal, `/static/assets/images/${this.mapData.char.portal}`, { frameWidth: 40, frameHeight: 40 })
             this.load.start()
             this.load.once('complete', () => {
                 this.preloadReady = true
@@ -59,17 +67,34 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = false
+        // this.add.image(0, 0, 'bricks').setScale(1).setOrigin(0, 0)
+        this.avatar = this.add.image(790, 32, this.mapData.char.texture).setScale(3).setOrigin(0.25, 0.25)
+        this.avatar.visible = true
         this.add.image(0, 60, 'bg').setScale(0.5).setOrigin(0, 0)
+        this.credits = this.add.image(this.game.config.width/2, this.game.config.height/2, 'credits').setScale(0.5).setOrigin(0.5, 0.5)
+        this.credits.alpha = 0
+        this.alexis = this.add.image(this.game.config.width/2, this.game.config.height/2, 'alexis').setScale(0.5).setOrigin(0.5, 0.5)
+        this.alexis.alpha = 0
+        this.corey = this.add.image(this.game.config.width/2, this.game.config.height/2, 'corey').setScale(0.5).setOrigin(0.5, 0.5)
+        this.corey.alpha = 0
+        this.stephen = this.add.image(this.game.config.width/2, this.game.config.height/2, 'stephen').setScale(0.5).setOrigin(0.5, 0.5)
+        this.stephen.alpha = 0
+        this.tom = this.add.image(this.game.config.width/2, this.game.config.height/2, 'tom').setScale(0.5).setOrigin(0.5, 0.5)
+        this.tom.alpha = 0
+        this.thanks = this.add.image(this.game.config.width/2, this.game.config.height/2, 'thanks').setScale(0.5).setOrigin(0.5, 0.5)
+        this.thanks.alpha = 0
         let doors = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.level_exit.x),
         convertTilesToYPixels(this.mapData.level_exit.y), 'door')
+        let portal = this.mapData.char.portal
         this.enter = this.physics.add.staticSprite(convertTilesToXPixels(this.mapData.player_start.x),
-        convertTilesToYPixels(this.mapData.player_start.y), 'player-enter')
+        convertTilesToYPixels(this.mapData.player_start.y), portal)
         this.map = this.make.tilemap({ key: 'map', tileWidth: TILE_SIZE, tileHeight: TILE_SIZE })
         this.map.checkedGetTileAt = checkedGetTileAt
         this.map.checkedPutTileAt = checkedPutTileAt
         this.cameras.main.setBounds(0, 0, this.map.width * TILE_SIZE, this.game.config.height)
+        let player = this.mapData.char.texture
         this.player = this.physics.add.sprite(convertTilesToXPixels(this.mapData.player_start.x),
-            convertTilesToYPixels(this.mapData.player_start.y) - 4, 'player')
+            convertTilesToYPixels(this.mapData.player_start.y) - 4, player)
         this.cameras.main.startFollow(this.player)
         this.song = this.sound.add('song')
         this.song.loop = true
@@ -102,11 +127,11 @@ class LevelScene extends Phaser.Scene {
         this.levelText.setScrollFactor(0)
         this.timeText = this.add.text(40, 30, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.timeText.setScrollFactor(0)
-        this.startTimerText = this.add.text(this.game.config.width/2, 15, "", {font: "32px Futura", fill: '#fc7303'})
+        this.startTimerText = this.add.text(this.game.config.width * 0.7, 15, "", {font: "32px Futura", fill: '#fc7303'})
         this.startTimerText.setScrollFactor(0)
         this.winText = this.add.text(config.width/2 - 100, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winText.setScrollFactor(0)
-        this.winGameText = this.add.text(config.width/2 - 60, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.winGameText = this.add.text(config.width/2, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winGameText.setScrollFactor(0)
         this.compLevelText = this.add.text(40, 15, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.compLevelText.setScrollFactor(0)
@@ -136,6 +161,12 @@ class LevelScene extends Phaser.Scene {
         this.pauseWarnText.setOrigin(0.5, 0.5)
         this.pauseWarnText.setScrollFactor(0)
         this.pauseWarnText.visible = false
+        this.rewind = this.add.image(this.game.config.width/2, 30, 'rewind').setScale(1/4.5).setOrigin(0.5, 0.5)
+        this.rewind.setScrollFactor(0)
+        this.rewind.visible = false
+        this.dialogue = this.add.text(20, 15, "", {fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.dialogue.visible = true
+        this.avatar.setScrollFactor(0)
         this.undoStack = []
         
         if (this.holdingBlock) {
@@ -169,65 +200,83 @@ class LevelScene extends Phaser.Scene {
     
         doors.play('rotate')
 
+        this.anims.remove('playerEnter')
+
         this.anims.create({
             key: 'playerEnter',
-            frames: this.anims.generateFrameNumbers('player-enter', { start: 0, end: 5 }),
+            frames: this.anims.generateFrameNumbers(portal, { start: 0, end: 5 }),
             frameRate: 10,
         })
 
-        this.enter.play('playerEnter')
+        this.anims.remove('stand-left')
     
         this.anims.create({
             key: 'stand-left',
-            frames: [ { key: 'player', frame: 0 } ],
+            frames: [ { key: player, frame: 0 } ],
             frameRate: 20
         })
+
+        this.anims.remove('stand-right')
     
         this.anims.create({
             key: 'stand-right',
-            frames: [ { key: 'player', frame: 1 } ],
+            frames: [ { key: player, frame: 1 } ],
             frameRate: 20
         })
+
+        this.anims.remove('walk-left')
     
         this.anims.create({
             key: 'walk-left',
-            frames: this.anims.generateFrameNumbers('player', { start: 2, end: 5 }),
+            frames: this.anims.generateFrameNumbers(player, { start: 2, end: 5 }),
             frameRate: 10,
             repeat: -1
         })
+
+        this.anims.remove('walk-right')
     
         this.anims.create({
             key: 'walk-right',
-            frames: this.anims.generateFrameNumbers('player', { start: 6, end: 9 }),
+            frames: this.anims.generateFrameNumbers(player, { start: 6, end: 9 }),
             frameRate: 10,
             repeat: -1
         })
+
+        this.anims.remove('carry-stand-left')
     
         this.anims.create({
             key: 'carry-stand-left',
-            frames: [ { key: 'player', frame: 11 } ],
+            frames: [ { key: player, frame: 11 } ],
             frameRate: 20
         })
+
+        this.anims.remove('carry-stand-right')
     
         this.anims.create({
             key: 'carry-stand-right',
-            frames: [ { key: 'player', frame: 15 } ],
+            frames: [ { key: player, frame: 15 } ],
             frameRate: 20
         })
+
+        this.anims.remove('carry-walk-left')
     
         this.anims.create({
             key: 'carry-walk-left',
-            frames: this.anims.generateFrameNumbers('player', { start: 10, end: 13 }),
+            frames: this.anims.generateFrameNumbers(player, { start: 10, end: 13 }),
             frameRate: 10,
             repeat: -1
         })
+
+        this.anims.remove('carry-walk-right')
     
         this.anims.create({
             key: 'carry-walk-right',
-            frames: this.anims.generateFrameNumbers('player', { start: 14, end: 17 }),
+            frames: this.anims.generateFrameNumbers(player, { start: 14, end: 17 }),
             frameRate: 10,
             repeat: -1
         })
+
+        this.enter.play('playerEnter')
     
         this.cursors = this.input.keyboard.createCursorKeys()
     }
@@ -249,7 +298,7 @@ class LevelScene extends Phaser.Scene {
         if (!this.levelStart) {
             this.levelStart = time
         }
-        if((time - this.levelStart) < TIMER_DELAY){
+        if((time - this.levelStart) < TIMER_DELAY && !this.levelComplete){
             this.accelXL = 0
             this.accelXR = 0
             this.player.visible = false
@@ -257,19 +306,93 @@ class LevelScene extends Phaser.Scene {
             this.startTimerText.setText(`${
                 convertSecondsToTimeStringForDelay((this.levelStart - time + TIMER_DELAY) / 1000)
             }`)
+            if (this.level === NUM_OF_LEVELS){
+                this.dialogue.setText(
+                    `Prof Pretzel:\n"I'm back home! What a relief!"`,
+                    {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+                this.startTimerText.setText("")
+            }else if (this.level > 1){
+                this.dialogue.setText(
+                    `Prof Pretzel:\n"Where am I? WHO am I? I need to get back!"`,
+                    {font: "6px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+            } else {
+                this.dialogue.setText(
+                    `Prof Pretzel: "I fell into the portal!"\n"Maybe that portal will take me back!"`,
+                    {font: "60px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"}
+                    )
+            }
+            
         }
-        if((time - this.levelStart) > TIMER_DELAY){
+        if((time - this.levelStart) > TIMER_DELAY && !this.levelComplete){
+            this.dialogue.visible = false
+            this.avatar.destroy()
             this.levelText.setText(`Level: ${this.level}`)
             this.accelXL = -150
             this.accelXR = 150
             this.enter.visible = false
-            if (!this.levelComplete){
+            if(!this.levelComplete){
                 this.player.visible = true
             }
             this.startTimerText.destroy()
             this.timeText.setText(`Time: ${
                 convertSecondsToTimestring((time - this.levelStart - TIMER_DELAY) / 1000)
             }`)
+            if(this.level == NUM_OF_LEVELS){
+                this.levelText.setText("")
+                this.timeText.setText("")
+                this.winGameText.setText("YOU'RE WINNER OF GAME")
+                this.winGameText.setOrigin(0.5, 0.5)
+                if((time - this.levelStart) > TIMER_DELAY * 1.3){
+                    this.credits.alpha = 1
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 2){
+                    this.credits.alpha = 0.5
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 2.1){
+                    this.credits.alpha = 0
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 2.3){
+                    this.alexis.alpha = 1
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 3){
+                    this.alexis.alpha = 0.5
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 3.1){
+                    this.alexis.alpha = 0
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 3.3){
+                    this.corey.alpha = 1
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 4){
+                    this.corey.alpha = 0.5
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 4.1){
+                    this.corey.alpha = 0
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 4.3){
+                    this.stephen.alpha = 1
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 5){
+                    this.stephen.alpha = 0.5
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 5.1){
+                    this.stephen.alpha = 0
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 5.3){
+                    this.tom.alpha = 1
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 6){
+                    this.tom.alpha = 0.5
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 6.1){
+                    this.tom.alpha = 0
+                }
+                if((time - this.levelStart) > TIMER_DELAY * 6.3){
+                    this.thanks.alpha = 1
+                }
+            }
         }
 
         if (Phaser.Input.Keyboard.JustDown(this.keyM)){
@@ -325,11 +448,12 @@ class LevelScene extends Phaser.Scene {
             // continuous undo
             let undoFrame = this.undoStack.pop()
             if (undoFrame) {
+                this.rewind.visible = true
                 this.player.setX(undoFrame.position.x)
                 this.player.setY(undoFrame.position.y)
                 this.player.setVelocityX(undoFrame.velocity.x)
                 this.player.setVelocityY(undoFrame.velocity.y)
-                this.player.setTexture('player', undoFrame.currFrame)
+                this.player.setTexture(this.mapData.char.texture, undoFrame.currFrame)
                 this.facing = undoFrame.facing
                 let point
                 if (point = undoFrame.tookBlock) {
@@ -351,6 +475,7 @@ class LevelScene extends Phaser.Scene {
                 return
             }
         }
+        this.rewind.visible = false
 
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.advanceHax('L')
@@ -492,9 +617,16 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = true
+        this.avatar.visible = false
         this.player.visible = false
         this.player.body.destroy()
-        this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
+        // this.levelText.setText("")
+        // this.timeText.setText("")
+        if (this.level == NUM_OF_LEVELS){
+            this.completionTime = 0
+        } else {
+            this.completionTime = (this.time.now - this.levelStart - TIMER_DELAY) / 1000 - 1 / 60
+        }
         this.speedRun = this.speedRun + this.completionTime
         let iframe = document.createElement('iframe')
         iframe.src = `/leaderboard${this.level}?inline=true/`
@@ -516,15 +648,6 @@ class LevelScene extends Phaser.Scene {
             }
             this.winGameText.setText("YOU'RE WINNER OF GAME")
             this.winGameText.setOrigin(0.5, 0.5)
-            this.compLevelText.setText(`Level: ${this.level - 1} Complete!`)
-            this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
-            this.btnRestart.visible = true
-            this.btnRestart.setInteractive()
-            this.btnRestart.on('pointerup', () => {
-                this.btnRestart.play('clickRestart')
-                this.level--
-                this.scene.restart()
-            })
             this.btnExit.visible = true
             this.btnExit.setInteractive()
             this.btnExit.on('pointerup', () => {
@@ -534,7 +657,6 @@ class LevelScene extends Phaser.Scene {
                 })
             })
         } else {
-            // this.levelText.setText(`Level: ${this.level} Complete!`, {fill: '#FFFF00'}) Update Level text
             this.winText.setText("YOU'RE WINNER")
             this.winText.setOrigin(0.5, 0.5)
             let cleanup = () => {
@@ -558,7 +680,6 @@ class LevelScene extends Phaser.Scene {
             })
         }
         this.song.destroy()
-        // this.scene.restart()
     }
 
     advanceHax(char) {

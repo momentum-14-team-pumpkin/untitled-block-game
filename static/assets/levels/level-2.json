@@ -3,6 +3,10 @@
     "tile_data": "level2.csv",
     "tiles": "ice-tiles.png",
     "bg": "level2_1794_798.png",
+    "char": {
+        "texture": "iceman.png",
+        "portal": "iceman-portal.png"
+    },
     "accel": {
         "ground": 200,
         "air": 50
