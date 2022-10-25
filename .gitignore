@@ -131,3 +131,5 @@ dmypy.json
 webpack-stats.json
 dist/
 node_modules
+
+new-obstacles.md
