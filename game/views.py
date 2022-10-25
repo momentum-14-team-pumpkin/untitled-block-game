@@ -101,5 +101,14 @@ class FullRunTimeTrialDetail(generics.RetrieveUpdateDestroyAPIView):
         return queryset.order_by('time')
 
 
+class UserFullRunTimeTrialList(generics.ListAPIView):
+    queryset = TimeTrial.objects.all().order_by('time')
+    serializer_class = TimeTrialSerializer
+
+    def get_queryset(self):
+        queryset = TimeTrial.objects.filter(full_run=True, player=self.request.user)
+        return queryset.order_by('time')
+
+
 def homepage(req, **kwargs):
     return render(req, "game/homepage.html")
