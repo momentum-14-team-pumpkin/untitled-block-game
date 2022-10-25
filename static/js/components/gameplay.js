@@ -69,6 +69,7 @@ export const PlayGame = ({token}) => {
                         allowFullScreen src='/game/'
                         id='gameIframe'
                         webkitallowfullscreen="true"
+                        frameBorder='0'
                         style={{
                             margin: 'auto',
                             width: 'calc(min(100vw, 880px))',
