@@ -17,7 +17,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         event.preventDefault()
         setError(null)
         axios
-        .post('https://young-plateau-94674.herokuapp.com/auth/token/login/', {
+        .post('https://blocks-of-time.herokuapp.com/auth/token/login/', {
             username: username,
             password: password,
         })
