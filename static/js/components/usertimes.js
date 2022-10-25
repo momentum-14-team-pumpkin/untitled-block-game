@@ -5,7 +5,7 @@ import "/static/css/index.css"
 import { useEffect } from "react"
 
 
-export const UserTimes = ({level, currUsername, setAuth, token, isLoggedIn}) => {
+export const UserTimes = ({level, currUsername, token}) => {
     const [userBestTimes, setUserBestTimes] = useState('')
 
     useEffect(() => {

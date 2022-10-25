@@ -12,6 +12,9 @@ import { PlayGame } from './components/gameplay';
 import { NavBar } from './components/navbar';
 import { Title } from './components/title';
 import CONSTS from './consts';
+import { FullGameLeaderboard } from './components/fullgameleaderboard';
+import { UserFullGameLeaderboard } from './components/userfullgameleaderboard';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -93,7 +96,9 @@ function App() {
                     }
                 />
             )}
-            <Route path='/playgame' element={<PlayGame token={token}/>} />
+            <Route path='/user/fullgametimes' element={<UserFullGameLeaderboard token={token} currUsername={username} />}/>
+            <Route path='/fullgameleaderboard' element={<FullGameLeaderboard />}/>
+            <Route path='/playgame' element={<PlayGame setAuth={setAuth} token={token}/>} />
             </Routes>          
         </BrowserRouter>
         </div>
