@@ -16,7 +16,7 @@ export const ShowUserTimes = ({isLoggedIn}) => {
                     Your Best Times
                 </button>
             <ul className="dropdown-menu" aria-labelledby="dropDownMenuBotton2" style={{background:'#f0f0f0', fontFamily:'bungee', color:'white'}}>
-                <li><a className="dropdown-item" href="/userfullgametimes/">Full Game</a></li>
+                <li><a className="dropdown-item" href="/user/fullgametimes/">Full Game</a></li>
             {Array(CONSTS.NUM_OF_LEVELS - 1).fill(0).map((_, i) =>
                 <li key={i}> <a className="dropdown-item" href={`/user/best-times${i+1}/`}> Level {i+1} </a></li>
             )}

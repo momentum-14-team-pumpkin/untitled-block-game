@@ -95,7 +95,7 @@ function App() {
                     }
                 />
             )}
-            <Route path='/userfullgametimes' element={<UserFullGameLeaderboard token={token} currUsername={username} />}/>
+            <Route path='/user/fullgametimes' element={<UserFullGameLeaderboard token={token} currUsername={username} />}/>
             <Route path='/fullgameleaderboard' element={<FullGameLeaderboard />}/>
             <Route path='/playgame' element={<PlayGame setAuth={setAuth} token={token}/>} />
             </Routes>          
