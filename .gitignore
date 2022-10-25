@@ -130,4 +130,5 @@ dmypy.json
 
 webpack-stats.json
 dist/
+staticfiles/
 node_modules
