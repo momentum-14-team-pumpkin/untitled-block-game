@@ -42,7 +42,7 @@ export const PlayGame = ({token}) => {
                                 <span style={{marginLeft: '1rem'}}>Move Left and Right</span>
                             </div>
                             <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/spacebar.png' style={{height:'1.5rem', width:'100px'}}/><span style={{marginLeft: '1rem'}}>Jump</span></div>
-                            <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/Down.png' style={{height:'1.5rem'}}/><span style={{marginLeft: '1rem'}}>Pick Up and Put Down Blocks</span></div>
+                            <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/down.png' style={{height:'1.5rem'}}/><span style={{marginLeft: '1rem'}}>Pick Up and Put Down Blocks</span></div>
                         </div>
                         <div style={{
                             display: 'flex',
