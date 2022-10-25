@@ -20,7 +20,7 @@ SETTINGS:
 Press E to mute the sound effects
 Press M to mute the music
 
-PRODUCTION URL: https://young-plateau-94674.herokuapp.com/
+PRODUCTION URL: https://blocks-of-time.herokuapp.com/
 
 ENDPOINTS: the following endpoints are available at the subdirectories listed below, just add them to the end of the Production Url above.
 

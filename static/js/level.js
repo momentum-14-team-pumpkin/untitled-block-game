@@ -27,13 +27,14 @@ class LevelScene extends Phaser.Scene {
         this.cache.json.remove('map-data')
         this.load.json('map-data', `/static/assets/levels/level-${this.level}.json`)
         this.load.spritesheet('door', '/static/assets/images/portal.png', { frameWidth: 40, frameHeight: 40 })
-        this.load.spritesheet('restartBtn', '/static/assets/images/restart-button.png', { frameWidth: 160, frameHeight: 40 })
-        this.load.spritesheet('nextBtn', '/static/assets/images/next-button.png', { frameWidth: 160, frameHeight: 40 })
-        this.load.spritesheet('exitBtn', '/static/assets/images/exit-button.png', { frameWidth: 160, frameHeight: 40 })
         this.load.audio('pick', '/static/assets/audio/pickup.wav')
         this.load.audio('put', '/static/assets/audio/putdown.wav')
-        this.load.audio('jump', '/static/assets/audio/jump.wav')
+        this.load.audio('jump', '/static/assets/audio/jump.mp3')
         this.load.audio('exit', '/static/assets/audio/portal.wav')
+        this.load.image('restartBtn', '/static/assets/images/restart.png')
+        this.load.image('nextBtn', '/static/assets/images/next.png')
+        this.load.image('exitBtn', '/static/assets/images/exit.png')
+        this.load.image('congrats', '/static/assets/images/congrats.png')
         this.load.image('rewind', '/static/assets/images/rewind.png')
         this.load.image('credits', '/static/assets/images/credits.png')
         this.load.image('alexis', '/static/assets/images/alexis.png')
@@ -127,24 +128,25 @@ class LevelScene extends Phaser.Scene {
         this.timeText.setScrollFactor(0)
         this.startTimerText = this.add.text(this.game.config.width * 0.7, 15, "", {font: "32px Futura", fill: '#fc7303'})
         this.startTimerText.setScrollFactor(0)
-        this.winText = this.add.text(config.width/2 - 100, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.winText = this.add.text(config.width/2 - 80, 30, "", {font: "40px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.winText.setScrollFactor(0)
-        this.winGameText = this.add.text(config.width/2, 30, "", {font: "24px Futura", fill: "#ffffff", backgroundColor: "rgba(0, 0, 0, 1)"})
+        this.winGameText = this.add.image(config.width/2, 30, 'congrats').setScale(0.5)
+        this.winGameText.visible = false
         this.winGameText.setScrollFactor(0)
         this.compLevelText = this.add.text(40, 15, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.compLevelText.setScrollFactor(0)
         this.compTimeText = this.add.text(40, 30, "", {fill: "#ffff00", backgroundColor: "rgba(0, 0, 0, 1)"})
         this.compTimeText.setScrollFactor(0)
-        this.btnRestart = this.add.sprite(630, 30, 'restartBtn')
-        this.btnRestart.setOrigin(0.5, 0.5)
+        this.btnRestart = this.add.image(630, 30, 'restartBtn')
+        this.btnRestart.setScale(0.25).setOrigin(0.5, 0.5)
         this.btnRestart.visible = false
         this.btnRestart.setScrollFactor(0)
-        this.btnNext = this.add.sprite(790, 30, 'nextBtn')
-        this.btnNext.setOrigin(0.5, 0.5)
+        this.btnNext = this.add.image(790, 30, 'nextBtn')
+        this.btnNext.setScale(0.25).setOrigin(0.5, 0.5)
         this.btnNext.visible = false
         this.btnNext.setScrollFactor(0)
-        this.btnExit = this.add.sprite(790, 30, 'exitBtn')
-        this.btnExit.setOrigin(0.5, 0.5)
+        this.btnExit = this.add.image(790, 30, 'exitBtn')
+        this.btnExit.setScale(0.25).setOrigin(0.5, 0.5)
         this.btnExit.visible = false
         this.btnExit.setScrollFactor(0)
         this.pauseText = this.add.text(
@@ -170,24 +172,6 @@ class LevelScene extends Phaser.Scene {
         if (this.holdingBlock) {
             this.acquireBlock(this)
         }
-        
-        this.anims.create({
-            key: 'clickRestart',
-            frames: this.anims.generateFrameNumbers('restartBtn', { start: 0, end: 1 }),
-            frameRate: 10,
-        })
-
-        this.anims.create({
-            key: 'clickNext',
-            frames: this.anims.generateFrameNumbers('nextBtn', { start: 0, end: 1 }),
-            frameRate: 10,
-        })
-
-        this.anims.create({
-            key: 'clickExit',
-            frames: this.anims.generateFrameNumbers('exitBtn', { start: 0, end: 1 }),
-            frameRate: 10,
-        })
         
         this.anims.create({
             key: 'rotate',
@@ -301,6 +285,7 @@ class LevelScene extends Phaser.Scene {
             this.accelXR = 0
             this.player.visible = false
             this.player.body.setVelocityX(0)
+            this.jumpSound.setMute(true)
             this.startTimerText.setText(`${
                 convertSecondsToTimeStringForDelay((this.levelStart - time + TIMER_DELAY) / 1000)
             }`)
@@ -351,6 +336,7 @@ class LevelScene extends Phaser.Scene {
             this.accelXL = -150
             this.accelXR = 150
             this.enter.visible = false
+            this.jumpSound.setMute(false)
             if(!this.levelComplete){
                 this.player.visible = true
             }
@@ -361,8 +347,7 @@ class LevelScene extends Phaser.Scene {
             if(this.level == NUM_OF_LEVELS){
                 this.levelText.setText("")
                 this.timeText.setText("")
-                this.winGameText.setText("CONGRATULATIONS!")
-                this.winGameText.setOrigin(0.5, 0.5)
+                this.winGameText.visible = true
                 if((time - this.levelStart) > TIMER_DELAY * 1.3){
                     this.credits.alpha = 1
                 }
@@ -663,12 +648,10 @@ class LevelScene extends Phaser.Scene {
             if (!this.zomgHax) {
                 submitTime(this.fullRunTime)
             }
-            this.winGameText.setText("CONGRATULATIONS")
-            this.winGameText.setOrigin(0.5, 0.5)
+            this.winGameText.visible = true
             this.btnExit.visible = true
             this.btnExit.setInteractive()
             this.btnExit.on('pointerup', () => {
-                this.btnExit.play('clickExit')
                 window.parent.postMessage({
                     kind: 'wonGame',
                 })
@@ -693,14 +676,12 @@ class LevelScene extends Phaser.Scene {
             this.btnRestart.visible = true
             this.btnRestart.setInteractive()
             this.btnRestart.on('pointerup', () => {
-                this.btnRestart.play('clickRestart')
                 this.level -= 1
                 cleanup()
             })
             this.btnNext.visible = true
             this.btnNext.setInteractive()
             this.btnNext.on('pointerup', () =>  {
-                this.btnNext.play('clickNext')
                 cleanup()
             })
         }
