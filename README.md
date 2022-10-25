@@ -53,6 +53,7 @@ ENDPOINTS: the following endpoints are available at the subdirectories listed be
 | PUT    | full-run-times/<int:pk>/   | use pk of full run time in Subdirectory           | Update all Full Run Time Details                |                 |
 | PATCH  | full-run-times/<int:pk>/   | use pk of full run time in Subdirectory           | Update specific Full Run Time Details           |                 |
 | DELETE | full-run-times/<int:pk>/   | use pk of full run time in Subdirectory           | Delete Full Run Time                            |                 |
+| GET    | user/full-run-times/       | Bearer Token                                      | List of all Full Run Times of Logged in User    |                 |
 
 DJOSER ENDPOINTS: in addition to above endpoints, Djoser comes with prebuilt endpoints for registering users and granting tokens, here are a few helpful ones below.
 
