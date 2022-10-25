@@ -14,7 +14,7 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, 
     return(
         <>
         <div>
-            <LoginOrShowUser isLoggedIn={isLoggedIn} currUsername={currUsername} handleLogout={handleLogout}/>
+            <LoginOrShowUser isLoggedIn={isLoggedIn} currUsername={currUsername} handleLogout={handleLogout} token={token}/>
             <div style={{ display:'flex', justifyContent:'center', color:'white', fontFamily:'bungee'}}>
 
             <div style={{justifyContent:'center', display:'flex', marginBottom:'30px'}}>

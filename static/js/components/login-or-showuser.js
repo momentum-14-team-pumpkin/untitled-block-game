@@ -1,10 +1,10 @@
 import React from "react"
 import "/static/css/index.css"
 import {Link} from 'react-router-dom'
+import { UserFullGameLeaderboard } from "./userfullgameleaderboard"
 
 
-
-export const LoginOrShowUser =({isLoggedIn, currUsername, handleLogout}) => {
+export const LoginOrShowUser =({isLoggedIn, currUsername, token, setAuth, handleLogout}) => {
     if (!isLoggedIn) {
     return(
         <>
@@ -41,7 +41,7 @@ export const LoginOrShowUser =({isLoggedIn, currUsername, handleLogout}) => {
                     <button onClick={handleLogout} style={{borderRadius:'10px', color:'black', fontWeight:'bolder', fontFamily:'bungee', background:'#f0f0f0', marginTop:'20px'}}>
                     Logout</button></Link>
                 </div>
-
+                <UserFullGameLeaderboard token={token} setAuth={setAuth} currUsername={currUsername}/>
             </div>
             </>
         )
