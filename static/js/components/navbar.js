@@ -1,14 +1,15 @@
 import React from "react"
 import "/static/css/index.css"
-import {Link} from 'react-router-dom'
 import { ShowUserTimes } from "./usertimeslink"
-import { Title } from "./title"
 import "/static/css/title.css"
 import { LoginOrShowUser } from "./login-or-showuser"
+// import CONSTS from "../consts"
+import { useState } from "react"
+import { PlayGame } from "./gameplay"
 import CONSTS from "../consts"
 
 
-export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, level}) => {
+export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, goPlay, level}) => {
 
     return(
         <>
@@ -24,32 +25,16 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, 
                                 LeaderBoard
                             </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1"  style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}>
-                            <li> <a className="dropdown-item" href='/leaderboard1/'> Level 1 </a></li>
-                            <li> <a className="dropdown-item" href='/leaderboard2/'> Level 2 </a></li>
-                            <li> <a className="dropdown-item" href='/leaderboard3/'> Level 3 </a></li>
-                            <li> <a className="dropdown-item" href='/leaderboard4/'> Level 4 </a></li>
-                            <li> <a className="dropdown-item" href='/leaderboard5/'> Level 5 </a></li>
+                            {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                                <li key={i}> <a className="dropdown-item" href={`/leaderboard${i+1}/`}> Level {i+1} </a></li>
+                            )}
                         </ul>
                     </div>
                     <ShowUserTimes isLoggedIn={isLoggedIn} token={token} handleLogout={handleLogout} setAuth={setAuth}/>
                 </div>
             </div>
-            <div style={{marginTop:'30px', display:'flex', fontFamily:'bungee', justifyContent:'center', width:'100%'}}>
-                {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
-                    <Link
-                        key={i}
-                        to={`/leaderboard${i + 1}/`}
-                        style={{
-                            color: 'white',
-                            paddingRight: '30px',
-                            textAlign: 'center'
-                        }}
-                    >Leaderboard (Level {i + 1})</Link>
-                )}
-            </div>
             </div>
         </div>
 
     </>
-    )
-}
+    )}

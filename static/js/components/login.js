@@ -1,17 +1,15 @@
 import React from "react"
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom"
 import "/static/css/index.css"
 import { Register } from "./register";
 
 
 
 export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) => {
-    const navigate = useNavigate()
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [error, setError] = useState('')
+    const [error, setError] = useState(null)
     const [goRegister, setGoRegister] = useState(false)
 
     const handleSubmit = (event) => {
@@ -32,11 +30,11 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         })
         .catch((error) => {
             console.log(error)
-            if (error.response.data.username)
-            setError(error.response.data.username);
+            if (error.response.data.non_field_errors)
+            setError(error.response.data.non_field_errors);
         
-        if (error.response.data.password)
-            setError(error.response.data.password)
+            if (error.response.data.password)
+                setError(error.response.data.password)
         })
     }
 

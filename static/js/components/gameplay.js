@@ -1,6 +1,7 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
+import { useState } from "react"
 
 
 export const PlayGame = ({token}) => {
@@ -21,6 +22,7 @@ export const PlayGame = ({token}) => {
                 token,
             })
     }, [token])
+
 
     return (
         <>
