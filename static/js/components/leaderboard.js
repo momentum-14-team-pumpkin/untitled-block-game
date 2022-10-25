@@ -24,8 +24,8 @@ export const Leaderboard =({level}) => {
     
 
     if (bestTimes){
-        let timeEntries = bestTimes.map(timeEntry =>
-            `${convertSecondsToTimestring(timeEntry.time)}...${timeEntry.player}`)
+        let timeEntries = bestTimes.map((timeEntry, index) =>
+            `${(index + 1 + '.').padEnd(4)}${convertSecondsToTimestring(timeEntry.time)}...${timeEntry.player}`)
         const longestEntry = timeEntries.reduce((acc, elem) => Math.max(acc, elem.length), 0)
         timeEntries = timeEntries.map(text => text.replace('...', Array(longestEntry - text.length + 4).join('.')))
 
@@ -47,7 +47,9 @@ export const Leaderboard =({level}) => {
                     <div>
                         {timeEntries
                             .map((entry, i) => (
-                            <div key={i}>
+                            <div key={i} style={{
+                                whiteSpace: 'pre',
+                            }}>
                                 {entry}
                             </div>
                         ))}
