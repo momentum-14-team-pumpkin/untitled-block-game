@@ -25,7 +25,8 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, 
                                 LeaderBoard
                             </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1"  style={{background:'#f0f0f0', fontFamily:'bungee', color:'black'}}>
-                            {Array(CONSTS.NUM_OF_LEVELS).fill(0).map((_, i) =>
+                            <li><a className="dropdown-item" href="/leaderboard-game/">Full Game</a></li>
+                            {Array(CONSTS.NUM_OF_LEVELS - 1).fill(0).map((_, i) =>
                                 <li key={i}> <a className="dropdown-item" href={`/leaderboard${i+1}/`}> Level {i+1} </a></li>
                             )}
                         </ul>
