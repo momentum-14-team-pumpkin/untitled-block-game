@@ -15,6 +15,7 @@ djangorestframework = "*"
 django-extensions = "*"
 djoser = "*"
 django-csp = "*"
+whitenoise = "*"
 
 [dev-packages]
 
