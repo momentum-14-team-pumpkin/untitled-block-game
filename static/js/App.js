@@ -14,6 +14,7 @@ import { Title } from './components/title';
 import CONSTS from './consts';
 import { FullGameLeaderboard } from './components/fullgameleaderboard';
 import { UserFullGameLeaderboard } from './components/userfullgameleaderboard';
+import { useLocation } from 'react-router-dom';
 
 
 

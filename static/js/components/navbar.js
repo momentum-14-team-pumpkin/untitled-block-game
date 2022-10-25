@@ -3,13 +3,17 @@ import "/static/css/index.css"
 import { ShowUserTimes } from "./usertimeslink"
 import "/static/css/title.css"
 import { LoginOrShowUser } from "./login-or-showuser"
-// import CONSTS from "../consts"
-import { useState } from "react"
-import { PlayGame } from "./gameplay"
 import CONSTS from "../consts"
+import { useLocation } from "react-router-dom"
 
 
-export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername, goPlay, level}) => {
+export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername}) => {
+
+    const location = useLocation()
+    
+    if(location.pathname === '/playgame/'){
+        return <></>
+    }
 
     return(
         <>

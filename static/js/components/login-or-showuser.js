@@ -1,10 +1,12 @@
 import React from "react"
 import "/static/css/index.css"
 import {Link} from 'react-router-dom'
-import { UserFullGameLeaderboard } from "./userfullgameleaderboard"
+
 
 
 export const LoginOrShowUser =({isLoggedIn, currUsername, token, setAuth, handleLogout}) => {
+
+
     if (!isLoggedIn) {
     return(
         <>
