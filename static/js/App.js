@@ -14,7 +14,6 @@ import { Title } from './components/title';
 import CONSTS from './consts';
 import { FullGameLeaderboard } from './components/fullgameleaderboard';
 import { UserFullGameLeaderboard } from './components/userfullgameleaderboard';
-import { useLocation } from 'react-router-dom';
 
 
 
@@ -35,7 +34,7 @@ function App() {
     const handleLogout = () => {
         axios
         .post(
-        'https://young-plateau-94674.herokuapp.com/auth/token/logout',
+        'https://blocks-of-time.herokuapp.com/auth/token/logout',
         {},
         {
             headers: {

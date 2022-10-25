@@ -16,13 +16,13 @@ export const Register = ({setAuth}) => {
             e.preventDefault()
             console.log('handle submit')
             axios
-                .post('https://young-plateau-94674.herokuapp.com/auth/users/', {
+                .post('https://blocks-of-time.herokuapp.com/auth/users/', {
                     username: username,
                     password: password,
                 })
                 .then(() =>
                     axios.post(
-                    'https://young-plateau-94674.herokuapp.com/auth/token/login/',
+                    'https://blocks-of-time.herokuapp.com/auth/token/login/',
                     {
                     username: username,
                     password: password,
@@ -57,7 +57,7 @@ export const Register = ({setAuth}) => {
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
-                style={{fontFamily:'bungee'}}
+                style={{fontFamily:'sans-serif', marginLeft:'1rem'}}
                 autoComplete="on"
                 value={username}
                 required
@@ -72,7 +72,7 @@ export const Register = ({setAuth}) => {
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 value={password}
-                style={{fontFamily:'bungee'}}
+                style={{fontFamily:'sans-serif', marginLeft:'1rem'}}
                 required
                 />
                 <br />

@@ -8,7 +8,7 @@ export const UserFullGameLeaderboard =({currUsername, token }) => {
 
     useEffect(() => {
         axios
-        .get('https://young-plateau-94674.herokuapp.com/user/full-run-times/', {
+        .get('https://blocks-of-time.herokuapp.com/user/full-run-times/', {
             headers: {
                 Authorization: `Token ${token}`
             },

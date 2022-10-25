@@ -10,7 +10,7 @@ export const UserTimes = ({level, currUsername, token}) => {
 
     useEffect(() => {
         axios
-        .get(`https://young-plateau-94674.herokuapp.com/user/level/${level}/times/`, {
+        .get(`https://blocks-of-time.herokuapp.com/user/level/${level}/times/`, {
             headers: {
                 Authorization: `Token ${token}`
             },

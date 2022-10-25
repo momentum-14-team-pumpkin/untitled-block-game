@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Bungee:regular,bold,italic&subset=latin,latin-ext');
 
 #flip {
+  transform: translateY(4px);
   height: 5rem;
   overflow:hidden;
   display: inline-block;
@@ -23,7 +24,7 @@
 
 #flip .bungee {
   font-family:'bungee';
-  transform: translateY(1.5px);
+  /* transform: translateY(1.5px); */
 }
 #flip .trebuchet {
 font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;}

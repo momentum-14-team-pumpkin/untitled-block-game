@@ -17,7 +17,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         event.preventDefault()
         setError(null)
         axios
-        .post('https://young-plateau-94674.herokuapp.com/auth/token/login/', {
+        .post('https://blocks-of-time.herokuapp.com/auth/token/login/', {
             username: username,
             password: password,
         })
@@ -58,7 +58,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         <form id="login-form" onSubmit={handleSubmit}>
             <label htmlFor="username">Username </label>
             <input 
-                style={{maxWidth:'200px', fontFamily:'bungee'}}
+                style={{maxWidth:'200px', fontFamily:'sans-serif', marginLeft:'1rem'}}
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
@@ -71,7 +71,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
 
 <label htmlFor="password">Password </label>
             <input 
-                style={{maxWidth:'200px', fontFamily:'bungee'}}
+                style={{maxWidth:'200px', fontFamily:'sans-serif', marginLeft:'1rem'}}
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"

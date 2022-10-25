@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useState } from "react";
 import axios from "axios";
 import "/static/css/index.css"
-import { useSearchParams, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 
 export const Leaderboard =({level}) => {
@@ -10,7 +10,7 @@ export const Leaderboard =({level}) => {
 
     useEffect(() => {
         axios
-        .get(`https://young-plateau-94674.herokuapp.com/levels/${level}/times/`)
+        .get(`https://blocks-of-time.herokuapp.com/levels/${level}/times/`)
         .then((res) =>
         setBestTimes(res.data.results.sort((a,b)=> {
             let timeDiff = a.time - b.time
