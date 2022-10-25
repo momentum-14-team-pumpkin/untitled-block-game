@@ -1,0 +1,23 @@
+.game-key
+{
+    display: inline-flex;
+    justify-content: center;
+    font-style: normal;
+    align-items: center;
+    width: calc(1.5rem + 4px);
+    height: calc(1.5rem + 4px);
+    padding: 0rem 0.25rem;
+    background-color: #ca8;
+    color: #333;
+    border: 2px;
+    border-style: outset;
+    border-top-color: #0002;
+    border-left-color: #0004;
+    border-right-color: #000A;
+    border-bottom-color: #000C;
+}
+
+.game-key.spacebar
+{
+    width: calc((1.5rem + 4px) * 4)
+}
