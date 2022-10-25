@@ -656,6 +656,14 @@ class LevelScene extends Phaser.Scene {
                     kind: 'wonGame',
                 })
             })
+            
+            this.credits.alpha = 0
+            this.alexis.alpha = 0
+            this.corey.alpha = 0
+            this.stephen.alpha = 0
+            this.tom.alpha = 0
+            this.thanks.alpha = 1
+            
         } else {
             this.winText.setText("YOU'RE WINNER")
             this.winText.setOrigin(0.5, 0.5)
