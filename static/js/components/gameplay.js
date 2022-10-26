@@ -1,7 +1,8 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
-import { useState } from "react"
+import "/static/css/keys.css"
+import { GameDescription } from "./gamedetails"
 
 
 export const PlayGame = ({token}) => {
@@ -31,47 +32,56 @@ export const PlayGame = ({token}) => {
                     <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
+                        marginBottom: '1rem',
                     }}>
                         <div style={{
                             display: 'flex',
                             flexDirection: 'column',
                         }}>
                             <div>
-                                <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/left.png' style={{height:'1.5rem'}}/></div>
-                                <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/right.png' style={{height:'1.5rem'}}/></div>
+                                <div className="game-key">&#x2190;</div>
+                                <div className="game-key">&#x2192;</div>
                                 <span style={{marginLeft: '1rem'}}>Move Left and Right</span>
                             </div>
-                            <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/spacebar.png' style={{height:'1.5rem', width:'100px'}}/><span style={{marginLeft: '1rem'}}>Jump</span></div>
-                            <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/down.png' style={{height:'1.5rem'}}/><span style={{marginLeft: '1rem'}}>Pick Up and Put Down Blocks</span></div>
+                            <div><div className="game-key spacebar">Spacebar</div><span style={{marginLeft: '1rem'}}>Jump</span></div>
+                            <div><div className="game-key">&#x2193;</div><span style={{marginLeft: '1rem'}}>Pick Up and Put Down Blocks</span></div>
                         </div>
                         <div style={{
                             display: 'flex',
                             flexDirection: 'column',
                         }}>
-                            <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/e.png' style={{height:'1.5rem'}}/><span style={{marginLeft: '1rem'}}>Toggle Sound Effects</span></div>
-                            <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/m.png' style={{height:'1.5rem'}}/><span style={{marginLeft: '1rem'}}>Toggle Music</span></div>
+                            <div style={{display:'inline-block'}}><div className="game-key">E</div><span style={{marginLeft: '1rem'}}>Toggle Sound Effects</span></div>
+                            <div style={{display:'inline-block'}}><div className="game-key">M</div><span style={{marginLeft: '1rem'}}>Toggle Music</span></div>
                         </div>
                         <div style={{
                             display: 'flex',
                             flexDirection: 'column',
                         }}>
-                            <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/p.png' style={{height:'1.5rem'}}/><span style={{marginLeft: '1rem'}}>Pause</span></div>
-                            <div style={{display:'inline-block'}}><img src='/static/assets/images/keys/r.png' style={{height:'1.5rem'}}/><span style={{marginLeft: '1rem'}}>Reset Level</span></div>
-                            <div style={{display:'inline-block'}}>Hold <img src='/static/assets/images/keys/z.png' style={{height:'1.5rem'}}/> to reverse time</div>
+                            <div style={{display:'inline-block'}}><div className="game-key">P</div><span style={{marginLeft: '1rem'}}>Pause</span></div>
+                            <div style={{display:'inline-block'}}><div className="game-key">R</div><span style={{marginLeft: '1rem'}}>Reset Level</span></div>
+                            <div style={{display:'inline-block'}}>Hold <div className="game-key">Z</div> to reverse time</div>
                         </div>
                     </div>
                 </div>
-                <iframe
-                    allowFullScreen src='/game/'
-                    id='gameIframe'
-                    webkitallowfullscreen="true"
-                    frameBorder='0'
-                    style={{
-                        width:'100vw',
-                        height:'100vh',
-                        marginBottom:'0'
-                    }}
-                />
+                <div style={{
+                    display: 'flex',
+                    width: '100vw',
+                    justifyContent: 'center',
+                }}>
+                    <iframe
+                        allowFullScreen src='/game/'
+                        id='gameIframe'
+                        webkitallowfullscreen="true"
+                        frameBorder='0'
+                        style={{
+                            margin: 'auto',
+                            width: 'calc(min(100vw, 880px))',
+                            height: 'calc(min(100vh, 460px))',
+                            marginBottom: '0',
+                            overflow: 'hidden',
+                        }}
+                    />
+                </div>
             </div>
 
         </>

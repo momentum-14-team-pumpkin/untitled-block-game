@@ -6,7 +6,7 @@ import { Register } from "./register";
 
 
 
-export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) => {
+export const Login = ({setAuth, isLoggedIn}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
@@ -58,7 +58,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
         <form id="login-form" onSubmit={handleSubmit}>
             <label htmlFor="username">Username </label>
             <input 
-                style={{maxWidth:'200px', fontFamily:'bungee'}}
+                style={{maxWidth:'200px', fontFamily:'sans-serif', marginLeft:'1rem'}}
                 id="username"
                 onChange={(e) => setUsername(e.target.value)}
                 type="text"
@@ -71,7 +71,7 @@ export const Login = ({setAuth, isLoggedIn, handleLogout, currUsername, token}) 
 
 <label htmlFor="password">Password </label>
             <input 
-                style={{maxWidth:'200px', fontFamily:'bungee'}}
+                style={{maxWidth:'200px', fontFamily:'sans-serif', marginLeft:'1rem'}}
                 id="password"
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
