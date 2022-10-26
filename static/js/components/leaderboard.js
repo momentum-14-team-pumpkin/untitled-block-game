@@ -5,7 +5,7 @@ import "/static/css/index.css"
 import {  Link } from "react-router-dom";
 
 
-export const Leaderboard =({level}) => {
+export const Leaderboard =({level, isLoggedIn}) => {
     const [bestTimes, setBestTimes] = useState('')
 
     useEffect(() => {
@@ -36,8 +36,11 @@ export const Leaderboard =({level}) => {
                     <p style={{fontSize:'3rem'}}>
                         Best Times For Level {level}
                     </p>
+                    {!isLoggedIn ? 
                     <p style={{fontSize:'1rem', fontStyle:'italic'}}>Must <Link to="/login/" style={{color:'white'}}>Login </Link>To Make Leaderboard</p>
-                </div>
+                    :
+                    <></>}
+                    </div>
                 <div style={{
                     display: 'flex',
                     justifyContent: 'center',

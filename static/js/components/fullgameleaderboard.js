@@ -5,7 +5,7 @@ import "/static/css/index.css"
 import { Link } from "react-router-dom";
 
 
-export const FullGameLeaderboard =({}) => {
+export const FullGameLeaderboard =({isLoggedIn}) => {
     const [bestFullTimes, setBestFullTimes] = useState('')
 
     useEffect(() => {
@@ -36,7 +36,10 @@ export const FullGameLeaderboard =({}) => {
                     <p style={{fontSize:'3rem'}}>
                         Full Game Best Times
                     </p>
+                    {!isLoggedIn ?
                     <p style={{fontSize:'1rem', fontStyle:'italic'}}>Must <Link to="/login/" style={{color:'white'}}>Login </Link>To Make Leaderboard</p>
+                : <></>
+                }
                 </div>
                 <div style={{
                     display: 'flex',
