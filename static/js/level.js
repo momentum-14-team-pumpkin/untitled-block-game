@@ -48,10 +48,12 @@ class LevelScene extends Phaser.Scene {
             this.cache.audio.remove('song')
             this.textures.remove('tiles')
             this.textures.remove('bg')
+            this.textures.remove('avatar')
             this.load.image('tiles', `/static/assets/images/${this.mapData.tiles}`)
             this.load.tilemapCSV('map', `/static/assets/maps/${this.mapData.tile_data}`)
             this.load.audio('song', `/static/assets/audio/${this.mapData.song}`)
             this.load.image('bg', `/static/assets/images/${this.mapData.bg}`)
+            this.load.image('avatar', `/static/assets/images/${this.mapData.char.avatar}`)
             this.load.spritesheet(this.mapData.char.texture, `/static/assets/images/${this.mapData.char.texture}`, { frameWidth: 32, frameHeight: 40 })
             this.load.spritesheet(this.mapData.char.portal, `/static/assets/images/${this.mapData.char.portal}`, { frameWidth: 40, frameHeight: 40 })
             this.load.start()
@@ -67,7 +69,7 @@ class LevelScene extends Phaser.Scene {
             return
         }
         this.levelComplete = false
-        this.avatar = this.add.image(790, 32, this.mapData.char.texture).setScale(3).setOrigin(0.25, 0.25)
+        this.avatar = this.add.image(790, 32, 'avatar').setScale(1).setOrigin(0.5, 0.5)
         this.avatar.visible = true
         this.add.image(0, 60, 'bg').setScale(0.5).setOrigin(0, 0)
         this.credits = this.add.image(this.game.config.width/2, this.game.config.height/2, 'credits').setScale(0.5).setOrigin(0.5, 0.5)

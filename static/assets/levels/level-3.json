@@ -5,7 +5,8 @@
     "bg": "level3_1794_798.png",
     "char": {
         "texture": "viking.png",
-        "portal": "viking-portal.png"
+        "portal": "viking-portal.png",
+        "avatar": "viking-avatar.png"
     },
     "accel": {
         "ground": 1000,

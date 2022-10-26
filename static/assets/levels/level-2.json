@@ -5,7 +5,8 @@
     "bg": "level2_1794_798.png",
     "char": {
         "texture": "iceman.png",
-        "portal": "iceman-portal.png"
+        "portal": "iceman-portal.png",
+        "avatar": "iceman-avatar.png"
     },
     "accel": {
         "ground": 200,
