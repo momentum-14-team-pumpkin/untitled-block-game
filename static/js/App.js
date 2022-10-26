@@ -81,7 +81,7 @@ function App() {
                 <Route
                     key={i}
                     path={`/leaderboard${i + 1}`}
-                    element={<Leaderboard level={i + 1}/>}
+                    element={<Leaderboard level={i + 1} isLoggedIn={isLoggedIn}/>}
                 />
             )}
             {Array(CONSTS.NUM_OF_LEVELS - 1).fill(0).map((_, i) =>
@@ -100,7 +100,7 @@ function App() {
                 />
             )}
             <Route path='/user/fullgametimes' element={<UserFullGameLeaderboard token={token} currUsername={username} />}/>
-            <Route path='/fullgameleaderboard' element={<FullGameLeaderboard />}/>
+            <Route path='/fullgameleaderboard' element={<FullGameLeaderboard isLoggedIn={isLoggedIn}/>}/>
             <Route path='/playgame' element={<PlayGame setAuth={setAuth} token={token}/>} />
             </Routes>          
         </BrowserRouter>
