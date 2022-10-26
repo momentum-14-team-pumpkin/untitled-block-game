@@ -5,7 +5,8 @@
     "bg": "level4_1794_798.png",
     "char": {
         "texture": "cavewoman.png",
-        "portal": "cavewoman-portal.png"
+        "portal": "cavewoman-portal.png",
+        "avatar": "cavewoman-avatar.png"
     },
     "accel": {
         "ground": 1000,

@@ -5,7 +5,8 @@
     "bg": "level5_3588_798.png",
     "char": {
         "texture": "cowgirl.png",
-        "portal": "cowgirl-portal.png"
+        "portal": "cowgirl-portal.png",
+        "avatar": "cowgirl-avatar.png"
     },
     "accel": {
         "ground": 1000,

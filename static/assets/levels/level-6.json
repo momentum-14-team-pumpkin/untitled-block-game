@@ -5,7 +5,8 @@
     "bg": "laboratory.png",
     "char": {
         "texture": "player.png",
-        "portal": "player-portal.png"
+        "portal": "player-portal.png",
+        "avatar": "player-avatar.png"
     },
     "accel": {
         "ground": 1000,
