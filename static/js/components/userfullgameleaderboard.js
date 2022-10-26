@@ -8,7 +8,7 @@ export const UserFullGameLeaderboard =({currUsername, token }) => {
 
     useEffect(() => {
         axios
-        .get('https://young-plateau-94674.herokuapp.com/user/full-run-times/', {
+        .get('https://blocks-of-time.herokuapp.com/user/full-run-times/', {
             headers: {
                 Authorization: `Token ${token}`
             },
@@ -26,6 +26,11 @@ export const UserFullGameLeaderboard =({currUsername, token }) => {
     
 
     if (userBestFullTimes){
+        let timeEntries = userBestFullTimes.map((timeEntry, index) =>
+            `${(index + 1 + '.').padEnd(4)}${convertSecondsToTimestring(timeEntry.time)}`)
+        const longestEntry = timeEntries.reduce((acc, elem) => Math.max(acc, elem.length), 0)
+        timeEntries = timeEntries.map(text => text.replace('...', Array(longestEntry - text.length + 4).join('.')))
+
         return(
             <>
             <div className="box" style={{color:'white', width:'75%', margin:'auto', fontFamily:'bungee' ,textAlign:'center', paddingBottom:'50px'}}>
@@ -35,18 +40,22 @@ export const UserFullGameLeaderboard =({currUsername, token }) => {
                         Your Full Game Best Times
                     </p>
                 </div>
-                <div>
-                    {userBestFullTimes.map((listOfTimes) => (
-                    <div key={listOfTimes.id} 
-                        style={{
-                            textAlign:'center',
-                            margin:'auto',
-                        }}>
-                        <div style={{display:'flex', justifyContent:'center', fontSize:'1.5rem', margin:'auto', textAlign:'center', maxWidth:'80%'}}>
-                            <p>{convertSecondsToTimestring(listOfTimes.time)}</p>                            
-                        </div>
+                <div style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    fontFamily: 'Inconsolata, Courier, Consolas, "Fira Code", monospace',
+                    fontSize: '2rem',
+                }}>
+                    <div>
+                        {timeEntries
+                            .map((entry, i) => (
+                            <div key={i} style={{
+                                whiteSpace: 'pre',
+                            }}>
+                                {entry}
+                            </div>
+                        ))}
                     </div>
-                    ))}
                 </div>
             </div>
             </>

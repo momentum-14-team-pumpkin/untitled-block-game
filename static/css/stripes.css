@@ -1,0 +1,23 @@
+.stripes
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.stripes>*
+{
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.stripes[direction=horizontal]
+{
+    flex-direction: column;
+}
+
+.stripes[direction=vertical]
+{
+    flex-direction: row;
+}

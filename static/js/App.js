@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, useNavigate, BrowserRouter, redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom'
 import { Login } from './components/login';
 import useLocalStorageState from 'use-local-storage-state';
 import { Register } from './components/register';
@@ -14,7 +14,7 @@ import { Title } from './components/title';
 import CONSTS from './consts';
 import { FullGameLeaderboard } from './components/fullgameleaderboard';
 import { UserFullGameLeaderboard } from './components/userfullgameleaderboard';
-import { useLocation } from 'react-router-dom';
+import { GameDescription } from './components/gamedetails';
 
 
 
@@ -72,7 +72,8 @@ function App() {
             <Route path="/Login"
             element={<Login setAuth={setAuth} currUsername={username} isLoggedIn={isLoggedIn} handleLogout={handleLogout} token={token}/>} 
             />
-            <Route path='/homepage' element={<HomePage isLoggedIn={isLoggedIn} currUsername={username} handleLogout={handleLogout} setAuth={setAuth} token={token}/>}/>
+            <Route path='/homepage' element={<HomePage />}/>
+            <Route path='/' element={<HomePage />}/>
             <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />}/>
             {Array(CONSTS.NUM_OF_LEVELS - 1).fill(0).map((_, i) =>
                 <Route
