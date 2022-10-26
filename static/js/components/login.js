@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import "/static/css/index.css"
 import { Register } from "./register";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -11,9 +12,9 @@ export const Login = ({setAuth, isLoggedIn}) => {
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
     const [goRegister, setGoRegister] = useState(false)
+    const navigate = useNavigate()
 
     const handleSubmit = (event) => {
-        console.log({ username, password })
         event.preventDefault()
         setError(null)
         axios
@@ -22,11 +23,9 @@ export const Login = ({setAuth, isLoggedIn}) => {
             password: password,
         })
         .then((res) => {
-            // console.log(res.data)
             const token = res.data.auth_token
             setAuth(username, token)
-            console.log(token)
-
+            navigate('/')
         })
         .catch((error) => {
             console.log(error)
