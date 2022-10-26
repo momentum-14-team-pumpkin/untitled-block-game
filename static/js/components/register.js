@@ -30,18 +30,18 @@ export const Register = ({setAuth}) => {
                 )
                 )
                 .then((res) => {
-                    console.log(res.data),
-                    setAuth(username, res.data.auth_token),
-                    navigate('/homepage/')
+                    console.log(res.data)
+                    setAuth(username, res.data.auth_token)
+                    navigate('/')
                     })
 
                 .catch((error) => {
                     console.log(error)
                     if (error.response.data.username)
-                        setError(error.response.data.username);
+                        setError(error.response.data.username)
                 
                     if (error.response.data.password)
-                        setError(error.response.data.password);
+                        setError(error.response.data.password)
                 })
 
         }
