@@ -14,7 +14,6 @@ export const Register = ({setAuth}) => {
 
         const handleSubmit = (e) => {
             e.preventDefault()
-            console.log('handle submit')
             axios
                 .post('https://blocks-of-time.herokuapp.com/auth/users/', {
                     username: username,
@@ -30,7 +29,6 @@ export const Register = ({setAuth}) => {
                 )
                 )
                 .then((res) => {
-                    console.log(res.data)
                     setAuth(username, res.data.auth_token)
                     navigate('/')
                     })
