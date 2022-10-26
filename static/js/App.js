@@ -15,6 +15,7 @@ import CONSTS from './consts';
 import { FullGameLeaderboard } from './components/fullgameleaderboard';
 import { UserFullGameLeaderboard } from './components/userfullgameleaderboard';
 import { GameDescription } from './components/gamedetails';
+import { RandomFlag } from './components/randomFlag';
 
 
 
@@ -74,6 +75,7 @@ function App() {
             />
             <Route path='/homepage' element={<HomePage />}/>
             <Route path='/' element={<HomePage />}/>
+            <Route path='/flags' element={<RandomFlag />}/>
             <Route path="/Register" element={<Register setAuth={setAuth} isLoggedIn={isLoggedIn} />}/>
             {Array(CONSTS.NUM_OF_LEVELS - 1).fill(0).map((_, i) =>
                 <Route

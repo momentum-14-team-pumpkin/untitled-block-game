@@ -6,6 +6,10 @@ import "/static/css/title.css"
 export const Title = () => {
     const location = useLocation()
 
+    if (location.pathname === '/flags/') {
+        return <></>
+    }
+
     return(
         <div style={{display:'flex', justifyContent:'center', width:'100%'}}>
         <Link to='/' style={{textDecoration:'none'}}>
