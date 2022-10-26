@@ -22,7 +22,7 @@ Press M to mute the music
 
 PRODUCTION URL: https://blocks-of-time.herokuapp.com/
 
-ENDPOINTS: the following endpoints are available at the subdirectories listed below, just add them to the end of the Production Url above.
+ENDPOINTS: the following endpoints are available at the subdirectories listed below, just add them to the end of the Production URL above.
 
 | Method | URL Subdirectory           | Input                                             | Output                                          | Notes           |
 | ------ | -------------------------- | ------------------------------------------------- | ----------------------------------------------- | --------------- |
