@@ -73,6 +73,31 @@ export const RandomFlag = () => {
             <div style={{backgroundColor: "#feaec9"}}></div>
             <div style={{backgroundColor: "#000000"}}></div>
         </div>,
+        <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            height: '100%',
+            backgroundColor: '#ffd800'
+        }}>
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: 'min(60vw, 60vh)',
+                height: 'min(60vw, 60vh)',
+                backgroundColor: '#7902aa',
+                borderRadius: '100vw',
+            }}>
+                <div style={{
+                    width: 'min(40vw, 40vh)',
+                    height: 'min(40vw, 40vh)',
+                    backgroundColor: '#ffd800',
+                    borderRadius: '100vw',
+                }}></div>
+            </div>
+        </div>,
         <AceFlag height='100%' />,
     ]
 
