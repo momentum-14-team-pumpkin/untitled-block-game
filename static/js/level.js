@@ -591,7 +591,9 @@ class LevelScene extends Phaser.Scene {
             this.advanceHax('D')
         }
 
-        if (this.zomgHax) {
+        if (this.cleanup && Phaser.Input.Keyboard.JustDown(this.keyN)){
+            this.cleanup()
+        } else if (this.zomgHax) {
             if (this.cursors.up.isDown) {
                 this.player.setVelocityY(-400)
             }
@@ -611,9 +613,6 @@ class LevelScene extends Phaser.Scene {
                 this.level -= 1
                 this.scene.restart()
             }
-        }
-        else if (this.cleanup && Phaser.Input.Keyboard.JustDown(this.keyN) && this.level < NUM_OF_LEVELS){
-            this.cleanup()
         }
 
         if (this.holdingBlock)
