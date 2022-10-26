@@ -612,6 +612,9 @@ class LevelScene extends Phaser.Scene {
                 this.scene.restart()
             }
         }
+        else if (this.cleanup && Phaser.Input.Keyboard.JustDown(this.keyN) && this.level < NUM_OF_LEVELS){
+            this.cleanup()
+        }
 
         if (this.holdingBlock)
         {
@@ -674,7 +677,9 @@ class LevelScene extends Phaser.Scene {
             let cleanup = () => {
                 iframe.remove()
                 this.scene.restart()
+                this.cleanup = undefined
             }
+            this.cleanup = cleanup
             this.compLevelText.setText(`Level: ${this.level - 1}`)
             this.compTimeText.setText(`Time: ${convertSecondsToTimestring(this.completionTime)}`)
             this.btnRestart.visible = true

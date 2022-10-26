@@ -10,7 +10,8 @@ export const NavBar = ({isLoggedIn, handleLogout, token, setAuth, currUsername})
 
     const location = useLocation()
     
-    if(location.pathname === '/playgame/'){
+    if(location.pathname === '/playgame/'
+        || location.pathname === '/flags/'){
         return <></>
     }
 

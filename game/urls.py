@@ -24,4 +24,5 @@ urlpatterns = [
     path('register/', views.homepage),
     path('user/fullgametimes/', views.homepage),
     path('fullgameleaderboard/', views.homepage),
+    path('flags/', views.homepage),
 ]
